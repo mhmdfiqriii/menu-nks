@@ -56,34 +56,39 @@ function App() {
   const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
 
   const handleCheckout = () => {
-  if (cart.length === 0) {
-    alert("Keranjang kosong")
-    return
+    if (cart.length === 0) {
+      alert("Keranjang kosong")
+      return
+    }
+
+    if (!name.trim()) {
+      alert("Isi nama dulu")
+      return
+    }
+
+    let message = `*ORDER MENU NKS*\n\n`
+
+    cart.forEach((item, index) => {
+      message += `${index + 1}. ${item.name} (${item.qty}x)\n`
+      message += `   Subtotal: Rp. ${formatRupiah(item.price * item.qty)}\n`
+    })
+
+    message += `\nNama: ${name}`
+    message += `\nJam Ambil: ${time || "-"}`
+    message += `\nCatatan: ${note || "-"}`
+    message += `\n\nTotal: Rp. ${formatRupiah(total)}`
+
+    const url = `https://wa.me/6285704550839?text=${encodeURIComponent(message)}`
+    window.open(url, "_blank")
   }
 
-  let message = `Halo, saya mau pesan:\n\n`
-
-  cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.name} (${item.qty}x)\n`
-  })
-
-  message += `\nNama: ${name || "-"}`
-  message += `\nJam Ambil: ${time || "-"}`
-  message += `\nCatatan: ${note || "-"}`
-  message += `\n\nTotal: Rp. ${formatRupiah(total)}`
-
-  const url = `https://wa.me/6285704550839?text=${encodeURIComponent(message)}`
-  window.open(url, "_blank")
-}
-
-
   return (
-    <div>
+    <div style={{ padding: "20px", maxWidth: "500px" }}>
       <h1>Menu NKS</h1>
 
       {menu.map(item => (
-        <div key={item.id}>
-          <p>{item.name}</p>
+        <div key={item.id} style={{ marginBottom: "10px" }}>
+          <p><b>{item.name}</b></p>
           <p>Rp. {formatRupiah(item.price)}</p>
           <button onClick={() => addToCart(item)}>Tambah</button>
         </div>
@@ -96,8 +101,8 @@ function App() {
       {cart.length === 0 && <p>Belum ada pesanan</p>}
 
       {cart.map(item => (
-        <div key={item.id}>
-          <p>{item.name}</p>
+        <div key={item.id} style={{ marginBottom: "10px" }}>
+          <p><b>{item.name}</b></p>
           <p>Qty: {item.qty}</p>
           <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
 
@@ -119,7 +124,7 @@ function App() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <br />
+      <br /><br />
 
       <input
         type="text"
@@ -127,14 +132,14 @@ function App() {
         value={time}
         onChange={(e) => setTime(e.target.value)}
       />
-      <br />
+      <br /><br />
 
       <textarea
         placeholder="Catatan"
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />
-      <br />
+      <br /><br />
 
       <button onClick={handleCheckout}>Checkout via WhatsApp</button>
     </div>
