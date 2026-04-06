@@ -4,6 +4,10 @@ import { menu } from "./data/menu"
 function App() {
   const [cart, setCart] = useState([])
 
+  const formatRupiah = (angka) => {
+    return new Intl.NumberFormat("id-ID").format(angka)
+  }
+
   const addToCart = (item) => {
     setCart(prev => {
       const existing = prev.find(i => i.id === item.id)
@@ -55,7 +59,7 @@ function App() {
       {menu.map(item => (
         <div key={item.id}>
           <p>{item.name}</p>
-          <p>Rp. {item.price}</p>
+          <p>Rp. {formatRupiah(item.price)}</p>
           <button onClick={() => addToCart(item)}>Tambah</button>
         </div>
       ))}
@@ -70,6 +74,7 @@ function App() {
         <div key={item.id}>
           <p>{item.name}</p>
           <p>Qty: {item.qty}</p>
+          <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
 
           <button onClick={() => increaseQty(item.id)}>+</button>
           <button onClick={() => decreaseQty(item.id)}>-</button>
@@ -77,7 +82,7 @@ function App() {
         </div>
       ))}
 
-      <h3>Total: Rp {total}</h3>
+      <h3>Total: Rp. {formatRupiah(total)}</h3>
     </div>
   )
 }
