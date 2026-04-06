@@ -20,6 +20,32 @@ function App() {
     })
   }
 
+  const increaseQty = (id) => {
+    setCart(prev =>
+      prev.map(item =>
+        item.id === id
+          ? { ...item, qty: item.qty + 1 }
+          : item
+      )
+    )
+  }
+
+  const decreaseQty = (id) => {
+    setCart(prev =>
+      prev
+        .map(item =>
+          item.id === id
+            ? { ...item, qty: item.qty - 1 }
+            : item
+        )
+        .filter(item => item.qty > 0)
+    )
+  }
+
+  const removeItem = (id) => {
+    setCart(prev => prev.filter(item => item.id !== id))
+  }
+
   const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
 
   return (
@@ -42,7 +68,12 @@ function App() {
 
       {cart.map(item => (
         <div key={item.id}>
-          <p>{item.name} x {item.qty}</p>
+          <p>{item.name}</p>
+          <p>Qty: {item.qty}</p>
+
+          <button onClick={() => increaseQty(item.id)}>+</button>
+          <button onClick={() => decreaseQty(item.id)}>-</button>
+          <button onClick={() => removeItem(item.id)}>Hapus</button>
         </div>
       ))}
 
