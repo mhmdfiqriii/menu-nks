@@ -25,7 +25,6 @@ function App() {
       addToCart(item, "", item.price)
       return
     }
-
     setSelectedItem(item)
     setSelectedOptions({})
   }
@@ -73,15 +72,7 @@ function App() {
         )
       }
 
-      return [
-        ...prev,
-        {
-          ...item,
-          price: finalPrice,
-          qty: 1,
-          options: optionsText
-        }
-      ]
+      return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
     })
 
     setSelectedItem(null)
@@ -146,14 +137,27 @@ function App() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: 20, maxWidth: 500, margin: "auto", fontFamily: "sans-serif" }}>
 
       {/* BRAND */}
       {!selectedBrand && (
         <>
-          <h2>Pilih Brand</h2>
+          <h2 style={{ marginBottom: 10 }}>Pilih Brand</h2>
           {brands.map(b => (
-            <button key={b.name} onClick={() => setSelectedBrand(b)}>
+            <button
+              key={b.name}
+              onClick={() => setSelectedBrand(b)}
+              style={{
+                display: "block",
+                width: "100%",
+                padding: 12,
+                marginBottom: 10,
+                borderRadius: 10,
+                border: "none",
+                background: "#111",
+                color: "#fff"
+              }}
+            >
               {b.name}
             </button>
           ))}
@@ -163,40 +167,59 @@ function App() {
       {/* MENU */}
       {selectedBrand && (
         <>
-          <button onClick={() => setSelectedBrand(null)}>
+          <button onClick={() => setSelectedBrand(null)} style={{ marginBottom: 10 }}>
             ← Ganti Brand
           </button>
 
           <h1>{selectedBrand.name}</h1>
 
           {selectedBrand.menu.map(item => (
-            <div key={item.id}>
+            <div
+              key={item.id}
+              style={{
+                border: "1px solid #ddd",
+                borderRadius: 10,
+                padding: 12,
+                marginBottom: 10
+              }}
+            >
               <p><b>{item.name}</b></p>
               <p>Rp. {formatRupiah(item.price)}</p>
-              <button onClick={() => handleOpenOptions(item)}>Tambah</button>
+              <button
+                onClick={() => handleOpenOptions(item)}
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  border: "none",
+                  background: "#111",
+                  color: "#fff"
+                }}
+              >
+                Tambah
+              </button>
             </div>
           ))}
         </>
       )}
 
-      {/* EMPTY STATE */}
+      {/* EMPTY */}
       {cart.length === 0 && selectedBrand && (
-        <p>Belum ada pesanan, silakan pilih menu dulu</p>
+        <p style={{ textAlign: "center", marginTop: 20 }}>
+          Belum ada pesanan
+        </p>
       )}
 
-      {/* KERANJANG + FORM */}
+      {/* CART */}
       {cart.length > 0 && (
         <>
           <hr />
-
           <h2>Keranjang</h2>
 
           {cart.map(item => (
-            <div key={item.id + item.options}>
-              <p>{item.name}</p>
+            <div key={item.id + item.options} style={{ marginBottom: 10 }}>
+              <p><b>{item.name}</b></p>
               {item.options && <p>{item.options}</p>}
               <p>Qty: {item.qty}</p>
-              <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
 
               <button onClick={() => increaseQty(item.id, item.options)}>+</button>
               <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
@@ -206,10 +229,6 @@ function App() {
 
           <h3>Total: Rp. {formatRupiah(total)}</h3>
 
-          <hr />
-
-          <h2>Form Order</h2>
-
           <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} />
           <br />
           <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} />
@@ -217,7 +236,16 @@ function App() {
           <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
           <br /><br />
 
-          <button onClick={handleCheckout}>Checkout</button>
+          <button onClick={handleCheckout} style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 10,
+            background: "green",
+            color: "white",
+            border: "none"
+          }}>
+            Checkout
+          </button>
         </>
       )}
 
@@ -227,12 +255,20 @@ function App() {
           position: "fixed",
           top: 0, left: 0, right: 0, bottom: 0,
           background: "rgba(0,0,0,0.5)",
-          padding: 20
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
         }}>
-          <div style={{ background: "white", padding: 20 }}>
+          <div style={{
+            background: "white",
+            padding: 20,
+            borderRadius: 10,
+            width: "90%",
+            maxWidth: 400
+          }}>
             <h3>{selectedItem.name}</h3>
 
-            <p><b>Harga: Rp. {formatRupiah(calculatePrice())}</b></p>
+            <p><b>Rp. {formatRupiah(calculatePrice())}</b></p>
 
             {Object.entries(selectedItem.options).map(([key, values]) => (
               <div key={key}>
@@ -240,16 +276,16 @@ function App() {
 
                 {values.map(v => {
                   const active = selectedOptions[key] === v
-
                   return (
                     <button
                       key={v}
                       style={{
-                        margin: 5,
-                        padding: 8,
-                        background: active ? "black" : "white",
-                        color: active ? "white" : "black",
-                        border: "1px solid black"
+                        margin: 4,
+                        padding: 6,
+                        borderRadius: 6,
+                        background: active ? "#111" : "#eee",
+                        color: active ? "#fff" : "#000",
+                        border: "none"
                       }}
                       onClick={() =>
                         setSelectedOptions(prev => ({ ...prev, [key]: v }))
@@ -267,11 +303,21 @@ function App() {
             <button
               disabled={!isOptionsComplete()}
               onClick={handleConfirmAdd}
+              style={{
+                width: "100%",
+                padding: 10,
+                background: isOptionsComplete() ? "green" : "#ccc",
+                color: "white",
+                border: "none",
+                borderRadius: 8
+              }}
             >
               Tambah ke Keranjang
             </button>
 
-            <button onClick={() => setSelectedItem(null)}>Batal</button>
+            <button onClick={() => setSelectedItem(null)} style={{ marginTop: 10 }}>
+              Batal
+            </button>
           </div>
         </div>
       )}
