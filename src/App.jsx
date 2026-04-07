@@ -12,7 +12,7 @@ const generateOrderId = (brandName) => {
   return `ORD-${time}`
 }
 
-// 🔥 warna per brand (biar ga kayak warung fotokopi)
+// 🔥 warna per brand
 const brandTheme = {
   "Kopi Kenangan": "#111",
   "Janji Jiwa": "#6b3e26",
@@ -24,6 +24,7 @@ function App() {
   const [cart, setCart] = useState([])
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
+  const [toast, setToast] = useState("")
 
   const [name, setName] = useState("")
   const [time, setTime] = useState("")
@@ -93,6 +94,10 @@ function App() {
       return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
     })
 
+    // 🔥 toast
+    setToast("✔ Ditambahkan ke keranjang")
+    setTimeout(() => setToast(""), 1500)
+
     setSelectedItem(null)
     setSelectedOptions({})
   }
@@ -157,12 +162,23 @@ function App() {
   const primaryColor = selectedBrand ? brandTheme[selectedBrand.name] : "#111"
 
   return (
-    <div style={{
-      padding: 20,
-      maxWidth: 600,
-      margin: "auto",
-      fontFamily: "sans-serif"
-    }}>
+    <div style={{ padding: 20, maxWidth: 600, margin: "auto", fontFamily: "sans-serif" }}>
+
+      {/* TOAST */}
+      {toast && (
+        <div style={{
+          position: "fixed",
+          top: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "black",
+          color: "white",
+          padding: "8px 16px",
+          borderRadius: 8
+        }}>
+          {toast}
+        </div>
+      )}
 
       {/* BRAND */}
       {!selectedBrand && (
@@ -231,7 +247,7 @@ function App() {
         </>
       )}
 
-      {/* CART */}
+      {/* CART (ASLI LO TETEP ADA) */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
@@ -269,6 +285,21 @@ function App() {
             Checkout
           </button>
         </>
+      )}
+
+      {/* 🔥 STICKY MINI CART (TAMBAHAN DOANG, BUKAN GANTI) */}
+      {selectedBrand && cart.length > 0 && (
+        <div style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: "white",
+          borderTop: "1px solid #ddd",
+          padding: 10
+        }}>
+          <b>Total: Rp. {formatRupiah(total)}</b>
+        </div>
       )}
 
       {/* MODAL */}
