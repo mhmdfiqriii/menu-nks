@@ -20,10 +20,9 @@ function App() {
     return new Intl.NumberFormat("id-ID").format(angka)
   }
 
-  // 🔥 buka modal
   const handleOpenOptions = (item) => {
     if (!item.options) {
-      addToCart(item, "")
+      addToCart(item, "", item.price)
       return
     }
 
@@ -31,8 +30,30 @@ function App() {
     setSelectedOptions({})
   }
 
-  // 🔥 tambah ke cart dari modal
-  const addToCart = (item, optionsText) => {
+  // 🔥 FIX: hitung harga + validasi
+  const handleConfirmAdd = () => {
+    const keys = Object.keys(selectedItem.options)
+
+    // ❌ kalau belum lengkap
+    const isComplete = keys.every(k => selectedOptions[k])
+    if (!isComplete) {
+      alert("Pilih semua varian dulu woi")
+      return
+    }
+
+    // 🔥 hitung harga tambahan
+    let finalPrice = selectedItem.price
+
+    if (selectedOptions.Size === "Large") {
+      finalPrice += 5000
+    }
+
+    const text = Object.values(selectedOptions).join(", ")
+
+    addToCart(selectedItem, text, finalPrice)
+  }
+
+  const addToCart = (item, optionsText, finalPrice) => {
     setCart(prev => {
       const existing = prev.find(
         i => i.id === item.id && i.options === optionsText
@@ -46,7 +67,15 @@ function App() {
         )
       }
 
-      return [...prev, { ...item, qty: 1, options: optionsText }]
+      return [
+        ...prev,
+        {
+          ...item,
+          price: finalPrice, // 🔥 pakai harga baru
+          qty: 1,
+          options: optionsText
+        }
+      ]
     })
 
     setSelectedItem(null)
@@ -94,7 +123,9 @@ function App() {
     message += `No. Pesanan : ${orderId}\n`
     message += `Atas Nama Pesanan : ${name}\n`
     message += `Outlet : ${outlet}\n`
-    message += `Jam Pengambilan : ${time || "-"}\n\n`
+    message += `Jam Pengambilan : ${time || "-"}\n`
+    message += `Catatan : ${note || "-"}\n\n`
+
     message += `Pesanan :\n`
 
     cart.forEach((item, i) => {
@@ -129,6 +160,7 @@ function App() {
           <p>{item.name}</p>
           {item.options && <p>{item.options}</p>}
           <p>Qty: {item.qty}</p>
+          <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
 
           <button onClick={() => increaseQty(item.id, item.options)}>+</button>
           <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
@@ -147,11 +179,13 @@ function App() {
       <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} />
       <br />
       <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
+      <br />
+      <textarea placeholder="Catatan" value={note} onChange={e => setNote(e.target.value)} />
       <br /><br />
 
       <button onClick={handleCheckout}>Checkout</button>
 
-      {/* 🔥 MODAL SIMPLE */}
+      {/* 🔥 MODAL */}
       {selectedItem && (
         <div style={{
           position: "fixed",
@@ -165,27 +199,34 @@ function App() {
             {Object.entries(selectedItem.options).map(([key, values]) => (
               <div key={key}>
                 <p>{key}</p>
-                {values.map(v => (
-                  <button
-                    key={v}
-                    onClick={() =>
-                      setSelectedOptions(prev => ({ ...prev, [key]: v }))
-                    }
-                  >
-                    {v}
-                  </button>
-                ))}
+
+                {values.map(v => {
+                  const active = selectedOptions[key] === v
+
+                  return (
+                    <button
+                      key={v}
+                      style={{
+                        margin: 5,
+                        padding: 8,
+                        background: active ? "black" : "white",
+                        color: active ? "white" : "black",
+                        border: "1px solid black"
+                      }}
+                      onClick={() =>
+                        setSelectedOptions(prev => ({ ...prev, [key]: v }))
+                      }
+                    >
+                      {v}
+                    </button>
+                  )
+                })}
               </div>
             ))}
 
             <br />
 
-            <button
-              onClick={() => {
-                const text = Object.values(selectedOptions).join(", ")
-                addToCart(selectedItem, text)
-              }}
-            >
+            <button onClick={handleConfirmAdd}>
               Tambah ke Keranjang
             </button>
 

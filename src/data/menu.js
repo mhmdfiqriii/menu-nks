@@ -5,9 +5,9 @@ export const menu = [
     price: 10000,
     category: "minuman",
     options: {
-      size: ["Regular", "Large"],
-      sugar: ["Normal", "Less Sugar", "No Sugar"],
-      ice: ["Normal Ice", "Less Ice", "No Ice"]
+      Size: ["Regular", "Large"],
+      Sugar: ["Normal", "Less Sugar", "No Sugar"],
+      Ice: ["Normal Ice", "Less Ice", "No Ice"]
     }
   },
   {
