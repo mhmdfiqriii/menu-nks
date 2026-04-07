@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { brands } from "./data/menu"
 
-// 🔥 order id beda brand
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
 
@@ -12,7 +11,6 @@ const generateOrderId = (brandName) => {
   return `ORD-${time}`
 }
 
-// 🔥 warna per brand
 const brandTheme = {
   "Kopi Kenangan": "#111",
   "Janji Jiwa": "#6b3e26",
@@ -25,14 +23,14 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
   const [toast, setToast] = useState("")
+  const [highlightId, setHighlightId] = useState(null)
+  const [loadingAdd, setLoadingAdd] = useState(false)
 
   const [name, setName] = useState("")
   const [time, setTime] = useState("")
   const [outlet, setOutlet] = useState("")
 
-  const formatRupiah = (angka) => {
-    return new Intl.NumberFormat("id-ID").format(angka)
-  }
+  const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
 
   const handleSelectBrand = (brand) => {
     setSelectedBrand(brand)
@@ -50,7 +48,6 @@ function App() {
 
   const calculatePrice = () => {
     if (!selectedItem) return 0
-
     let price = selectedItem.price
     const size = selectedOptions["Size"]
 
@@ -70,36 +67,41 @@ function App() {
 
   const handleConfirmAdd = () => {
     if (!isOptionsComplete()) return
-
     const finalPrice = calculatePrice()
     const text = Object.values(selectedOptions).join(", ")
-
     addToCart(selectedItem, text, finalPrice)
   }
 
   const addToCart = (item, optionsText, finalPrice) => {
-    setCart(prev => {
-      const existing = prev.find(
-        i => i.id === item.id && i.options === optionsText
-      )
+    setLoadingAdd(true)
 
-      if (existing) {
-        return prev.map(i =>
-          i.id === item.id && i.options === optionsText
-            ? { ...i, qty: i.qty + 1 }
-            : i
+    setTimeout(() => {
+      setCart(prev => {
+        const existing = prev.find(
+          i => i.id === item.id && i.options === optionsText
         )
-      }
 
-      return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
-    })
+        if (existing) {
+          return prev.map(i =>
+            i.id === item.id && i.options === optionsText
+              ? { ...i, qty: i.qty + 1 }
+              : i
+          )
+        }
 
-    // 🔥 toast
-    setToast("✔ Ditambahkan ke keranjang")
-    setTimeout(() => setToast(""), 1500)
+        return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
+      })
 
-    setSelectedItem(null)
-    setSelectedOptions({})
+      setHighlightId(item.id)
+      setTimeout(() => setHighlightId(null), 800)
+
+      setToast("✔ Ditambahkan ke keranjang")
+      setTimeout(() => setToast(""), 1500)
+
+      setSelectedItem(null)
+      setSelectedOptions({})
+      setLoadingAdd(false)
+    }, 300) // 🔥 delay biar kerasa “hidup”
   }
 
   const increaseQty = (id, options) => {
@@ -162,7 +164,7 @@ function App() {
   const primaryColor = selectedBrand ? brandTheme[selectedBrand.name] : "#111"
 
   return (
-    <div style={{ padding: 20, maxWidth: 600, margin: "auto", fontFamily: "sans-serif" }}>
+    <div style={{ padding: 20, maxWidth: 600, margin: "auto" }}>
 
       {/* TOAST */}
       {toast && (
@@ -185,20 +187,21 @@ function App() {
         <>
           <h2>Pilih Brand</h2>
           {brands.map(b => (
-            <button
-              key={b.name}
+            <button key={b.name}
               onClick={() => handleSelectBrand(b)}
               style={{
-                display: "block",
                 width: "100%",
                 padding: 14,
-                marginBottom: 12,
-                borderRadius: 12,
-                border: "none",
+                marginBottom: 10,
                 background: brandTheme[b.name],
                 color: "#fff",
-                fontSize: 16
+                border: "none",
+                borderRadius: 10,
+                transition: "0.2s",
+                transform: "scale(1)"
               }}
+              onMouseDown={e => e.currentTarget.style.transform = "scale(0.97)"}
+              onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
             >
               {b.name}
             </button>
@@ -209,10 +212,7 @@ function App() {
       {/* MENU */}
       {selectedBrand && (
         <>
-          <button onClick={() => setSelectedBrand(null)}>
-            ← Ganti Brand
-          </button>
-
+          <button onClick={() => setSelectedBrand(null)}>← Ganti Brand</button>
           <h1 style={{ color: primaryColor }}>{selectedBrand.name}</h1>
 
           <div style={{
@@ -221,25 +221,31 @@ function App() {
             gap: 12
           }}>
             {selectedBrand.menu.map(item => (
-              <div key={item.id} style={{
-                border: "1px solid #ddd",
-                borderRadius: 12,
-                padding: 12
-              }}>
+              <div key={item.id}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: 12,
+                  padding: 12,
+                  background: highlightId === item.id ? "#e6fffa" : "white",
+                  transition: "0.3s"
+                }}
+              >
                 <p><b>{item.name}</b></p>
                 <p>Rp. {formatRupiah(item.price)}</p>
 
                 <button
                   onClick={() => handleOpenOptions(item)}
                   style={{
+                    width: "100%",
+                    padding: 8,
                     background: primaryColor,
                     color: "#fff",
                     border: "none",
-                    padding: 8,
-                    borderRadius: 8
+                    borderRadius: 8,
+                    opacity: loadingAdd ? 0.6 : 1
                   }}
                 >
-                  Tambah
+                  {loadingAdd ? "Menambahkan..." : "Tambah"}
                 </button>
               </div>
             ))}
@@ -247,21 +253,23 @@ function App() {
         </>
       )}
 
-      {/* CART (ASLI LO TETEP ADA) */}
+      {/* CART */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
           <h2>Keranjang</h2>
 
           {cart.map(item => (
-            <div key={item.id + item.options}>
+            <div key={item.id + item.options} style={{ marginBottom: 10 }}>
               <p><b>{item.name}</b></p>
               {item.options && <p>{item.options}</p>}
-              <p>Qty: {item.qty}</p>
 
-              <button onClick={() => increaseQty(item.id, item.options)}>+</button>
-              <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
-              <button onClick={() => removeItem(item.id, item.options)}>Hapus</button>
+              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
+                <b>{item.qty}</b>
+                <button onClick={() => increaseQty(item.id, item.options)}>+</button>
+                <button onClick={() => removeItem(item.id, item.options)}>Hapus</button>
+              </div>
             </div>
           ))}
 
@@ -274,20 +282,21 @@ function App() {
           <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
           <br /><br />
 
-          <button onClick={handleCheckout} style={{
-            width: "100%",
-            padding: 12,
-            background: primaryColor,
-            color: "white",
-            border: "none",
-            borderRadius: 10
-          }}>
+          <button onClick={handleCheckout}
+            style={{
+              width: "100%",
+              padding: 12,
+              background: primaryColor,
+              color: "white",
+              border: "none",
+              borderRadius: 10
+            }}>
             Checkout
           </button>
         </>
       )}
 
-      {/* 🔥 STICKY MINI CART (TAMBAHAN DOANG, BUKAN GANTI) */}
+      {/* STICKY */}
       {selectedBrand && cart.length > 0 && (
         <div style={{
           position: "fixed",
@@ -298,7 +307,19 @@ function App() {
           borderTop: "1px solid #ddd",
           padding: 10
         }}>
-          <b>Total: Rp. {formatRupiah(total)}</b>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <b>Rp. {formatRupiah(total)}</b>
+            <button onClick={handleCheckout}
+              style={{
+                background: primaryColor,
+                color: "white",
+                border: "none",
+                padding: "8px 12px",
+                borderRadius: 8
+              }}>
+              Checkout
+            </button>
+          </div>
         </div>
       )}
 
@@ -309,63 +330,31 @@ function App() {
           top: 0, left: 0, right: 0, bottom: 0,
           background: "rgba(0,0,0,0.5)",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
+          alignItems: "center"
         }}>
-          <div style={{
-            background: "white",
-            padding: 20,
-            borderRadius: 12,
-            width: "90%",
-            maxWidth: 400
-          }}>
+          <div style={{ background: "white", padding: 20 }}>
             <h3>{selectedItem.name}</h3>
-
-            <p><b>Rp. {formatRupiah(calculatePrice())}</b></p>
+            <p>Rp. {formatRupiah(calculatePrice())}</p>
 
             {Object.entries(selectedItem.options).map(([key, values]) => (
               <div key={key}>
                 <p>{key}</p>
-
-                {values.map(v => {
-                  const active = selectedOptions[key] === v
-
-                  return (
-                    <button
-                      key={v}
-                      style={{
-                        margin: 4,
-                        padding: 6,
-                        background: active ? primaryColor : "#eee",
-                        color: active ? "#fff" : "#000",
-                        border: "none",
-                        borderRadius: 6
-                      }}
-                      onClick={() =>
-                        setSelectedOptions(prev => ({ ...prev, [key]: v }))
-                      }
-                    >
-                      {v}
-                    </button>
-                  )
-                })}
+                {values.map(v => (
+                  <button key={v}
+                    style={{
+                      opacity: selectedOptions[key] === v ? 1 : 0.5
+                    }}
+                    onClick={() =>
+                      setSelectedOptions(prev => ({ ...prev, [key]: v }))
+                    }>
+                    {v}
+                  </button>
+                ))}
               </div>
             ))}
 
-            <br />
-
-            <button
-              disabled={!isOptionsComplete()}
-              onClick={handleConfirmAdd}
-              style={{
-                width: "100%",
-                padding: 10,
-                background: isOptionsComplete() ? primaryColor : "#ccc",
-                color: "white",
-                border: "none",
-                borderRadius: 8
-              }}
-            >
+            <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}>
               Tambah ke Keranjang
             </button>
 
