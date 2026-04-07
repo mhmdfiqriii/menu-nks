@@ -1,6 +1,12 @@
 import { useState } from "react"
 import { menu } from "./data/menu"
 
+// ✅ pindahin ke luar component (INI KUNCI FIX)
+const generateOrderId = () => {
+  const time = Date.now().toString().slice(-6)
+  return `KKM-${time}`
+}
+
 function App() {
   const [cart, setCart] = useState([])
   const [name, setName] = useState("")
@@ -10,11 +16,6 @@ function App() {
 
   const formatRupiah = (angka) => {
     return new Intl.NumberFormat("id-ID").format(angka)
-  }
-
-  const generateOrderId = () => {
-    const random = Math.floor(Math.random() * 1000000000)
-    return `KKM-${random}`
   }
 
   const addToCart = (item) => {
@@ -79,14 +80,14 @@ function App() {
 
     const orderId = generateOrderId()
 
-    let message = `*✉️FORM ORDER NKS*\n\n`
+    let message = `*FORM ORDER NKS*\n\n`
 
-    message += `🛎️No. Pesanan : ${orderId}\n`
-    message += `👤Atas Nama Pesanan : ${name}\n`
-    message += `📍Outlet : ${outlet}\n`
-    message += `⏳Jam Pengambilan : ${time || "-"}\n\n`
+    message += `No. Pesanan : ${orderId}\n`
+    message += `Atas Nama Pesanan : ${name}\n`
+    message += `Outlet : ${outlet}\n`
+    message += `Jam Pengambilan : ${time || "-"}\n\n`
 
-    message += `*📝Pesanan :*\n`
+    message += `Pesanan :\n`
 
     cart.forEach((item, index) => {
       message += `${index + 1}. ${item.name} (${item.qty}x)\n`
