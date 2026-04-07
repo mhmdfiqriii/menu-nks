@@ -1,9 +1,15 @@
 import { useState } from "react"
 import { brands } from "./data/menu"
 
-const generateOrderId = () => {
+// 🔥 order id beda brand
+const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
-  return `KKM-${time}`
+
+  if (brandName === "Kopi Kenangan") return `KKM-${time}`
+  if (brandName === "Janji Jiwa") return `JJW-${time}`
+  if (brandName === "Fore") return `FORE-${time}`
+
+  return `ORD-${time}`
 }
 
 function App() {
@@ -18,6 +24,12 @@ function App() {
 
   const formatRupiah = (angka) => {
     return new Intl.NumberFormat("id-ID").format(angka)
+  }
+
+  // 🔥 RESET CART SAAT GANTI BRAND
+  const handleSelectBrand = (brand) => {
+    setSelectedBrand(brand)
+    setCart([])
   }
 
   const handleOpenOptions = (item) => {
@@ -114,7 +126,7 @@ function App() {
     if (!name.trim()) return alert("Isi nama")
     if (!outlet.trim()) return alert("Isi outlet")
 
-    const orderId = generateOrderId()
+    const orderId = generateOrderId(selectedBrand?.name)
 
     let message = `*FORM ORDER NKS*\n\n`
     message += `No. Pesanan : ${orderId}\n`
@@ -137,25 +149,26 @@ function App() {
   }
 
   return (
-    <div style={{ padding: 20, maxWidth: 500, margin: "auto", fontFamily: "sans-serif" }}>
+    <div style={{ padding: 20, maxWidth: 600, margin: "auto", fontFamily: "sans-serif" }}>
 
       {/* BRAND */}
       {!selectedBrand && (
         <>
-          <h2 style={{ marginBottom: 10 }}>Pilih Brand</h2>
+          <h2>Pilih Brand</h2>
           {brands.map(b => (
             <button
               key={b.name}
-              onClick={() => setSelectedBrand(b)}
+              onClick={() => handleSelectBrand(b)}
               style={{
                 display: "block",
                 width: "100%",
-                padding: 12,
-                marginBottom: 10,
-                borderRadius: 10,
+                padding: 14,
+                marginBottom: 12,
+                borderRadius: 12,
                 border: "none",
                 background: "#111",
-                color: "#fff"
+                color: "#fff",
+                fontSize: 16
               }}
             >
               {b.name}
@@ -167,56 +180,43 @@ function App() {
       {/* MENU */}
       {selectedBrand && (
         <>
-          <button onClick={() => setSelectedBrand(null)} style={{ marginBottom: 10 }}>
+          <button onClick={() => setSelectedBrand(null)}>
             ← Ganti Brand
           </button>
 
           <h1>{selectedBrand.name}</h1>
 
-          {selectedBrand.menu.map(item => (
-            <div
-              key={item.id}
-              style={{
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 12
+          }}>
+            {selectedBrand.menu.map(item => (
+              <div key={item.id} style={{
                 border: "1px solid #ddd",
-                borderRadius: 10,
-                padding: 12,
-                marginBottom: 10
-              }}
-            >
-              <p><b>{item.name}</b></p>
-              <p>Rp. {formatRupiah(item.price)}</p>
-              <button
-                onClick={() => handleOpenOptions(item)}
-                style={{
-                  padding: "8px 12px",
-                  borderRadius: 8,
-                  border: "none",
-                  background: "#111",
-                  color: "#fff"
-                }}
-              >
-                Tambah
-              </button>
-            </div>
-          ))}
+                borderRadius: 12,
+                padding: 12
+              }}>
+                <p><b>{item.name}</b></p>
+                <p>Rp. {formatRupiah(item.price)}</p>
+
+                <button onClick={() => handleOpenOptions(item)}>
+                  Tambah
+                </button>
+              </div>
+            ))}
+          </div>
         </>
       )}
 
-      {/* EMPTY */}
-      {cart.length === 0 && selectedBrand && (
-        <p style={{ textAlign: "center", marginTop: 20 }}>
-          Belum ada pesanan
-        </p>
-      )}
-
       {/* CART */}
-      {cart.length > 0 && (
+      {selectedBrand && cart.length > 0 && (
         <>
           <hr />
           <h2>Keranjang</h2>
 
           {cart.map(item => (
-            <div key={item.id + item.options} style={{ marginBottom: 10 }}>
+            <div key={item.id + item.options}>
               <p><b>{item.name}</b></p>
               {item.options && <p>{item.options}</p>}
               <p>Qty: {item.qty}</p>
@@ -239,10 +239,10 @@ function App() {
           <button onClick={handleCheckout} style={{
             width: "100%",
             padding: 12,
-            borderRadius: 10,
             background: "green",
             color: "white",
-            border: "none"
+            border: "none",
+            borderRadius: 10
           }}>
             Checkout
           </button>
@@ -262,7 +262,7 @@ function App() {
           <div style={{
             background: "white",
             padding: 20,
-            borderRadius: 10,
+            borderRadius: 12,
             width: "90%",
             maxWidth: 400
           }}>
@@ -276,16 +276,15 @@ function App() {
 
                 {values.map(v => {
                   const active = selectedOptions[key] === v
+
                   return (
                     <button
                       key={v}
                       style={{
                         margin: 4,
                         padding: 6,
-                        borderRadius: 6,
                         background: active ? "#111" : "#eee",
-                        color: active ? "#fff" : "#000",
-                        border: "none"
+                        color: active ? "#fff" : "#000"
                       }}
                       onClick={() =>
                         setSelectedOptions(prev => ({ ...prev, [key]: v }))
@@ -300,24 +299,11 @@ function App() {
 
             <br />
 
-            <button
-              disabled={!isOptionsComplete()}
-              onClick={handleConfirmAdd}
-              style={{
-                width: "100%",
-                padding: 10,
-                background: isOptionsComplete() ? "green" : "#ccc",
-                color: "white",
-                border: "none",
-                borderRadius: 8
-              }}
-            >
+            <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}>
               Tambah ke Keranjang
             </button>
 
-            <button onClick={() => setSelectedItem(null)} style={{ marginTop: 10 }}>
-              Batal
-            </button>
+            <button onClick={() => setSelectedItem(null)}>Batal</button>
           </div>
         </div>
       )}
