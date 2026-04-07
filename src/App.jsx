@@ -15,7 +15,6 @@ function App() {
   const [name, setName] = useState("")
   const [time, setTime] = useState("")
   const [outlet, setOutlet] = useState("")
-  const [note, setNote] = useState("")
 
   const formatRupiah = (angka) => {
     return new Intl.NumberFormat("id-ID").format(angka)
@@ -31,24 +30,30 @@ function App() {
     setSelectedOptions({})
   }
 
-  const handleConfirmAdd = () => {
-    const keys = Object.keys(selectedItem.options)
+  const calculatePrice = () => {
+    if (!selectedItem) return 0
 
-    const isComplete = keys.every(k => selectedOptions[k])
-    if (!isComplete) {
-      alert("Pilih semua varian dulu")
-      return
-    }
-
-    let finalPrice = selectedItem.price
+    let price = selectedItem.price
     const size = selectedOptions["Size"]
 
     if (size) {
-      if (size.includes("Large")) finalPrice += 5000
-      if (size.includes("Jumbo")) finalPrice += 16000
-      if (size.includes("Ultimate")) finalPrice += 7000
+      if (size.includes("Large")) price += 6000
+      if (size.includes("Jumbo")) price += 16000
+      if (size.includes("Ultimate")) price += 7000
     }
 
+    return price
+  }
+
+  const isOptionsComplete = () => {
+    if (!selectedItem?.options) return true
+    return Object.keys(selectedItem.options).every(k => selectedOptions[k])
+  }
+
+  const handleConfirmAdd = () => {
+    if (!isOptionsComplete()) return
+
+    const finalPrice = calculatePrice()
     const text = Object.values(selectedOptions).join(", ")
 
     addToCart(selectedItem, text, finalPrice)
@@ -125,8 +130,7 @@ function App() {
     message += `Brand : ${selectedBrand?.name}\n`
     message += `Atas Nama Pesanan : ${name}\n`
     message += `Outlet : ${outlet}\n`
-    message += `Jam Pengambilan : ${time || "-"}\n`
-    message += `Catatan : ${note || "-"}\n\n`
+    message += `Jam Pengambilan : ${time || "-"}\n\n`
 
     message += `Pesanan :\n`
 
@@ -143,8 +147,8 @@ function App() {
 
   return (
     <div style={{ padding: 20 }}>
-      
-      {/* 🔥 PILIH BRAND */}
+
+      {/* BRAND */}
       {!selectedBrand && (
         <>
           <h2>Pilih Brand</h2>
@@ -156,9 +160,13 @@ function App() {
         </>
       )}
 
-      {/* 🔥 MENU */}
+      {/* MENU */}
       {selectedBrand && (
         <>
+          <button onClick={() => setSelectedBrand(null)}>
+            ← Ganti Brand
+          </button>
+
           <h1>{selectedBrand.name}</h1>
 
           {selectedBrand.menu.map(item => (
@@ -171,41 +179,49 @@ function App() {
         </>
       )}
 
-      <hr />
+      {/* EMPTY STATE */}
+      {cart.length === 0 && selectedBrand && (
+        <p>Belum ada pesanan, silakan pilih menu dulu</p>
+      )}
 
-      <h2>Keranjang</h2>
+      {/* KERANJANG + FORM */}
+      {cart.length > 0 && (
+        <>
+          <hr />
 
-      {cart.map(item => (
-        <div key={item.id + item.options}>
-          <p>{item.name}</p>
-          {item.options && <p>{item.options}</p>}
-          <p>Qty: {item.qty}</p>
-          <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
+          <h2>Keranjang</h2>
 
-          <button onClick={() => increaseQty(item.id, item.options)}>+</button>
-          <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
-          <button onClick={() => removeItem(item.id, item.options)}>Hapus</button>
-        </div>
-      ))}
+          {cart.map(item => (
+            <div key={item.id + item.options}>
+              <p>{item.name}</p>
+              {item.options && <p>{item.options}</p>}
+              <p>Qty: {item.qty}</p>
+              <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
 
-      <h3>Total: Rp. {formatRupiah(total)}</h3>
+              <button onClick={() => increaseQty(item.id, item.options)}>+</button>
+              <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
+              <button onClick={() => removeItem(item.id, item.options)}>Hapus</button>
+            </div>
+          ))}
 
-      <hr />
+          <h3>Total: Rp. {formatRupiah(total)}</h3>
 
-      <h2>Form Order</h2>
+          <hr />
 
-      <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} />
-      <br />
-      <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} />
-      <br />
-      <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
-      <br />
-      <textarea placeholder="Catatan" value={note} onChange={e => setNote(e.target.value)} />
-      <br /><br />
+          <h2>Form Order</h2>
 
-      <button onClick={handleCheckout}>Checkout</button>
+          <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} />
+          <br />
+          <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} />
+          <br />
+          <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
+          <br /><br />
 
-      {/* 🔥 MODAL */}
+          <button onClick={handleCheckout}>Checkout</button>
+        </>
+      )}
+
+      {/* MODAL */}
       {selectedItem && (
         <div style={{
           position: "fixed",
@@ -215,6 +231,8 @@ function App() {
         }}>
           <div style={{ background: "white", padding: 20 }}>
             <h3>{selectedItem.name}</h3>
+
+            <p><b>Harga: Rp. {formatRupiah(calculatePrice())}</b></p>
 
             {Object.entries(selectedItem.options).map(([key, values]) => (
               <div key={key}>
@@ -246,7 +264,10 @@ function App() {
 
             <br />
 
-            <button onClick={handleConfirmAdd}>
+            <button
+              disabled={!isOptionsComplete()}
+              onClick={handleConfirmAdd}
+            >
               Tambah ke Keranjang
             </button>
 
