@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { menu } from "./data/menu"
+import { brands } from "./data/menu"
 
 const generateOrderId = () => {
   const time = Date.now().toString().slice(-6)
