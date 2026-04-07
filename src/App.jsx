@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { menu } from "./data/menu"
 
-// ✅ pindahin ke luar component (INI KUNCI FIX)
 const generateOrderId = () => {
   const time = Date.now().toString().slice(-6)
   return `KKM-${time}`
@@ -9,6 +8,9 @@ const generateOrderId = () => {
 
 function App() {
   const [cart, setCart] = useState([])
+  const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedOptions, setSelectedOptions] = useState({})
+
   const [name, setName] = useState("")
   const [time, setTime] = useState("")
   const [outlet, setOutlet] = useState("")
@@ -18,37 +20,54 @@ function App() {
     return new Intl.NumberFormat("id-ID").format(angka)
   }
 
-  const addToCart = (item) => {
+  // 🔥 buka modal
+  const handleOpenOptions = (item) => {
+    if (!item.options) {
+      addToCart(item, "")
+      return
+    }
+
+    setSelectedItem(item)
+    setSelectedOptions({})
+  }
+
+  // 🔥 tambah ke cart dari modal
+  const addToCart = (item, optionsText) => {
     setCart(prev => {
-      const existing = prev.find(i => i.id === item.id)
+      const existing = prev.find(
+        i => i.id === item.id && i.options === optionsText
+      )
 
       if (existing) {
         return prev.map(i =>
-          i.id === item.id
+          i.id === item.id && i.options === optionsText
             ? { ...i, qty: i.qty + 1 }
             : i
         )
       }
 
-      return [...prev, { ...item, qty: 1 }]
+      return [...prev, { ...item, qty: 1, options: optionsText }]
     })
+
+    setSelectedItem(null)
+    setSelectedOptions({})
   }
 
-  const increaseQty = (id) => {
+  const increaseQty = (id, options) => {
     setCart(prev =>
       prev.map(item =>
-        item.id === id
+        item.id === id && item.options === options
           ? { ...item, qty: item.qty + 1 }
           : item
       )
     )
   }
 
-  const decreaseQty = (id) => {
+  const decreaseQty = (id, options) => {
     setCart(prev =>
       prev
         .map(item =>
-          item.id === id
+          item.id === id && item.options === options
             ? { ...item, qty: item.qty - 1 }
             : item
         )
@@ -56,59 +75,48 @@ function App() {
     )
   }
 
-  const removeItem = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id))
+  const removeItem = (id, options) => {
+    setCart(prev =>
+      prev.filter(item => !(item.id === id && item.options === options))
+    )
   }
 
   const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
 
   const handleCheckout = () => {
-    if (cart.length === 0) {
-      alert("Keranjang kosong")
-      return
-    }
-
-    if (!name.trim()) {
-      alert("Isi nama dulu")
-      return
-    }
-
-    if (!outlet.trim()) {
-      alert("Isi outlet dulu")
-      return
-    }
+    if (cart.length === 0) return alert("Keranjang kosong")
+    if (!name.trim()) return alert("Isi nama")
+    if (!outlet.trim()) return alert("Isi outlet")
 
     const orderId = generateOrderId()
 
     let message = `*FORM ORDER NKS*\n\n`
-
     message += `No. Pesanan : ${orderId}\n`
     message += `Atas Nama Pesanan : ${name}\n`
     message += `Outlet : ${outlet}\n`
     message += `Jam Pengambilan : ${time || "-"}\n\n`
-
     message += `Pesanan :\n`
 
-    cart.forEach((item, index) => {
-      message += `${index + 1}. ${item.name} (${item.qty}x)\n`
+    cart.forEach((item, i) => {
+      message += `${i + 1}. ${item.name} (${item.qty}x)\n`
+      if (item.options) message += `   (${item.options})\n`
       message += `   Sub Total : Rp. ${formatRupiah(item.price * item.qty)}\n`
     })
 
     message += `\nTotal : Rp. ${formatRupiah(total)}`
 
-    const url = `https://wa.me/6285704550839?text=${encodeURIComponent(message)}`
-    window.open(url, "_blank")
+    window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
   }
 
   return (
-    <div style={{ padding: "20px", maxWidth: "500px" }}>
+    <div style={{ padding: 20 }}>
       <h1>Menu NKS</h1>
 
       {menu.map(item => (
-        <div key={item.id} style={{ marginBottom: "10px" }}>
+        <div key={item.id}>
           <p><b>{item.name}</b></p>
           <p>Rp. {formatRupiah(item.price)}</p>
-          <button onClick={() => addToCart(item)}>Tambah</button>
+          <button onClick={() => handleOpenOptions(item)}>Tambah</button>
         </div>
       ))}
 
@@ -116,17 +124,15 @@ function App() {
 
       <h2>Keranjang</h2>
 
-      {cart.length === 0 && <p>Belum ada pesanan</p>}
-
       {cart.map(item => (
-        <div key={item.id} style={{ marginBottom: "10px" }}>
-          <p><b>{item.name}</b></p>
+        <div key={item.id + item.options}>
+          <p>{item.name}</p>
+          {item.options && <p>{item.options}</p>}
           <p>Qty: {item.qty}</p>
-          <p>Subtotal: Rp. {formatRupiah(item.price * item.qty)}</p>
 
-          <button onClick={() => increaseQty(item.id)}>+</button>
-          <button onClick={() => decreaseQty(item.id)}>-</button>
-          <button onClick={() => removeItem(item.id)}>Hapus</button>
+          <button onClick={() => increaseQty(item.id, item.options)}>+</button>
+          <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
+          <button onClick={() => removeItem(item.id, item.options)}>Hapus</button>
         </div>
       ))}
 
@@ -136,38 +142,57 @@ function App() {
 
       <h2>Form Order</h2>
 
-      <input
-        type="text"
-        placeholder="Atas Nama Pesanan"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} />
+      <br />
+      <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} />
+      <br />
+      <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
       <br /><br />
 
-      <input
-        type="text"
-        placeholder="Outlet (contoh: Podomoro Cimanggis)"
-        value={outlet}
-        onChange={(e) => setOutlet(e.target.value)}
-      />
-      <br /><br />
+      <button onClick={handleCheckout}>Checkout</button>
 
-      <input
-        type="text"
-        placeholder="Jam Ambil (contoh: 16:00 / Sekarang)"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-      />
-      <br /><br />
+      {/* 🔥 MODAL SIMPLE */}
+      {selectedItem && (
+        <div style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: "rgba(0,0,0,0.5)",
+          padding: 20
+        }}>
+          <div style={{ background: "white", padding: 20 }}>
+            <h3>{selectedItem.name}</h3>
 
-      <textarea
-        placeholder="Catatan (opsional)"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-      />
-      <br /><br />
+            {Object.entries(selectedItem.options).map(([key, values]) => (
+              <div key={key}>
+                <p>{key}</p>
+                {values.map(v => (
+                  <button
+                    key={v}
+                    onClick={() =>
+                      setSelectedOptions(prev => ({ ...prev, [key]: v }))
+                    }
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            ))}
 
-      <button onClick={handleCheckout}>Checkout via WhatsApp</button>
+            <br />
+
+            <button
+              onClick={() => {
+                const text = Object.values(selectedOptions).join(", ")
+                addToCart(selectedItem, text)
+              }}
+            >
+              Tambah ke Keranjang
+            </button>
+
+            <button onClick={() => setSelectedItem(null)}>Batal</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
