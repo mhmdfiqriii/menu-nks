@@ -12,6 +12,13 @@ const generateOrderId = (brandName) => {
   return `ORD-${time}`
 }
 
+// 🔥 warna per brand (biar ga kayak warung fotokopi)
+const brandTheme = {
+  "Kopi Kenangan": "#111",
+  "Janji Jiwa": "#6b3e26",
+  "Fore": "#2b6cb0"
+}
+
 function App() {
   const [selectedBrand, setSelectedBrand] = useState(null)
   const [cart, setCart] = useState([])
@@ -26,7 +33,6 @@ function App() {
     return new Intl.NumberFormat("id-ID").format(angka)
   }
 
-  // 🔥 RESET CART SAAT GANTI BRAND
   const handleSelectBrand = (brand) => {
     setSelectedBrand(brand)
     setCart([])
@@ -148,8 +154,15 @@ function App() {
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
   }
 
+  const primaryColor = selectedBrand ? brandTheme[selectedBrand.name] : "#111"
+
   return (
-    <div style={{ padding: 20, maxWidth: 600, margin: "auto", fontFamily: "sans-serif" }}>
+    <div style={{
+      padding: 20,
+      maxWidth: 600,
+      margin: "auto",
+      fontFamily: "sans-serif"
+    }}>
 
       {/* BRAND */}
       {!selectedBrand && (
@@ -166,7 +179,7 @@ function App() {
                 marginBottom: 12,
                 borderRadius: 12,
                 border: "none",
-                background: "#111",
+                background: brandTheme[b.name],
                 color: "#fff",
                 fontSize: 16
               }}
@@ -184,7 +197,7 @@ function App() {
             ← Ganti Brand
           </button>
 
-          <h1>{selectedBrand.name}</h1>
+          <h1 style={{ color: primaryColor }}>{selectedBrand.name}</h1>
 
           <div style={{
             display: "grid",
@@ -200,7 +213,16 @@ function App() {
                 <p><b>{item.name}</b></p>
                 <p>Rp. {formatRupiah(item.price)}</p>
 
-                <button onClick={() => handleOpenOptions(item)}>
+                <button
+                  onClick={() => handleOpenOptions(item)}
+                  style={{
+                    background: primaryColor,
+                    color: "#fff",
+                    border: "none",
+                    padding: 8,
+                    borderRadius: 8
+                  }}
+                >
                   Tambah
                 </button>
               </div>
@@ -239,7 +261,7 @@ function App() {
           <button onClick={handleCheckout} style={{
             width: "100%",
             padding: 12,
-            background: "green",
+            background: primaryColor,
             color: "white",
             border: "none",
             borderRadius: 10
@@ -283,8 +305,10 @@ function App() {
                       style={{
                         margin: 4,
                         padding: 6,
-                        background: active ? "#111" : "#eee",
-                        color: active ? "#fff" : "#000"
+                        background: active ? primaryColor : "#eee",
+                        color: active ? "#fff" : "#000",
+                        border: "none",
+                        borderRadius: 6
                       }}
                       onClick={() =>
                         setSelectedOptions(prev => ({ ...prev, [key]: v }))
@@ -299,7 +323,18 @@ function App() {
 
             <br />
 
-            <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}>
+            <button
+              disabled={!isOptionsComplete()}
+              onClick={handleConfirmAdd}
+              style={{
+                width: "100%",
+                padding: 10,
+                background: isOptionsComplete() ? primaryColor : "#ccc",
+                color: "white",
+                border: "none",
+                borderRadius: 8
+              }}
+            >
               Tambah ke Keranjang
             </button>
 
