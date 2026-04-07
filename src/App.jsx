@@ -7,6 +7,7 @@ const generateOrderId = () => {
 }
 
 function App() {
+  const [selectedBrand, setSelectedBrand] = useState(null)
   const [cart, setCart] = useState([])
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
@@ -30,22 +31,22 @@ function App() {
     setSelectedOptions({})
   }
 
-  // 🔥 FIX: hitung harga + validasi
   const handleConfirmAdd = () => {
     const keys = Object.keys(selectedItem.options)
 
-    // ❌ kalau belum lengkap
     const isComplete = keys.every(k => selectedOptions[k])
     if (!isComplete) {
-      alert("Pilih semua varian dulu woi")
+      alert("Pilih semua varian dulu")
       return
     }
 
-    // 🔥 hitung harga tambahan
     let finalPrice = selectedItem.price
+    const size = selectedOptions["Size"]
 
-    if (selectedOptions.Size === "Large") {
-      finalPrice += 5000
+    if (size) {
+      if (size.includes("Large")) finalPrice += 5000
+      if (size.includes("Jumbo")) finalPrice += 16000
+      if (size.includes("Ultimate")) finalPrice += 7000
     }
 
     const text = Object.values(selectedOptions).join(", ")
@@ -71,7 +72,7 @@ function App() {
         ...prev,
         {
           ...item,
-          price: finalPrice, // 🔥 pakai harga baru
+          price: finalPrice,
           qty: 1,
           options: optionsText
         }
@@ -121,6 +122,7 @@ function App() {
 
     let message = `*FORM ORDER NKS*\n\n`
     message += `No. Pesanan : ${orderId}\n`
+    message += `Brand : ${selectedBrand?.name}\n`
     message += `Atas Nama Pesanan : ${name}\n`
     message += `Outlet : ${outlet}\n`
     message += `Jam Pengambilan : ${time || "-"}\n`
@@ -141,15 +143,33 @@ function App() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Menu NKS</h1>
+      
+      {/* 🔥 PILIH BRAND */}
+      {!selectedBrand && (
+        <>
+          <h2>Pilih Brand</h2>
+          {brands.map(b => (
+            <button key={b.name} onClick={() => setSelectedBrand(b)}>
+              {b.name}
+            </button>
+          ))}
+        </>
+      )}
 
-      {menu.map(item => (
-        <div key={item.id}>
-          <p><b>{item.name}</b></p>
-          <p>Rp. {formatRupiah(item.price)}</p>
-          <button onClick={() => handleOpenOptions(item)}>Tambah</button>
-        </div>
-      ))}
+      {/* 🔥 MENU */}
+      {selectedBrand && (
+        <>
+          <h1>{selectedBrand.name}</h1>
+
+          {selectedBrand.menu.map(item => (
+            <div key={item.id}>
+              <p><b>{item.name}</b></p>
+              <p>Rp. {formatRupiah(item.price)}</p>
+              <button onClick={() => handleOpenOptions(item)}>Tambah</button>
+            </div>
+          ))}
+        </>
+      )}
 
       <hr />
 
