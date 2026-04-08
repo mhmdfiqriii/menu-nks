@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { brands } from "./data/menu"
 
-// 🔥 IMPORT LOGO
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
@@ -16,7 +15,6 @@ const generateOrderId = (brandName) => {
   return `ORD-${time}`
 }
 
-// 🔥 MAPPING LOGO
 const brandImages = {
   "Kopi Kenangan": kkm,
   "Janji Jiwa": jjw,
@@ -186,6 +184,7 @@ function App() {
       paddingBottom: cart.length > 0 ? 90 : 20
     }}>
 
+      {/* TOAST */}
       {toast && (
         <div style={{
           position: "fixed",
@@ -201,11 +200,10 @@ function App() {
         </div>
       )}
 
-      {/* 🔥 BRAND CARD FIX */}
+      {/* BRAND */}
       {!selectedBrand && (
         <>
           <h2>Pilih Brand</h2>
-
           <div style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
@@ -222,44 +220,28 @@ function App() {
                   textAlign: "center",
                   background: "white",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
-                }}
-              >
+                }}>
                 <div style={{
-                  width: "100%",
-                  height: isMobile ? 90 : 110,
+                  height: 100,
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  padding: 10
+                  justifyContent: "center"
                 }}>
-                  <img
-                    src={brandImages[b.name]}
-                    alt={b.name}
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      objectFit: "contain"
-                    }}
-                  />
+                  <img src={brandImages[b.name]}
+                    style={{ maxHeight: "80%", objectFit: "contain" }} />
                 </div>
-
-                <p style={{
-                  fontWeight: "600",
-                  fontSize: 14
-                }}>
-                  {b.name}
-                </p>
+                <p style={{ fontWeight: 600 }}>{b.name}</p>
               </div>
             ))}
           </div>
         </>
       )}
 
-      {/* sisanya LU PUNYA, ga gue sentuh */}
+      {/* MENU */}
       {selectedBrand && (
         <>
           <button onClick={() => setSelectedBrand(null)}>← Ganti Brand</button>
-          <h1 style={{ color: primaryColor }}>{selectedBrand.name}</h1>
+          <h1>{selectedBrand.name}</h1>
 
           <div style={{
             display: "grid",
@@ -267,29 +249,24 @@ function App() {
             gap: 12
           }}>
             {selectedBrand.menu.map(item => (
-              <div key={item.id}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: 12,
-                  padding: 12,
-                  background: highlightId === item.id ? "#e6fffa" : "white"
-                }}
-              >
+              <div key={item.id} style={{
+                border: "1px solid #ddd",
+                borderRadius: 12,
+                padding: 12
+              }}>
                 <p><b>{item.name}</b></p>
                 <p>Rp. {formatRupiah(item.price)}</p>
 
-                <button
-                  onClick={() => handleOpenOptions(item)}
+                <button onClick={() => handleOpenOptions(item)}
                   style={{
                     width: "100%",
-                    padding: isMobile ? 12 : 8,
+                    padding: 10,
                     background: primaryColor,
                     color: "#fff",
                     border: "none",
                     borderRadius: 8
-                  }}
-                >
-                  {loadingAdd ? "Menambahkan..." : "Tambah"}
+                  }}>
+                  Tambah
                 </button>
               </div>
             ))}
@@ -297,18 +274,16 @@ function App() {
         </>
       )}
 
-      {/* sisanya ga diubah */}
+      {/* CART + FORM MODERN */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
           <h2>Keranjang</h2>
 
           {cart.map(item => (
-            <div key={item.id + item.options} style={{ marginBottom: 10 }}>
+            <div key={item.id + item.options}>
               <p><b>{item.name}</b></p>
-              {item.options && <p>{item.options}</p>}
-
-              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+              <div style={{ display: "flex", gap: 8 }}>
                 <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
                 <b>{item.qty}</b>
                 <button onClick={() => increaseQty(item.id, item.options)}>+</button>
@@ -319,57 +294,45 @@ function App() {
 
           <h3>Total: Rp. {formatRupiah(total)}</h3>
 
-          <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} />
+          {/* INPUT MODERN */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <input placeholder="Nama"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+
+            <input placeholder="Outlet"
+              value={outlet}
+              onChange={e => setOutlet(e.target.value)}
+              style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+
+            <input placeholder="Jam"
+              value={time}
+              onChange={e => setTime(e.target.value)}
+              style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+          </div>
+
           <br />
-          <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} />
-          <br />
-          <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} />
-          <br /><br />
 
           <button onClick={handleCheckout}
             style={{
               width: "100%",
-              padding: 12,
+              padding: 14,
               background: primaryColor,
               color: "white",
               border: "none",
-              borderRadius: 10
+              borderRadius: 12
             }}>
             Checkout
           </button>
         </>
       )}
 
-      {selectedBrand && cart.length > 0 && (
-        <div style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          background: "white",
-          borderTop: "1px solid #ddd",
-          padding: 10
-        }}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <b>Rp. {formatRupiah(total)}</b>
-            <button onClick={handleCheckout}
-              style={{
-                background: primaryColor,
-                color: "white",
-                border: "none",
-                padding: "8px 12px",
-                borderRadius: 8
-              }}>
-              Checkout
-            </button>
-          </div>
-        </div>
-      )}
-
+      {/* MODAL FIX TOTAL */}
       {selectedItem && (
         <div style={{
           position: "fixed",
-          top: 0, left: 0, right: 0, bottom: 0,
+          inset: 0,
           background: "rgba(0,0,0,0.5)",
           display: "flex",
           justifyContent: "center",
@@ -379,36 +342,68 @@ function App() {
             background: "white",
             padding: 20,
             width: "100%",
-            maxWidth: 400,
-            borderRadius: isMobile ? "16px 16px 0 0" : 12
+            maxWidth: 420,
+            borderRadius: isMobile ? "16px 16px 0 0" : 16,
+            boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
           }}>
             <h3>{selectedItem.name}</h3>
             <p>Rp. {formatRupiah(calculatePrice())}</p>
 
             {Object.entries(selectedItem.options).map(([key, values]) => (
-              <div key={key}>
-                <p>{key}</p>
-                {values.map(v => (
-                  <button key={v}
-                    style={{
-                      margin: 4,
-                      padding: 8,
-                      background: selectedOptions[key] === v ? primaryColor : "#eee"
-                    }}
-                    onClick={() =>
-                      setSelectedOptions(prev => ({ ...prev, [key]: v }))
-                    }>
-                    {v}
-                  </button>
-                ))}
+              <div key={key} style={{ marginBottom: 16 }}>
+                <p style={{ marginBottom: 6 }}>{key}</p>
+
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {values.map(v => {
+                    const active = selectedOptions[key] === v
+                    return (
+                      <button key={v}
+                        onClick={() =>
+                          setSelectedOptions(prev => ({ ...prev, [key]: v }))
+                        }
+                        style={{
+                          padding: "8px 14px",
+                          borderRadius: 999,
+                          border: active ? "none" : "1px solid #ccc",
+                          background: active ? "#111" : "#fff",
+                          color: active ? "#fff" : "#333",
+                          transform: active ? "scale(1.05)" : "scale(1)",
+                          transition: "0.15s"
+                        }}>
+                        {v}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
             ))}
 
-            <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}>
-              Tambah ke Keranjang
-            </button>
+            {/* BUTTON FIX */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <button
+                disabled={!isOptionsComplete()}
+                onClick={handleConfirmAdd}
+                style={{
+                  padding: 12,
+                  borderRadius: 10,
+                  background: "#111",
+                  color: "#fff",
+                  border: "none"
+                }}>
+                Tambah ke Keranjang
+              </button>
 
-            <button onClick={() => setSelectedItem(null)}>Batal</button>
+              <button onClick={() => setSelectedItem(null)}
+                style={{
+                  padding: 10,
+                  background: "transparent",
+                  border: "none",
+                  color: "#666"
+                }}>
+                Batal
+              </button>
+            </div>
+
           </div>
         </div>
       )}
