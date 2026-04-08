@@ -27,8 +27,6 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
   const [toast, setToast] = useState("")
-  const [highlightId, setHighlightId] = useState(null)
-  const [loadingAdd, setLoadingAdd] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -86,35 +84,27 @@ function App() {
   }
 
   const addToCart = (item, optionsText, finalPrice) => {
-    setLoadingAdd(true)
+    setCart(prev => {
+      const existing = prev.find(
+        i => i.id === item.id && i.options === optionsText
+      )
 
-    setTimeout(() => {
-      setCart(prev => {
-        const existing = prev.find(
-          i => i.id === item.id && i.options === optionsText
+      if (existing) {
+        return prev.map(i =>
+          i.id === item.id && i.options === optionsText
+            ? { ...i, qty: i.qty + 1 }
+            : i
         )
+      }
 
-        if (existing) {
-          return prev.map(i =>
-            i.id === item.id && i.options === optionsText
-              ? { ...i, qty: i.qty + 1 }
-              : i
-          )
-        }
+      return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
+    })
 
-        return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
-      })
+    setToast("✔ Ditambahkan ke keranjang")
+    setTimeout(() => setToast(""), 1500)
 
-      setHighlightId(item.id)
-      setTimeout(() => setHighlightId(null), 800)
-
-      setToast("✔ Ditambahkan ke keranjang")
-      setTimeout(() => setToast(""), 1500)
-
-      setSelectedItem(null)
-      setSelectedOptions({})
-      setLoadingAdd(false)
-    }, 300)
+    setSelectedItem(null)
+    setSelectedOptions({})
   }
 
   const increaseQty = (id, options) => {
@@ -184,7 +174,22 @@ function App() {
       paddingBottom: cart.length > 0 ? 90 : 20
     }}>
 
-      {/* BRAND */}
+      {toast && (
+        <div style={{
+          position: "fixed",
+          top: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "#111",
+          color: "#fff",
+          padding: "10px 16px",
+          borderRadius: 10,
+          fontSize: 13
+        }}>
+          {toast}
+        </div>
+      )}
+
       {!selectedBrand && (
         <>
           <h2>Pilih Brand</h2>
@@ -201,7 +206,8 @@ function App() {
                   borderRadius: 18,
                   padding: 12,
                   textAlign: "center",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+                  cursor: "pointer",
+                  transition: "0.2s"
                 }}>
                 <div style={{ height: 100, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <img src={brandImages[b.name]} style={{ maxHeight: "80%" }} />
@@ -213,25 +219,36 @@ function App() {
         </>
       )}
 
-      {/* MENU */}
       {selectedBrand && (
         <>
-          <button onClick={() => setSelectedBrand(null)}>← Ganti Brand</button>
-          <h1>{selectedBrand.name}</h1>
+          <button
+            onClick={() => setSelectedBrand(null)}
+            style={{
+              marginBottom: 10,
+              padding: "6px 12px",
+              borderRadius: 999,
+              border: "1px solid #ccc",
+              background: "#fff",
+              cursor: "pointer"
+            }}>
+            ← Ganti Brand
+          </button>
+
+          <h1 style={{ marginBottom: 16 }}>{selectedBrand.name}</h1>
 
           <div style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-            gap: 12
+            gap: 16
           }}>
             {selectedBrand.menu.map(item => (
               <div key={item.id} style={{
                 border: "1px solid #ddd",
                 borderRadius: 12,
-                padding: 12
+                padding: 14
               }}>
                 <p><b>{item.name}</b></p>
-                <p>Rp. {formatRupiah(item.price)}</p>
+                <p style={{ margin: "6px 0 10px" }}>Rp. {formatRupiah(item.price)}</p>
 
                 <button onClick={() => handleOpenOptions(item)}
                   style={{
@@ -239,7 +256,7 @@ function App() {
                     padding: 10,
                     background: primaryColor,
                     color: "#fff",
-                    borderRadius: 8,
+                    borderRadius: 10,
                     border: "none"
                   }}>
                   Tambah
@@ -250,29 +267,32 @@ function App() {
         </>
       )}
 
-      {/* 🔥 CART MODERN */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
-
           <h2>Keranjang</h2>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {cart.map(item => (
               <div key={item.id + item.options}
                 style={{
                   border: "1px solid #eee",
                   borderRadius: 14,
-                  padding: 12,
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+                  padding: 14
                 }}>
                 <p style={{ fontWeight: 600 }}>{item.name}</p>
+
+                {item.options && (
+                  <p style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
+                    {item.options}
+                  </p>
+                )}
 
                 <div style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  marginTop: 8
+                  marginTop: 10
                 }}>
                   <div style={{
                     display: "flex",
@@ -307,9 +327,8 @@ function App() {
             ))}
           </div>
 
-          {/* TOTAL */}
           <div style={{
-            marginTop: 16,
+            marginTop: 18,
             padding: 12,
             borderTop: "1px solid #eee"
           }}>
@@ -317,25 +336,13 @@ function App() {
             <h3>Rp. {formatRupiah(total)}</h3>
           </div>
 
-          {/* FORM */}
-          <div style={{ marginTop: 16 }}>
+          <div style={{ marginTop: 18 }}>
             <h3>Formulir Order</h3>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <input placeholder="Nama"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
-
-              <input placeholder="Outlet"
-                value={outlet}
-                onChange={e => setOutlet(e.target.value)}
-                style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
-
-              <input placeholder="Jam"
-                value={time}
-                onChange={e => setTime(e.target.value)}
-                style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+              <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+              <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
             </div>
 
             <br />
@@ -355,7 +362,6 @@ function App() {
         </>
       )}
 
-      {/* MODAL (TETAP) */}
       {selectedItem && (
         <div style={{
           position: "fixed",
@@ -401,11 +407,32 @@ function App() {
               </div>
             ))}
 
-            <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}>
-              Tambah ke Keranjang
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <button
+                disabled={!isOptionsComplete()}
+                onClick={handleConfirmAdd}
+                style={{
+                  padding: 12,
+                  borderRadius: 10,
+                  background: "#111",
+                  color: "#fff",
+                  border: "none"
+                }}>
+                Tambah ke Keranjang
+              </button>
 
-            <button onClick={() => setSelectedItem(null)}>Batal</button>
+              <button
+                onClick={() => setSelectedItem(null)}
+                style={{
+                  padding: 10,
+                  borderRadius: 10,
+                  background: "#f5f5f5",
+                  border: "none",
+                  color: "#333"
+                }}>
+                Batal
+              </button>
+            </div>
           </div>
         </div>
       )}
