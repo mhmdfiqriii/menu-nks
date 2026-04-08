@@ -184,22 +184,6 @@ function App() {
       paddingBottom: cart.length > 0 ? 90 : 20
     }}>
 
-      {/* TOAST */}
-      {toast && (
-        <div style={{
-          position: "fixed",
-          top: 20,
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: "black",
-          color: "white",
-          padding: "8px 16px",
-          borderRadius: 8
-        }}>
-          {toast}
-        </div>
-      )}
-
       {/* BRAND */}
       {!selectedBrand && (
         <>
@@ -216,19 +200,11 @@ function App() {
                   border: "1px solid #ddd",
                   borderRadius: 18,
                   padding: 12,
-                  cursor: "pointer",
                   textAlign: "center",
-                  background: "white",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
                 }}>
-                <div style={{
-                  height: 100,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}>
-                  <img src={brandImages[b.name]}
-                    style={{ maxHeight: "80%", objectFit: "contain" }} />
+                <div style={{ height: 100, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <img src={brandImages[b.name]} style={{ maxHeight: "80%" }} />
                 </div>
                 <p style={{ fontWeight: 600 }}>{b.name}</p>
               </div>
@@ -263,8 +239,8 @@ function App() {
                     padding: 10,
                     background: primaryColor,
                     color: "#fff",
-                    border: "none",
-                    borderRadius: 8
+                    borderRadius: 8,
+                    border: "none"
                   }}>
                   Tambah
                 </button>
@@ -274,61 +250,112 @@ function App() {
         </>
       )}
 
-      {/* CART + FORM MODERN */}
+      {/* 🔥 CART MODERN */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
+
           <h2>Keranjang</h2>
 
-          {cart.map(item => (
-            <div key={item.id + item.options}>
-              <p><b>{item.name}</b></p>
-              <div style={{ display: "flex", gap: 8 }}>
-                <button onClick={() => decreaseQty(item.id, item.options)}>-</button>
-                <b>{item.qty}</b>
-                <button onClick={() => increaseQty(item.id, item.options)}>+</button>
-                <button onClick={() => removeItem(item.id, item.options)}>Hapus</button>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {cart.map(item => (
+              <div key={item.id + item.options}
+                style={{
+                  border: "1px solid #eee",
+                  borderRadius: 14,
+                  padding: 12,
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+                }}>
+                <p style={{ fontWeight: 600 }}>{item.name}</p>
+
+                <div style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: 8
+                }}>
+                  <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    border: "1px solid #ddd",
+                    borderRadius: 999
+                  }}>
+                    <button onClick={() => decreaseQty(item.id, item.options)}
+                      style={{ padding: "6px 10px", border: "none", background: "transparent" }}>
+                      -
+                    </button>
+
+                    <span style={{ padding: "0 10px" }}>{item.qty}</span>
+
+                    <button onClick={() => increaseQty(item.id, item.options)}
+                      style={{ padding: "6px 10px", border: "none", background: "transparent" }}>
+                      +
+                    </button>
+                  </div>
+
+                  <button onClick={() => removeItem(item.id, item.options)}
+                    style={{
+                      border: "none",
+                      background: "transparent",
+                      color: "red",
+                      fontSize: 12
+                    }}>
+                    Hapus
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-
-          <h3>Total: Rp. {formatRupiah(total)}</h3>
-
-          {/* INPUT MODERN */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <input placeholder="Nama"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
-
-            <input placeholder="Outlet"
-              value={outlet}
-              onChange={e => setOutlet(e.target.value)}
-              style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
-
-            <input placeholder="Jam"
-              value={time}
-              onChange={e => setTime(e.target.value)}
-              style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+            ))}
           </div>
 
-          <br />
+          {/* TOTAL */}
+          <div style={{
+            marginTop: 16,
+            padding: 12,
+            borderTop: "1px solid #eee"
+          }}>
+            <p style={{ color: "#666" }}>Subtotal</p>
+            <h3>Rp. {formatRupiah(total)}</h3>
+          </div>
 
-          <button onClick={handleCheckout}
-            style={{
-              width: "100%",
-              padding: 14,
-              background: primaryColor,
-              color: "white",
-              border: "none",
-              borderRadius: 12
-            }}>
-            Checkout
-          </button>
+          {/* FORM */}
+          <div style={{ marginTop: 16 }}>
+            <h3>Formulir Order</h3>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <input placeholder="Nama"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+
+              <input placeholder="Outlet"
+                value={outlet}
+                onChange={e => setOutlet(e.target.value)}
+                style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+
+              <input placeholder="Jam"
+                value={time}
+                onChange={e => setTime(e.target.value)}
+                style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+            </div>
+
+            <br />
+
+            <button onClick={handleCheckout}
+              style={{
+                width: "100%",
+                padding: 14,
+                background: primaryColor,
+                color: "white",
+                borderRadius: 12,
+                border: "none"
+              }}>
+              Checkout
+            </button>
+          </div>
         </>
       )}
 
-      {/* MODAL FIX TOTAL */}
+      {/* MODAL (TETAP) */}
       {selectedItem && (
         <div style={{
           position: "fixed",
@@ -343,17 +370,15 @@ function App() {
             padding: 20,
             width: "100%",
             maxWidth: 420,
-            borderRadius: isMobile ? "16px 16px 0 0" : 16,
-            boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
+            borderRadius: isMobile ? "16px 16px 0 0" : 16
           }}>
             <h3>{selectedItem.name}</h3>
             <p>Rp. {formatRupiah(calculatePrice())}</p>
 
             {Object.entries(selectedItem.options).map(([key, values]) => (
               <div key={key} style={{ marginBottom: 16 }}>
-                <p style={{ marginBottom: 6 }}>{key}</p>
-
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <p>{key}</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {values.map(v => {
                     const active = selectedOptions[key] === v
                     return (
@@ -366,9 +391,7 @@ function App() {
                           borderRadius: 999,
                           border: active ? "none" : "1px solid #ccc",
                           background: active ? "#111" : "#fff",
-                          color: active ? "#fff" : "#333",
-                          transform: active ? "scale(1.05)" : "scale(1)",
-                          transition: "0.15s"
+                          color: active ? "#fff" : "#333"
                         }}>
                         {v}
                       </button>
@@ -378,32 +401,11 @@ function App() {
               </div>
             ))}
 
-            {/* BUTTON FIX */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <button
-                disabled={!isOptionsComplete()}
-                onClick={handleConfirmAdd}
-                style={{
-                  padding: 12,
-                  borderRadius: 10,
-                  background: "#111",
-                  color: "#fff",
-                  border: "none"
-                }}>
-                Tambah ke Keranjang
-              </button>
+            <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}>
+              Tambah ke Keranjang
+            </button>
 
-              <button onClick={() => setSelectedItem(null)}
-                style={{
-                  padding: 10,
-                  background: "transparent",
-                  border: "none",
-                  color: "#666"
-                }}>
-                Batal
-              </button>
-            </div>
-
+            <button onClick={() => setSelectedItem(null)}>Batal</button>
           </div>
         </div>
       )}
