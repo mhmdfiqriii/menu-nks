@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { brands } from "./data/menu"
 
 const generateOrderId = (brandName) => {
@@ -26,9 +26,18 @@ function App() {
   const [highlightId, setHighlightId] = useState(null)
   const [loadingAdd, setLoadingAdd] = useState(false)
 
+  const [isMobile, setIsMobile] = useState(false)
+
   const [name, setName] = useState("")
   const [time, setTime] = useState("")
   const [outlet, setOutlet] = useState("")
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 500)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
 
   const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
 
@@ -101,7 +110,7 @@ function App() {
       setSelectedItem(null)
       setSelectedOptions({})
       setLoadingAdd(false)
-    }, 300) // 🔥 delay biar kerasa “hidup”
+    }, 300)
   }
 
   const increaseQty = (id, options) => {
@@ -164,9 +173,13 @@ function App() {
   const primaryColor = selectedBrand ? brandTheme[selectedBrand.name] : "#111"
 
   return (
-    <div style={{ padding: 20, maxWidth: 600, margin: "auto" }}>
+    <div style={{
+      padding: isMobile ? 12 : 20,
+      maxWidth: 600,
+      margin: "auto",
+      paddingBottom: cart.length > 0 ? 90 : 20
+    }}>
 
-      {/* TOAST */}
       {toast && (
         <div style={{
           position: "fixed",
@@ -182,7 +195,6 @@ function App() {
         </div>
       )}
 
-      {/* BRAND */}
       {!selectedBrand && (
         <>
           <h2>Pilih Brand</h2>
@@ -196,20 +208,14 @@ function App() {
                 background: brandTheme[b.name],
                 color: "#fff",
                 border: "none",
-                borderRadius: 10,
-                transition: "0.2s",
-                transform: "scale(1)"
-              }}
-              onMouseDown={e => e.currentTarget.style.transform = "scale(0.97)"}
-              onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
-            >
+                borderRadius: 10
+              }}>
               {b.name}
             </button>
           ))}
         </>
       )}
 
-      {/* MENU */}
       {selectedBrand && (
         <>
           <button onClick={() => setSelectedBrand(null)}>← Ganti Brand</button>
@@ -217,7 +223,7 @@ function App() {
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
             gap: 12
           }}>
             {selectedBrand.menu.map(item => (
@@ -226,8 +232,7 @@ function App() {
                   border: "1px solid #ddd",
                   borderRadius: 12,
                   padding: 12,
-                  background: highlightId === item.id ? "#e6fffa" : "white",
-                  transition: "0.3s"
+                  background: highlightId === item.id ? "#e6fffa" : "white"
                 }}
               >
                 <p><b>{item.name}</b></p>
@@ -237,12 +242,11 @@ function App() {
                   onClick={() => handleOpenOptions(item)}
                   style={{
                     width: "100%",
-                    padding: 8,
+                    padding: isMobile ? 12 : 8,
                     background: primaryColor,
                     color: "#fff",
                     border: "none",
-                    borderRadius: 8,
-                    opacity: loadingAdd ? 0.6 : 1
+                    borderRadius: 8
                   }}
                 >
                   {loadingAdd ? "Menambahkan..." : "Tambah"}
@@ -253,7 +257,6 @@ function App() {
         </>
       )}
 
-      {/* CART */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
@@ -296,7 +299,6 @@ function App() {
         </>
       )}
 
-      {/* STICKY */}
       {selectedBrand && cart.length > 0 && (
         <div style={{
           position: "fixed",
@@ -323,7 +325,6 @@ function App() {
         </div>
       )}
 
-      {/* MODAL */}
       {selectedItem && (
         <div style={{
           position: "fixed",
@@ -331,9 +332,15 @@ function App() {
           background: "rgba(0,0,0,0.5)",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: isMobile ? "flex-end" : "center"
         }}>
-          <div style={{ background: "white", padding: 20 }}>
+          <div style={{
+            background: "white",
+            padding: 20,
+            width: "100%",
+            maxWidth: 400,
+            borderRadius: isMobile ? "16px 16px 0 0" : 12
+          }}>
             <h3>{selectedItem.name}</h3>
             <p>Rp. {formatRupiah(calculatePrice())}</p>
 
@@ -343,7 +350,9 @@ function App() {
                 {values.map(v => (
                   <button key={v}
                     style={{
-                      opacity: selectedOptions[key] === v ? 1 : 0.5
+                      margin: 4,
+                      padding: 8,
+                      background: selectedOptions[key] === v ? primaryColor : "#eee"
                     }}
                     onClick={() =>
                       setSelectedOptions(prev => ({ ...prev, [key]: v }))
