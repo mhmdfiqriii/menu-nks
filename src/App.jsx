@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react"
 import { brands } from "./data/menu"
 
+// 🔥 IMPORT LOGO
+import kkm from "./assets/kkm.webp"
+import jjw from "./assets/jjw.webp"
+import fore from "./assets/fore.webp"
+
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
 
@@ -11,10 +16,11 @@ const generateOrderId = (brandName) => {
   return `ORD-${time}`
 }
 
-const brandTheme = {
-  "Kopi Kenangan": "#111",
-  "Janji Jiwa": "#6b3e26",
-  "Fore": "#2b6cb0"
+// 🔥 MAPPING LOGO
+const brandImages = {
+  "Kopi Kenangan": kkm,
+  "Janji Jiwa": jjw,
+  "Fore": fore
 }
 
 function App() {
@@ -170,7 +176,7 @@ function App() {
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
   }
 
-  const primaryColor = selectedBrand ? brandTheme[selectedBrand.name] : "#111"
+  const primaryColor = "#111"
 
   return (
     <div style={{
@@ -195,27 +201,61 @@ function App() {
         </div>
       )}
 
+      {/* 🔥 BRAND CARD FIX */}
       {!selectedBrand && (
         <>
           <h2>Pilih Brand</h2>
-          {brands.map(b => (
-            <button key={b.name}
-              onClick={() => handleSelectBrand(b)}
-              style={{
-                width: "100%",
-                padding: 14,
-                marginBottom: 10,
-                background: brandTheme[b.name],
-                color: "#fff",
-                border: "none",
-                borderRadius: 10
-              }}>
-              {b.name}
-            </button>
-          ))}
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
+            gap: 14
+          }}>
+            {brands.map(b => (
+              <div key={b.name}
+                onClick={() => handleSelectBrand(b)}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: 18,
+                  padding: 12,
+                  cursor: "pointer",
+                  textAlign: "center",
+                  background: "white",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+                }}
+              >
+                <div style={{
+                  width: "100%",
+                  height: isMobile ? 90 : 110,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 10
+                }}>
+                  <img
+                    src={brandImages[b.name]}
+                    alt={b.name}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain"
+                    }}
+                  />
+                </div>
+
+                <p style={{
+                  fontWeight: "600",
+                  fontSize: 14
+                }}>
+                  {b.name}
+                </p>
+              </div>
+            ))}
+          </div>
         </>
       )}
 
+      {/* sisanya LU PUNYA, ga gue sentuh */}
       {selectedBrand && (
         <>
           <button onClick={() => setSelectedBrand(null)}>← Ganti Brand</button>
@@ -257,6 +297,7 @@ function App() {
         </>
       )}
 
+      {/* sisanya ga diubah */}
       {selectedBrand && cart.length > 0 && (
         <>
           <hr />
