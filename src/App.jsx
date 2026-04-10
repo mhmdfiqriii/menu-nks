@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { brands } from "./data/menu"
 
 import kkm from "./assets/kkm.webp"
@@ -26,7 +26,7 @@ function App() {
   const [cart, setCart] = useState([])
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
-  const [toast, setToast] = useState("")
+  const [toast, setToast] = useState({ text: "", type: "success" })
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -34,12 +34,25 @@ function App() {
   const [time, setTime] = useState("")
   const [outlet, setOutlet] = useState("")
 
+  // 🔥 REF AUTO FOCUS
+  const nameRef = useRef()
+  const outletRef = useRef()
+  const timeRef = useRef()
+
+  // 🔥 ERROR STATE
+  const [errorField, setErrorField] = useState("")
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 500)
     check()
     window.addEventListener("resize", check)
     return () => window.removeEventListener("resize", check)
   }, [])
+
+  const showToast = (text, type = "success") => {
+    setToast({ text, type })
+    setTimeout(() => setToast({ text: "", type: "success" }), 1500)
+  }
 
   const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
 
@@ -100,9 +113,7 @@ function App() {
       return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
     })
 
-    setToast("✔ Ditambahkan ke keranjang")
-    setTimeout(() => setToast(""), 1500)
-
+    showToast("✔ Ditambahkan ke keranjang")
     setSelectedItem(null)
     setSelectedOptions({})
   }
@@ -138,9 +149,33 @@ function App() {
   const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
 
   const handleCheckout = () => {
-    if (cart.length === 0) return alert("Keranjang kosong")
-    if (!name.trim()) return alert("Isi nama")
-    if (!outlet.trim()) return alert("Isi outlet")
+    if (cart.length === 0) {
+      showToast("Keranjang masih kosong", "error")
+      return
+    }
+
+    if (!name.trim()) {
+      showToast("Masukkan nama pemesan", "error")
+      setErrorField("name")
+      nameRef.current.focus()
+      return
+    }
+
+    if (!outlet.trim()) {
+      showToast("Masukkan nama outlet tujuan", "error")
+      setErrorField("outlet")
+      outletRef.current.focus()
+      return
+    }
+
+    if (!time.trim()) {
+      showToast("Tentukan jam pengambilan", "error")
+      setErrorField("time")
+      timeRef.current.focus()
+      return
+    }
+
+    setErrorField("")
 
     const orderId = generateOrderId(selectedBrand?.name)
 
@@ -149,7 +184,7 @@ function App() {
     message += `Brand : ${selectedBrand?.name}\n`
     message += `Atas Nama Pesanan : ${name}\n`
     message += `Outlet : ${outlet}\n`
-    message += `Jam Pengambilan : ${time || "-"}\n\n`
+    message += `Jam Pengambilan : ${time}\n\n`
 
     message += `Pesanan :\n`
 
@@ -174,19 +209,20 @@ function App() {
       paddingBottom: cart.length > 0 ? 90 : 20
     }}>
 
-      {toast && (
+      {/* 🔥 TOAST */}
+      {toast.text && (
         <div style={{
           position: "fixed",
           top: 20,
           left: "50%",
           transform: "translateX(-50%)",
-          background: "#111",
+          background: toast.type === "error" ? "#ff4d4f" : "#111",
           color: "#fff",
           padding: "10px 16px",
           borderRadius: 10,
           fontSize: 13
         }}>
-          {toast}
+          {toast.text}
         </div>
       )}
 
@@ -206,8 +242,7 @@ function App() {
                   borderRadius: 18,
                   padding: 12,
                   textAlign: "center",
-                  cursor: "pointer",
-                  transition: "0.2s"
+                  cursor: "pointer"
                 }}>
                 <div style={{ height: 100, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <img src={brandImages[b.name]} style={{ maxHeight: "80%" }} />
@@ -225,10 +260,10 @@ function App() {
             onClick={() => setSelectedBrand(null)}
             style={{
               marginBottom: 10,
-              padding: "6px 12px",
+              padding: "8px 14px",
               borderRadius: 999,
-              border: "1px solid #ccc",
-              background: "#fff",
+              border: "none",
+              background: "#eee",
               cursor: "pointer"
             }}>
             ← Ganti Brand
@@ -340,9 +375,35 @@ function App() {
             <h3>Formulir Order</h3>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <input placeholder="Nama" value={name} onChange={e => setName(e.target.value)} style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
-              <input placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)} style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
-              <input placeholder="Jam" value={time} onChange={e => setTime(e.target.value)} style={{ padding: 12, borderRadius: 10, border: "1px solid #ccc" }} />
+              <input ref={nameRef}
+                placeholder="Nama"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                style={{
+                  padding: 12,
+                  borderRadius: 10,
+                  border: errorField === "name" ? "1px solid red" : "1px solid #ccc"
+                }} />
+
+              <input ref={outletRef}
+                placeholder="Outlet"
+                value={outlet}
+                onChange={e => setOutlet(e.target.value)}
+                style={{
+                  padding: 12,
+                  borderRadius: 10,
+                  border: errorField === "outlet" ? "1px solid red" : "1px solid #ccc"
+                }} />
+
+              <input ref={timeRef}
+                placeholder="Jam"
+                value={time}
+                onChange={e => setTime(e.target.value)}
+                style={{
+                  padding: 12,
+                  borderRadius: 10,
+                  border: errorField === "time" ? "1px solid red" : "1px solid #ccc"
+                }} />
             </div>
 
             <br />
@@ -427,8 +488,7 @@ function App() {
                   padding: 10,
                   borderRadius: 10,
                   background: "#f5f5f5",
-                  border: "none",
-                  color: "#333"
+                  border: "none"
                 }}>
                 Batal
               </button>
