@@ -239,7 +239,7 @@ function App() {
         </div>
       )}
 
-      {/* HEADER FIX */}
+      {/* HEADER */}
       <div style={{
         display: "flex",
         justifyContent: "center",
@@ -253,34 +253,28 @@ function App() {
 
       {/* MENU TYPE */}
       <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
-        <button
-          onClick={() => {
-            setMenuType("fnb")
-            resetAll()
-          }}
+        <button onClick={() => { setMenuType("fnb"); resetAll() }}
           style={{
             flex: 1,
-            padding: 10,
+            padding: 12,
             borderRadius: 999,
             border: "none",
             background: menuType === "fnb" ? "#111" : "#eee",
-            color: menuType === "fnb" ? "#fff" : "#333"
+            color: menuType === "fnb" ? "#fff" : "#333",
+            transition: "0.2s"
           }}>
           F&B
         </button>
 
-        <button
-          onClick={() => {
-            setMenuType("digital")
-            resetAll()
-          }}
+        <button onClick={() => { setMenuType("digital"); resetAll() }}
           style={{
             flex: 1,
-            padding: 10,
+            padding: 12,
             borderRadius: 999,
             border: "none",
             background: menuType === "digital" ? "#111" : "#eee",
-            color: menuType === "digital" ? "#fff" : "#333"
+            color: menuType === "digital" ? "#fff" : "#333",
+            transition: "0.2s"
           }}>
           Produk Digital
         </button>
@@ -300,20 +294,21 @@ function App() {
               <div style={{
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
-                gap: 14
+                gap: 16
               }}>
                 {brands.map(b => (
                   <div key={b.name}
                     onClick={() => handleSelectBrand(b)}
                     style={{
-                      border: "1px solid #ddd",
-                      borderRadius: 18,
-                      padding: 12,
+                      border: "1px solid #eee",
+                      borderRadius: 16,
+                      padding: 14,
                       textAlign: "center",
-                      cursor: "pointer"
+                      cursor: "pointer",
+                      transition: "0.2s"
                     }}>
-                    <div style={{ height: 100, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <img src={brandImages[b.name]} style={{ maxHeight: "80%" }} />
+                    <div style={{ height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <img src={brandImages[b.name]} style={{ maxHeight: "70%" }} />
                     </div>
                     <p style={{ fontWeight: 600 }}>{b.name}</p>
                   </div>
@@ -324,14 +319,10 @@ function App() {
 
           {selectedBrand && (
             <>
-              <button
-                onClick={() => {
-                  setSelectedBrand(null)
-                  setCart([])
-                }}
+              <button onClick={() => { setSelectedBrand(null); setCart([]) }}
                 style={{
-                  marginBottom: 10,
-                  padding: "8px 14px",
+                  marginBottom: 12,
+                  padding: "8px 16px",
                   borderRadius: 999,
                   border: "none",
                   background: "#eee"
@@ -348,21 +339,22 @@ function App() {
               }}>
                 {selectedBrand.menu.map(item => (
                   <div key={item.id} style={{
-                    border: "1px solid #ddd",
-                    borderRadius: 12,
-                    padding: 14
+                    border: "1px solid #eee",
+                    borderRadius: 14,
+                    padding: 16
                   }}>
                     <p><b>{item.name}</b></p>
-                    <p style={{ margin: "6px 0 10px" }}>Rp. {formatRupiah(item.price)}</p>
+                    <p style={{ margin: "6px 0 12px" }}>Rp. {formatRupiah(item.price)}</p>
 
                     <button onClick={() => handleOpenOptions(item)}
                       style={{
                         width: "100%",
-                        padding: 10,
+                        padding: 12,
                         background: primaryColor,
                         color: "#fff",
                         borderRadius: 10,
-                        border: "none"
+                        border: "none",
+                        transition: "0.2s"
                       }}>
                       Tambah
                     </button>
@@ -377,18 +369,18 @@ function App() {
               <hr />
               <h2>Keranjang</h2>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {cart.map(item => (
                   <div key={item.id + item.options}
                     style={{
                       border: "1px solid #eee",
-                      borderRadius: 14,
-                      padding: 14
+                      borderRadius: 12,
+                      padding: 12
                     }}>
                     <p style={{ fontWeight: 600 }}>{item.name}</p>
 
                     {item.options && (
-                      <p style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
+                      <p style={{ fontSize: 12, color: "#666" }}>
                         {item.options}
                       </p>
                     )}
@@ -397,7 +389,7 @@ function App() {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginTop: 10
+                      marginTop: 8
                     }}>
                       <div style={{
                         display: "flex",
@@ -419,23 +411,23 @@ function App() {
                 ))}
               </div>
 
-              <div style={{ marginTop: 18, padding: 12, borderTop: "1px solid #eee" }}>
+              <div style={{ marginTop: 16, paddingTop: 10, borderTop: "1px solid #eee" }}>
                 <p style={{ color: "#666" }}>Subtotal</p>
                 <h3>Rp. {formatRupiah(total)}</h3>
               </div>
 
-              <div style={{ marginTop: 18 }}>
+              <div style={{ marginTop: 16 }}>
                 <h3>Formulir Order</h3>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <input ref={nameRef} placeholder="Nama" value={name} onChange={e => setName(e.target.value)}
-                    style={{ padding: 12, borderRadius: 10, border: errorField === "name" ? "1px solid red" : "1px solid #ccc" }} />
+                    style={{ padding: 12, borderRadius: 12, border: errorField === "name" ? "1px solid red" : "1px solid #ddd" }} />
 
                   <input ref={outletRef} placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)}
-                    style={{ padding: 12, borderRadius: 10, border: errorField === "outlet" ? "1px solid red" : "1px solid #ccc" }} />
+                    style={{ padding: 12, borderRadius: 12, border: errorField === "outlet" ? "1px solid red" : "1px solid #ddd" }} />
 
                   <input ref={timeRef} placeholder="Jam" value={time} onChange={e => setTime(e.target.value)}
-                    style={{ padding: 12, borderRadius: 10, border: errorField === "time" ? "1px solid red" : "1px solid #ccc" }} />
+                    style={{ padding: 12, borderRadius: 12, border: errorField === "time" ? "1px solid red" : "1px solid #ddd" }} />
                 </div>
 
                 <br />
