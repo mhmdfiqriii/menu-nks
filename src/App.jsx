@@ -4,6 +4,7 @@ import { brands } from "./data/menu"
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
+import logo from "./assets/nks_logo.png"
 
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
@@ -22,7 +23,7 @@ const brandImages = {
 }
 
 function App() {
-  const [menuType, setMenuType] = useState("fnb") // 🔥 NEW
+  const [menuType, setMenuType] = useState("fnb")
   const [selectedBrand, setSelectedBrand] = useState(null)
   const [cart, setCart] = useState([])
   const [selectedItem, setSelectedItem] = useState(null)
@@ -38,6 +39,7 @@ function App() {
   const nameRef = useRef()
   const outletRef = useRef()
   const timeRef = useRef()
+  const menuRef = useRef()
 
   const [errorField, setErrorField] = useState("")
 
@@ -55,9 +57,22 @@ function App() {
 
   const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
 
+  const resetAll = () => {
+    setSelectedBrand(null)
+    setCart([])
+    setName("")
+    setOutlet("")
+    setTime("")
+    setErrorField("")
+  }
+
   const handleSelectBrand = (brand) => {
     setSelectedBrand(brand)
     setCart([])
+
+    setTimeout(() => {
+      menuRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, 100)
   }
 
   const handleOpenOptions = (item) => {
@@ -208,7 +223,6 @@ function App() {
       paddingBottom: cart.length > 0 ? 90 : 20
     }}>
 
-      {/* TOAST */}
       {toast.text && (
         <div style={{
           position: "fixed",
@@ -225,16 +239,25 @@ function App() {
         </div>
       )}
 
-      {/* HEADER */}
-      <div style={{ marginBottom: 20 }}>
-        <h2 style={{ marginBottom: 6 }}>NKS Store</h2>
-        <p style={{ fontSize: 12, color: "#666" }}>Order cepat tanpa ribet</p>
+      {/* HEADER FIX */}
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+        marginBottom: 20
+      }}>
+        <img src={logo} style={{ height: 28 }} />
+        <h2 style={{ margin: 0 }}>NKS STORE</h2>
       </div>
 
       {/* MENU TYPE */}
       <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
         <button
-          onClick={() => setMenuType("fnb")}
+          onClick={() => {
+            setMenuType("fnb")
+            resetAll()
+          }}
           style={{
             flex: 1,
             padding: 10,
@@ -247,7 +270,10 @@ function App() {
         </button>
 
         <button
-          onClick={() => setMenuType("digital")}
+          onClick={() => {
+            setMenuType("digital")
+            resetAll()
+          }}
           style={{
             flex: 1,
             padding: 10,
@@ -260,14 +286,12 @@ function App() {
         </button>
       </div>
 
-      {/* DIGITAL PAGE */}
       {menuType === "digital" && (
         <div style={{ textAlign: "center", padding: 40 }}>
           <p style={{ color: "#666" }}>Produk digital segera hadir</p>
         </div>
       )}
 
-      {/* FNB FULL SYSTEM */}
       {menuType === "fnb" && (
         <>
           {!selectedBrand && (
@@ -301,7 +325,10 @@ function App() {
           {selectedBrand && (
             <>
               <button
-                onClick={() => setSelectedBrand(null)}
+                onClick={() => {
+                  setSelectedBrand(null)
+                  setCart([])
+                }}
                 style={{
                   marginBottom: 10,
                   padding: "8px 14px",
@@ -312,7 +339,7 @@ function App() {
                 ← Ganti Brand
               </button>
 
-              <h1 style={{ marginBottom: 16 }}>{selectedBrand.name}</h1>
+              <h1 ref={menuRef} style={{ marginBottom: 16 }}>{selectedBrand.name}</h1>
 
               <div style={{
                 display: "grid",
@@ -487,7 +514,6 @@ function App() {
           )}
         </>
       )}
-
     </div>
   )
 }
