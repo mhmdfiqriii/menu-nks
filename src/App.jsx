@@ -1,3 +1,10 @@
+import "./index.css"
+import "@fontsource/poppins/400.css"
+import "@fontsource/poppins/500.css"
+import "@fontsource/poppins/600.css"
+import "@fontsource/poppins/700.css"
+import "@fontsource/poppins/800.css"
+import "@fontsource/poppins/900.css"
 import { useState, useEffect, useRef } from "react"
 import { brands } from "./data/menu"
 
@@ -248,7 +255,7 @@ function App() {
         marginBottom: 20
       }}>
         <img src={logo} style={{ height: 28 }} />
-        <h2 style={{ margin: 0 }}>NKS STORE</h2>
+        <h2 style={{ margin: 0, fontWeight: 600 }}>NKS</h2>
       </div>
 
       {/* MENU TYPE */}
@@ -261,7 +268,8 @@ function App() {
             border: "none",
             background: menuType === "fnb" ? "#111" : "#eee",
             color: menuType === "fnb" ? "#fff" : "#333",
-            transition: "0.2s"
+            transition: "0.2s",
+            fontWeight: 500
           }}>
           F&B
         </button>
@@ -274,7 +282,8 @@ function App() {
             border: "none",
             background: menuType === "digital" ? "#111" : "#eee",
             color: menuType === "digital" ? "#fff" : "#333",
-            transition: "0.2s"
+            transition: "0.2s",
+            fontWeight: 500
           }}>
           Produk Digital
         </button>
@@ -290,7 +299,7 @@ function App() {
         <>
           {!selectedBrand && (
             <>
-              <h2>Pilih Brand</h2>
+              <h2 style={{ fontWeight: 500 }}>Pilih Brand</h2>
               <div style={{
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
@@ -325,12 +334,13 @@ function App() {
                   padding: "8px 16px",
                   borderRadius: 999,
                   border: "none",
-                  background: "#eee"
+                  background: "#eee",
+                  fontWeight: 500
                 }}>
                 ← Ganti Brand
               </button>
 
-              <h1 ref={menuRef} style={{ marginBottom: 16 }}>{selectedBrand.name}</h1>
+              <h1 ref={menuRef} style={{ marginBottom: 16, fontWeight: 600 }}>{selectedBrand.name}</h1>
 
               <div style={{
                 display: "grid",
@@ -343,8 +353,8 @@ function App() {
                     borderRadius: 14,
                     padding: 16
                   }}>
-                    <p><b>{item.name}</b></p>
-                    <p style={{ margin: "6px 0 12px" }}>Rp. {formatRupiah(item.price)}</p>
+                    <p style={{ fontWeight: 600 }}>{item.name}</p>
+                    <p style={{ margin: "6px 0 12px", fontWeight: 400 }}>Rp. {formatRupiah(item.price)}</p>
 
                     <button onClick={() => handleOpenOptions(item)}
                       style={{
@@ -354,7 +364,8 @@ function App() {
                         color: "#fff",
                         borderRadius: 10,
                         border: "none",
-                        transition: "0.2s"
+                        transition: "0.2s",
+                        fontWeight: 500
                       }}>
                       Tambah
                     </button>
@@ -367,7 +378,7 @@ function App() {
           {selectedBrand && cart.length > 0 && (
             <>
               <hr />
-              <h2>Keranjang</h2>
+              <h2 style={{ fontWeight: 500 }}>Keranjang</h2>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {cart.map(item => (
@@ -377,10 +388,10 @@ function App() {
                       borderRadius: 12,
                       padding: 12
                     }}>
-                    <p style={{ fontWeight: 600 }}>{item.name}</p>
+                    <p style={{ fontWeight: 500 }}>{item.name}</p>
 
                     {item.options && (
-                      <p style={{ fontSize: 12, color: "#666" }}>
+                      <p style={{ fontSize: 12, color: "#666", fontWeight: 500 }}>
                         {item.options}
                       </p>
                     )}
@@ -403,7 +414,7 @@ function App() {
                       </div>
 
                       <button onClick={() => removeItem(item.id, item.options)}
-                        style={{ border: "none", background: "transparent", color: "red", fontSize: 12 }}>
+                        style={{ border: "none", background: "transparent", color: "red", fontSize: 12, fontWeight: 500 }}>
                         Hapus
                       </button>
                     </div>
@@ -417,7 +428,7 @@ function App() {
               </div>
 
               <div style={{ marginTop: 16 }}>
-                <h3>Formulir Order</h3>
+                <h3 style= {{ fontWeight: 500 }}>Formulir Order</h3>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <input ref={nameRef} placeholder="Nama" value={name} onChange={e => setName(e.target.value)}
@@ -492,12 +503,12 @@ function App() {
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}
-                    style={{ padding: 12, borderRadius: 10, background: "#111", color: "#fff", border: "none" }}>
+                    style={{ padding: 12, borderRadius: 10, background: "#111", color: "#fff", border: "none", fontWeight: 500 }}>
                     Tambah ke Keranjang
                   </button>
 
                   <button onClick={() => setSelectedItem(null)}
-                    style={{ padding: 10, borderRadius: 10, background: "#f5f5f5", border: "none" }}>
+                    style={{ padding: 10, borderRadius: 10, background: "#f5f5f5", border: "none", fontWeight: 500 }}>
                     Batal
                   </button>
                 </div>
