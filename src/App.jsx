@@ -431,15 +431,68 @@ function App() {
                 <h3 style= {{ fontWeight: 500 }}>Formulir Order</h3>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  <input ref={nameRef} placeholder="Nama" value={name} onChange={e => setName(e.target.value)}
-                    style={{ padding: 12, borderRadius: 12, border: errorField === "name" ? "1px solid red" : "1px solid #ddd" }} />
+  
+  <div>
+    <input
+      ref={nameRef}
+      placeholder="Nama pemesan"
+      value={name}
+      onChange={e => setName(e.target.value)}
+      style={{
+        width: "100%",
+        padding: 12,
+        borderRadius: 12,
+        border: errorField === "name" ? "1px solid red" : "1px solid #ddd"
+      }}
+    />
+    {errorField === "name" && (
+      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+        Nama wajib diisi
+      </p>
+    )}
+  </div>
 
-                  <input ref={outletRef} placeholder="Outlet" value={outlet} onChange={e => setOutlet(e.target.value)}
-                    style={{ padding: 12, borderRadius: 12, border: errorField === "outlet" ? "1px solid red" : "1px solid #ddd" }} />
+  <div>
+    <input
+      ref={outletRef}
+      placeholder="Contoh: Ruko Margonda"
+      value={outlet}
+      onChange={e => setOutlet(e.target.value)}
+      style={{
+        width: "100%",
+        padding: 12,
+        borderRadius: 12,
+        border: errorField === "outlet" ? "1px solid red" : "1px solid #ddd"
+      }}
+    />
+    {errorField === "outlet" && (
+      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+        Outlet wajib diisi
+      </p>
+    )}
+  </div>
 
-                  <input ref={timeRef} placeholder="Jam" value={time} onChange={e => setTime(e.target.value)}
-                    style={{ padding: 12, borderRadius: 12, border: errorField === "time" ? "1px solid red" : "1px solid #ddd" }} />
-                </div>
+  <div>
+    <input
+  ref={timeRef}
+  placeholder="Contoh: Sekarang atau Jam 07.30"
+  value={time}
+  onChange={e => setTime(e.target.value)}
+  style={{
+    width: "100%",
+    padding: 12,
+    borderRadius: 12,
+    border: errorField === "time" ? "1px solid red" : "1px solid #ddd"
+  }}
+/>
+    {errorField === "time" && (
+      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+        Jam pengambilan wajib diisi
+      </p>
+    )}
+  </div>
+
+</div>
 
                 <br />
 

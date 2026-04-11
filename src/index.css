@@ -1,37 +1,258 @@
-body, button, input, textarea {
-    font-family: 'Poppins', sans-serif;
+body, button, input, textarea {  
+  font-family: 'Poppins', sans-serif;  
+}  
+  
+body {  
+  font-family: "Poppins", sans-serif;  
+  line-height: 1.5;  
+  letter-spacing: 0.2px;  
+  color: #222;  
+  margin: 0;  
+  background: #fafafa;  
+}  
+  
+/* reset */  
+* {  
+  box-sizing: border-box;  
+}  
+  
+/* TITLE */  
+h1, h2, h3 {  
+  font-weight: 600;  
+  letter-spacing: 0.2px;  
+}  
+  
+/* BODY TEXT */  
+p, span, input, button {  
+  font-weight: 400;  
+}  
+  
+/* BUTTON BASE */  
+button {  
+  font-family: "Poppins", sans-serif;  
+  cursor: pointer;  
+  transition: all 0.15s ease;  
+}  
+  
+button:hover {  
+  transform: scale(0.97);  
+  opacity: 0.9;  
+}  
+  
+button:active {  
+  transform: scale(0.93);  
+}  
+  
+/* CARD */  
+.card {  
+  border: 1px solid #eee;  
+  border-radius: 16px;  
+  padding: 16px;  
+  background: #fff;  
+  transition: all 0.2s ease;  
+}  
+  
+.card:hover {  
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);  
+}  
+  
+/* GRID GAP FIX */  
+.grid {  
+  display: grid;  
+  gap: 16px;  
+}  
+  
+/* INPUT */  
+input {  
+  font-family: "Poppins", sans-serif;  
+  outline: none;  
+  transition: 0.15s;  
+}  
+  
+input:focus {  
+  border: 1px solid #111 !important;  
+}  
+  
+/* TOAST */  
+.toast {  
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);  
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-  line-height: 1.5;
-  letter-spacing: 0.2px;
-  color: #222;
-  margin: 0;
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 16px;
 }
 
-/* reset dikit biar konsisten */
-* {
-  box-sizing: border-box;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-/* TITLE */
-h1, h2, h3 {
-  font-weight: 600;
-  letter-spacing: 0.2px;
+.header img {
+  height: 28px;
 }
 
-/* BODY TEXT */
-p, span, input, button {
-  font-weight: 400;
+.menu-switch {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-/* BUTTON biar ga beda sendiri */
-button {
-  font-family: "Poppins", sans-serif;
+.menu-switch button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+  background: #eee;
 }
 
-/* INPUT juga */
-input {
-  font-family: "Poppins", sans-serif;
+.menu-switch .active {
+  background: #111;
+  color: #fff;
+}
+
+.grid.one { grid-template-columns: 1fr; display:grid; }
+.grid.two { grid-template-columns: 1fr 1fr; display:grid; }
+.grid.three { grid-template-columns: 1fr 1fr 1fr; display:grid; }
+
+.brand-img {
+  height: 90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.brand-img img {
+  max-height: 70%;
+}
+
+.title { font-weight:600; }
+.price { margin:6px 0 12px; }
+
+.btn-primary {
+  width:100%;
+  padding:12px;
+  background:#111;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+}
+
+.btn-secondary {
+  padding:8px 16px;
+  border:none;
+  border-radius:999px;
+  background:#eee;
+}
+
+.list { display:flex; flex-direction:column; gap:12px; }
+
+.row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:8px;
+}
+
+.qty {
+  display:flex;
+  border:1px solid #ddd;
+  border-radius:999px;
+}
+
+.qty button {
+  border:none;
+  background:transparent;
+  padding:6px 10px;
+}
+
+.danger {
+  color:red;
+  background:none;
+  border:none;
+}
+
+.subtotal {
+  margin-top:16px;
+  padding-top:10px;
+  border-top:1px solid #eee;
+}
+
+.form {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.full { width:100%; margin-top:12px; }
+
+.toast {
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:10px;
+}
+
+.toast.error {
+  background:#ff4d4f;
+}
+
+.empty {
+  text-align:center;
+  padding:40px;
+  color:#666;
+}
+
+.qty {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.qty span {
+  min-width:20px;
+  text-align:center;
+}
+
+/* MODAL FIX */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-box {
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  width:90%;
+  max-width:400px;
+}
+
+.option {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.option button {
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid #ccc;
+}
+
+.option .active {
+  background:#111;
+  color:#fff;
 }
