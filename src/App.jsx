@@ -24,6 +24,14 @@ const generateOrderId = (brandName) => {
 
   return `ORD-${time}`
 }
+const generateDigitalId = (type) => {
+  const time = Date.now().toString().slice(-6)
+
+  if (type === "imei") return `IMEI-${time}`
+  if (type === "internet") return `AKRAB-${time}`
+
+  return `DIG-${time}`
+}
 
 const brandImages = {
   "Kopi Kenangan": kkm,
@@ -42,7 +50,9 @@ function App() {
   const [selectedDigital, setSelectedDigital] = useState(null)
   const [selectedVariant, setSelectedVariant] = useState(null)
   const [inputValue, setInputValue] = useState("")
-    const [agree, setAgree] = useState(false)
+  const [agree, setAgree] = useState(false)
+
+  const [loading, setLoading] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -227,36 +237,33 @@ function App() {
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
   }
 
-  const generateDigitalId = (type) => {
-  const time = Date.now().toString().slice(-6)
-
-  if (type === "imei") return `IMEI-${time}`
-  if (type === "internet") return `AKRAB-${time}`
-
-  return `DIG-${time}`
-}
-
   const handleCheckoutDigital = () => {
   if (!selectedVariant) return
 
-  const orderId = generateDigitalId(selectedDigital.type)
+  setLoading(true)
 
-  let message = `*FORM ORDER NKS DIGITAL*\n\n`
-  message += `No. Pesanan : ${orderId}\n`
-  message += `Produk : ${selectedDigital.name}\n`
-  message += `Varian : ${selectedVariant.name}\n`
+  setTimeout(() => {
+    const orderId = generateDigitalId(selectedDigital.type)
 
-  if (selectedDigital.type === "internet") {
-    message += `No. HP : ${inputValue}\n`
-  }
+    let message = `*FORM ORDER NKS DIGITAL*\n\n`
+    message += `No. Pesanan : ${orderId}\n`
+    message += `Produk : ${selectedDigital.name}\n`
+    message += `Varian : ${selectedVariant.name}\n`
 
-  if (selectedDigital.type === "imei") {
-    message += `IMEI : (kirim dalam bentuk foto)\n`
-  }
+    if (selectedDigital.type === "internet") {
+      message += `No. HP : ${inputValue}\n`
+    }
 
-  message += `\nTotal : Rp. ${formatRupiah(selectedVariant.price)}`
+    if (selectedDigital.type === "imei") {
+      message += `IMEI : (kirim dalam bentuk foto)\n`
+    }
 
-  window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+    message += `\nTotal : Rp. ${formatRupiah(selectedVariant.price)}`
+
+    window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+
+    setLoading(false)
+  }, 600) // <-- ini kunci
 }
 
   const primaryColor = "#111"
@@ -455,23 +462,24 @@ function App() {
 
         {/* CHECKOUT */}
         <button
-          disabled={
-            !selectedVariant ||
-            (selectedDigital.type === "internet" && (!inputValue || !agree))
-          }
-          onClick={handleCheckoutDigital}
-          style={{
-            marginTop: 16,
-            padding: 14,
-            width: "100%",
-            borderRadius: 12,
-            background: "#111",
-            color: "#fff",
-            border: "none"
-          }}
-        >
-          Checkout
-        </button>
+  disabled={
+    loading ||
+    !selectedVariant ||
+    (selectedDigital.type === "internet" && (!inputValue || !agree))
+  }
+  onClick={handleCheckoutDigital}
+  style={{
+    marginTop: 16,
+    padding: 14,
+    width: "100%",
+    borderRadius: 12,
+    background: loading ? "#999" : "#111",
+    color: "#fff",
+    border: "none"
+  }}
+>
+  {loading ? "Memproses..." : "Checkout"}
+</button>
       </>
     )}
   </>
