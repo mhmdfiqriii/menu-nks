@@ -270,7 +270,7 @@ if (time.length < 3) {
       message += `Paket : ${selectedVariant.name}\n`
       message += `No. HP : ${inputValue}\n\n`
 
-      message += `*Total       : Rp ${formatRupiah(selectedVariant.price)}*`
+      message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
     }
 
     if (selectedDigital.type === "imei") {
@@ -279,7 +279,7 @@ if (time.length < 3) {
       message += `Produk : Unblock IMEI\n`
       message += `Durasi : ${selectedVariant.name}\n\n`
 
-      message += `*Total       : Rp ${formatRupiah(selectedVariant.price)}*`
+      message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
     }
 
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
@@ -445,7 +445,8 @@ if (time.length < 3) {
           <>
             <p style={{ fontSize: 12, color: "#666", marginTop: 12 }}>
               ⚠️ Kuota tergantung area masing-masing.   
-              Silakan cek area kamu terlebih dahulu untuk mengetahui estimasi kuota yang didapat. <br />
+              Silakan cek area kamu terlebih dahulu untuk mengetahui estimasi kuota yang didapat.
+              Pastikan juga nomor kamu aktif. <br />
               <a
                 href="https://raw.githack.com/vieralola/Cekareaviera.html/main/Cekareaviera.html"
                 target="_blank"
@@ -454,33 +455,35 @@ if (time.length < 3) {
               </a>
             </p>
 
-            <input
-              placeholder="Nomor HP"
-              value={inputValue}
-              onChange={e => {
-  let val = e.target.value
+           <input
+  placeholder="Nomor HP"
+  value={inputValue}
+  onChange={e => {
+    let val = e.target.value
 
-  // ambil angka doang
-  val = val.replace(/\D/g, "")
+    // ambil angka doang
+    val = val.replace(/\D/g, "")
 
-  setInputValue(val)
-}}
-              style={{
-                padding: 12,
-                borderRadius: 10,
-                border: "1px solid #ddd",
-                marginTop: 10,
-                width: "100%"
-              }}
-            />
+    setInputValue(val)
+    setErrorField("") // reset error kalau user mulai ngetik
+  }}
+  style={{
+    padding: 12,
+    borderRadius: 10,
+    border: errorField === "phone" ? "1px solid red" : "1px solid #ddd",
+    marginTop: 10,
+    width: "100%"
+  }}
+/>
 
-            <label style={{ fontSize: 12, display: "block", marginTop: 10 }}>
-              <input
-                type="checkbox"
-                onChange={e => setAgree(e.target.checked)}
-              />
-              Saya sudah cek area
-            </label>
+<label style={{ fontSize: 12, display: "block", marginTop: 10 }}>
+  <input
+    type="checkbox"
+    checked={agree}
+    onChange={e => setAgree(e.target.checked)}
+  />
+  Saya sudah cek area
+</label>
           </>
         )}
 
