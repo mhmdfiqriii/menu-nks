@@ -297,10 +297,10 @@ if (time.length < 3) {
 
   return (
     <div style={{
-      padding: isMobile ? 12 : 20,
+      padding: isMobile ? 14 : 20,
       maxWidth: 600,
       margin: "auto",
-      paddingBottom: cart.length > 0 ? 90 : 20
+      paddingBottom: cart.length > 0 ? 100 : 30
     }}>
 
       {toast.text && (
@@ -336,7 +336,8 @@ if (time.length < 3) {
         <button onClick={() => { setMenuType("fnb"); resetAll() }}
           style={{
             flex: 1,
-            padding: 12,
+            padding: 13,
+            fontSize: 13,
             borderRadius: 999,
             border: "none",
             background: menuType === "fnb" ? "#111" : "#eee",
@@ -350,7 +351,8 @@ if (time.length < 3) {
         <button onClick={() => { setMenuType("digital"); resetAll() }}
           style={{
             flex: 1,
-            padding: 12,
+            padding: 13,
+            fontSize: 13,
             borderRadius: 999,
             border: "none",
             background: menuType === "digital" ? "#111" : "#eee",
@@ -404,7 +406,8 @@ if (time.length < 3) {
       ← Kembali
     </button>
 
-    <h2>{selectedDigital.name}</h2>
+    <h2 style={{ marginBottom: 10 }}>
+      {selectedDigital.name}</h2>
 
     {/* GAMBAR INTERNET */}
     {selectedDigital.type === "internet" && (
@@ -412,9 +415,9 @@ if (time.length < 3) {
     src={listKouta}
     style={{
       width: "100%",
-      borderRadius: 12,
-      marginTop: 12,
-      marginBottom: 12
+      borderRadius: 14,
+      marginTop: 10,
+      marginBottom: 10
     }}
   />
 )}
@@ -426,7 +429,8 @@ if (time.length < 3) {
           key={v.name}
           onClick={() => setSelectedVariant(v)}
           style={{
-            padding: 12,
+            padding: 13,
+            fontSize: 13,
             borderRadius: 10,
             border: "1px solid #ddd",
             background: selectedVariant?.name === v.name ? "#111" : "#fff",
@@ -476,7 +480,13 @@ if (time.length < 3) {
   }}
 />
 
-<label style={{ fontSize: 12, display: "block", marginTop: 10 }}>
+<label style={{ 
+  fontSize: 12, 
+  display: "flex", 
+  alignItems: "center",
+  gap: 6,
+  marginTop: 10 
+  }}>
   <input
     type="checkbox"
     checked={agree}
@@ -510,9 +520,10 @@ if (time.length < 3) {
     padding: 14,
     width: "100%",
     borderRadius: 12,
-    background: loading ? "#999" : "#111",
+    background: loading ? "#888" : "#111",
     color: "#fff",
-    border: "none"
+    border: "none",
+    fontWeight: 600
   }}
 >
   {loading ? "Memproses..." : "Checkout"}
@@ -526,7 +537,7 @@ if (time.length < 3) {
         <>
           {!selectedBrand && (
             <>
-              <h2 style={{ fontWeight: 500 }}>Pilih Brand</h2>
+              <h2>Pilih Brand</h2>
               <div style={{
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
@@ -586,7 +597,8 @@ if (time.length < 3) {
                     <button onClick={() => handleOpenOptions(item)}
                       style={{
                         width: "100%",
-                        padding: 12,
+                        padding: 13,
+                        fontSize: 13,
                         background: primaryColor,
                         color: "#fff",
                         borderRadius: 10,
@@ -789,12 +801,12 @@ if (time.length < 3) {
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <button disabled={!isOptionsComplete()} onClick={handleConfirmAdd}
-                    style={{ padding: 12, borderRadius: 10, background: "#111", color: "#fff", border: "none", fontWeight: 500 }}>
+                    style={{ padding: 13, fontSize: 13, borderRadius: 10, background: "#111", color: "#fff", border: "none", fontWeight: 500 }}>
                     Tambah ke Keranjang
                   </button>
 
                   <button onClick={() => setSelectedItem(null)}
-                    style={{ padding: 10, borderRadius: 10, background: "#f5f5f5", border: "none", fontWeight: 500 }}>
+                    style={{ padding: 13, fontSize: 13, borderRadius: 10, background: "#f5f5f5", border: "none", fontWeight: 500 }}>
                     Batal
                   </button>
                 </div>
