@@ -193,25 +193,35 @@ function App() {
     }
 
     if (!name.trim()) {
-      showToast("Masukkan nama pemesan", "error")
-      setErrorField("name")
-      nameRef.current.focus()
-      return
-    }
+  setErrorField("name")
+  showToast("Nama belum diisi", "error")
+  nameRef.current.focus()
+  return
+}
+
+if (name.length < 2) {
+  showToast("Nama terlalu pendek", "error")
+  return
+}
 
     if (!outlet.trim()) {
-      showToast("Masukkan nama outlet tujuan", "error")
-      setErrorField("outlet")
-      outletRef.current.focus()
-      return
-    }
+  setErrorField("outlet")
+  showToast("Outlet belum diisi", "error")
+  outletRef.current.focus()
+  return
+}
 
     if (!time.trim()) {
-      showToast("Tentukan jam pengambilan", "error")
-      setErrorField("time")
-      timeRef.current.focus()
-      return
-    }
+  setErrorField("time")
+  showToast("Jam belum diisi", "error")
+  timeRef.current.focus()
+  return
+}
+
+if (time.length < 3) {
+  showToast("Format jam aneh", "error")
+  return
+}
 
     setErrorField("")
 
@@ -238,6 +248,19 @@ function App() {
   }
 
   const handleCheckoutDigital = () => {
+    // VALIDASI INTERNET
+if (selectedDigital.type === "internet") {
+  if (!inputValue.match(/^08[0-9]{8,12}$/)) {
+    showToast("Nomor HP tidak valid", "error")
+    return
+  }
+
+  if (!agree) {
+    showToast("Cek area dulu", "error")
+    return
+  }
+}
+
   if (!selectedVariant) return
 
   setLoading(true)
