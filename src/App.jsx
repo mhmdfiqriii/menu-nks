@@ -14,6 +14,8 @@ import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
 import logo from "./assets/nks_logo.png"
 import listKouta from "./assets/list_kouta.png"
+import imeiIcon from "./assets/imei_icon.png"
+import koutaIcon from "./assets/kouta_icon.png"
 
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
@@ -37,6 +39,11 @@ const brandImages = {
   "Kopi Kenangan": kkm,
   "Janji Jiwa": jjw,
   "Fore": fore
+}
+
+const digitalImages = {
+  imei: imeiIcon,
+  kouta: koutaIcon
 }
 
 function App() {
@@ -368,19 +375,30 @@ if (time.length < 3) {
   <>
     <h2>Pilih Produk</h2>
 
-    <div style={{ display: "grid", gap: 16 }}>
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
+      gap: 16
+    }}>
       {digitalProducts.map(p => (
-        <div key={p.id}
-          onClick={() => setSelectedDigital(p)}
-          style={{
-            border: "1px solid #eee",
-            borderRadius: 16,
-            padding: 16,
-            cursor: "pointer"
-          }}>
-          <p style={{ fontWeight: 600 }}>{p.name}</p>
-        </div>
-      ))}
+  <div key={p.id}
+    onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}  
+    onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+    onClick={() => setSelectedDigital(p)}
+    style={{
+      border: "1px solid #eee",
+      borderRadius: 16,
+      padding: 14,
+      textAlign: "center",
+      cursor: "pointer",
+      transition: "0.2s"
+    }}>
+    <div style={{ height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img src={digitalImages[p.image]} style={{ maxHeight: "70%"}} />
+    </div>
+    <p style={{ fontWeight: 600 }}> {p.name} </p>
+  </div>
+))}
     </div>
   </>
 )}
@@ -545,6 +563,8 @@ if (time.length < 3) {
               }}>
                 {brands.map(b => (
                   <div key={b.name}
+                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}  
+                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
                     onClick={() => handleSelectBrand(b)}
                     style={{
                       border: "1px solid #eee",
@@ -555,7 +575,7 @@ if (time.length < 3) {
                       transition: "0.2s"
                     }}>
                     <div style={{ height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <img src={brandImages[b.name]} style={{ maxHeight: "70%" }} />
+                    <img src={brandImages[b.name]} style={{ maxHeight: "70%" }} />
                     </div>
                     <p style={{ fontWeight: 600 }}>{b.name}</p>
                   </div>

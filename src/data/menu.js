@@ -69,6 +69,7 @@ export const digitalProducts = [
     id: "imei",
     name: "Unblock IMEI",
     type: "imei",
+    image: "imei",
     variants: [
       { name: "1 Bulan", price: 75000 },
       { name: "3 Bulan", price: 95000 }
@@ -78,6 +79,7 @@ export const digitalProducts = [
     id: "internet",
     name: "Paket Akrab XL/Axis",
     type: "internet",
+    image: "kouta",
     variants: [
       { name: "XDA / Super Mini", price: 50000 },
       { name: "XDA25 / Extra Mini", price: 56000 },
