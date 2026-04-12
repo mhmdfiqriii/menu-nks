@@ -453,7 +453,14 @@ if (selectedDigital.type === "internet") {
             <input
               placeholder="Nomor HP"
               value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
+              onChange={e => {
+  let val = e.target.value
+
+  // ambil angka doang
+  val = val.replace(/\D/g, "")
+
+  setInputValue(val)
+}}
               style={{
                 padding: 12,
                 borderRadius: 10,
@@ -650,7 +657,17 @@ if (selectedDigital.type === "internet") {
       ref={nameRef}
       placeholder="Nama pemesan"
       value={name}
-      onChange={e => setName(e.target.value)}
+      onChange={e => {
+  let val = e.target.value
+
+  // hapus spasi berlebih
+  val = val.replace(/\s+/g, " ").trimStart()
+
+  // kapital tiap kata
+  val = val.replace(/\b\w/g, c => c.toUpperCase())
+
+  setName(val)
+}}
       style={{
         width: "100%",
         padding: 12,
@@ -670,7 +687,11 @@ if (selectedDigital.type === "internet") {
       ref={outletRef}
       placeholder="Contoh: Ruko Margonda"
       value={outlet}
-      onChange={e => setOutlet(e.target.value)}
+      onChange={e => {
+  let val = e.target.value
+  val = val.replace(/\s+/g, " ").trimStart()
+  setOutlet(val)
+}}
       style={{
         width: "100%",
         padding: 12,
@@ -690,7 +711,11 @@ if (selectedDigital.type === "internet") {
   ref={timeRef}
   placeholder="Contoh: Sekarang atau Jam 07.30"
   value={time}
-  onChange={e => setTime(e.target.value)}
+ onChange={e => {
+  let val = e.target.value
+  val = val.replace(/\s+/g, " ").trimStart()
+  setTime(val)
+}}
   style={{
     width: "100%",
     padding: 12,
