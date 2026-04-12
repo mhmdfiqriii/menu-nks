@@ -79,14 +79,14 @@ export const digitalProducts = [
     name: "Paket Akrab XL/Axis",
     type: "internet",
     variants: [
-      { name: "Super Mini", price: 50000 },
-      { name: "Extra Mini", price: 56000 },
-      { name: "Mini", price: 62000 },
-      { name: "Big", price: 68000 },
-      { name: "JV2", price: 75000 },
-      { name: "SB", price: 85000 },
-      { name: "SJ", price: 93000 },
-      { name: "Mega Big", price: 105000 },
+      { name: "XDA / Super Mini", price: 50000 },
+      { name: "XDA25 / Extra Mini", price: 56000 },
+      { name: "XDA31 / Mini", price: 62000 },
+      { name: "XDA38 / Big", price: 68000 },
+      { name: "XDA50 / Jumbo V2", price: 75000 },
+      { name: "XDA63 / Super Big", price: 85000 },
+      { name: "XDA76 / Super Jumbo", price: 93000 },
+      { name: "XDA88 / Mega Big", price: 105000 },
     ]
   }
 ]

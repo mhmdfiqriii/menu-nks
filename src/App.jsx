@@ -12,7 +12,8 @@ import { digitalProducts } from "./data/menu"
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
-import logo from "./assets/nks_logo.png"
+  import logo from "./assets/nks_logo.png"
+  import listKouta from "./assets/list_kouta.png"
 
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
@@ -226,6 +227,38 @@ function App() {
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
   }
 
+  const generateDigitalId = (type) => {
+  const time = Date.now().toString().slice(-6)
+
+  if (type === "imei") return `IMEI-${time}`
+  if (type === "internet") return `AKRAB-${time}`
+
+  return `DIG-${time}`
+}
+
+  const handleCheckoutDigital = () => {
+  if (!selectedVariant) return
+
+  const orderId = generateDigitalId(selectedDigital.type)
+
+  let message = `*FORM ORDER NKS DIGITAL*\n\n`
+  message += `No. Pesanan : ${orderId}\n`
+  message += `Produk : ${selectedDigital.name}\n`
+  message += `Varian : ${selectedVariant.name}\n`
+
+  if (selectedDigital.type === "internet") {
+    message += `No. HP : ${inputValue}\n`
+  }
+
+  if (selectedDigital.type === "imei") {
+    message += `IMEI : (kirim dalam bentuk foto)\n`
+  }
+
+  message += `\nTotal : Rp. ${formatRupiah(selectedVariant.price)}`
+
+  window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+}
+
   const primaryColor = "#111"
 
   return (
@@ -318,21 +351,45 @@ function App() {
 
 {menuType === "digital" && selectedDigital && (
   <>
-    <button onClick={() => {
-      setSelectedDigital(null)
-      setSelectedVariant(null)
-      setInputValue("")
-      setAgree(false)
-    }}>
+    <button
+      onClick={() => {
+        setSelectedDigital(null)
+        setSelectedVariant(null)
+        setInputValue("")
+        setAgree(false)
+      }}
+      style={{
+        marginBottom: 12,
+        padding: "8px 14px",
+        borderRadius: 999,
+        border: "1px solid #ddd",
+        background: "#fff",
+        fontSize: 13
+      }}
+    >
       ← Kembali
     </button>
 
     <h2>{selectedDigital.name}</h2>
 
+    {/* GAMBAR INTERNET */}
+    {selectedDigital.type === "internet" && (
+    <img 
+    src={listKouta}
+    style={{
+      width: "100%",
+      borderRadius: 12,
+      marginTop: 12,
+      marginBottom: 12
+    }}
+  />
+)}
+
     {/* VARIANT */}
     <div style={{ display: "grid", gap: 10 }}>
       {selectedDigital.variants.map(v => (
-        <button key={v.name}
+        <button
+          key={v.name}
           onClick={() => setSelectedVariant(v)}
           style={{
             padding: 12,
@@ -340,7 +397,8 @@ function App() {
             border: "1px solid #ddd",
             background: selectedVariant?.name === v.name ? "#111" : "#fff",
             color: selectedVariant?.name === v.name ? "#fff" : "#333"
-          }}>
+          }}
+        >
           {v.name} - Rp {formatRupiah(v.price)}
         </button>
       ))}
@@ -351,11 +409,14 @@ function App() {
         {/* INTERNET */}
         {selectedDigital.type === "internet" && (
           <>
-            <p style={{ fontSize: 12, color: "#666" }}>
-              ⚠️ Kuota tergantung area masing-masing. 
+            <p style={{ fontSize: 12, color: "#666", marginTop: 12 }}>
+              ⚠️ Kuota tergantung area masing-masing.   
               Silakan cek area kamu terlebih dahulu untuk mengetahui estimasi kuota yang didapat. <br />
-              <a href="https://raw.githack.com/vieralola/Cekareaviera.html/main/Cekareaviera.html" target="_blank">
-                Cek area kamu di sini
+              <a
+                href="https://raw.githack.com/vieralola/Cekareaviera.html/main/Cekareaviera.html"
+                target="_blank"
+              >
+                Cek area di sini
               </a>
             </p>
 
@@ -363,11 +424,20 @@ function App() {
               placeholder="Nomor HP"
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
-              style={{ padding: 12, borderRadius: 10, border: "1px solid #ddd", marginTop: 10 }}
+              style={{
+                padding: 12,
+                borderRadius: 10,
+                border: "1px solid #ddd",
+                marginTop: 10,
+                width: "100%"
+              }}
             />
 
             <label style={{ fontSize: 12, display: "block", marginTop: 10 }}>
-              <input type="checkbox" onChange={e => setAgree(e.target.checked)} />
+              <input
+                type="checkbox"
+                onChange={e => setAgree(e.target.checked)}
+              />
               Saya sudah cek area
             </label>
           </>
@@ -375,30 +445,21 @@ function App() {
 
         {/* IMEI */}
         {selectedDigital.type === "imei" && (
-          <input
-            placeholder="Masukkan IMEI (contoh: *#06#)"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            style={{ padding: 12, borderRadius: 10, border: "1px solid #ddd", marginTop: 10 }}
-          />
+          <>
+            <p style={{ fontSize: 12, color: "#666", marginTop: 12 }}>
+              ⚠️ Kirim IMEI dalam bentuk foto ke Admin.
+              (Pengaturan → Tentang Ponsel → IMEI)
+            </p>
+          </>
         )}
 
+        {/* CHECKOUT */}
         <button
           disabled={
             !selectedVariant ||
-            !inputValue ||
-            (selectedDigital.type === "internet" && !agree)
+            (selectedDigital.type === "internet" && (!inputValue || !agree))
           }
-          onClick={() => {
-            const message = `*ORDER DIGITAL*
-
-Produk: ${selectedDigital.name}
-Varian: ${selectedVariant.name}
-Data: ${inputValue}
-Harga: Rp ${formatRupiah(selectedVariant.price)}
-`
-            window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
-          }}
+          onClick={handleCheckoutDigital}
           style={{
             marginTop: 16,
             padding: 14,
