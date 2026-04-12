@@ -12,8 +12,8 @@ import { digitalProducts } from "./data/menu"
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
-  import logo from "./assets/nks_logo.png"
-  import listKouta from "./assets/list_kouta.png"
+import logo from "./assets/nks_logo.png"
+import listKouta from "./assets/list_kouta.png"
 
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
@@ -248,20 +248,12 @@ if (time.length < 3) {
   }
 
   const handleCheckoutDigital = () => {
-    // VALIDASI INTERNET
-if (selectedDigital.type === "internet") {
-  if (!inputValue.match(/^08[0-9]{8,12}$/)) {
-    showToast("Nomor HP tidak valid", "error")
-    return
-  }
+  if (!selectedVariant) return
 
-  if (!agree) {
+  if (selectedDigital.type === "internet" && !agree) {
     showToast("Cek area dulu", "error")
     return
   }
-}
-
-  if (!selectedVariant) return
 
   setLoading(true)
 
@@ -286,7 +278,7 @@ if (selectedDigital.type === "internet") {
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
 
     setLoading(false)
-  }, 600) // <-- ini kunci
+  }, 600)
 }
 
   const primaryColor = "#111"
