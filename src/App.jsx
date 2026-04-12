@@ -7,6 +7,7 @@ import "@fontsource/poppins/800.css"
 import "@fontsource/poppins/900.css"
 import { useState, useEffect, useRef } from "react"
 import { brands } from "./data/menu"
+import { digitalProducts } from "./data/menu"
 
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
@@ -36,6 +37,11 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
   const [toast, setToast] = useState({ text: "", type: "success" })
+
+  const [selectedDigital, setSelectedDigital] = useState(null)
+  const [selectedVariant, setSelectedVariant] = useState(null)
+  const [inputValue, setInputValue] = useState("")
+    const [agree, setAgree] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -289,11 +295,126 @@ function App() {
         </button>
       </div>
 
-      {menuType === "digital" && (
-        <div style={{ textAlign: "center", padding: 40 }}>
-          <p style={{ color: "#666" }}>Produk digital segera hadir</p>
+      {menuType === "digital" && !selectedDigital && (
+  <>
+    <h2>Pilih Produk</h2>
+
+    <div style={{ display: "grid", gap: 16 }}>
+      {digitalProducts.map(p => (
+        <div key={p.id}
+          onClick={() => setSelectedDigital(p)}
+          style={{
+            border: "1px solid #eee",
+            borderRadius: 16,
+            padding: 16,
+            cursor: "pointer"
+          }}>
+          <p style={{ fontWeight: 600 }}>{p.name}</p>
         </div>
-      )}
+      ))}
+    </div>
+  </>
+)}
+
+{menuType === "digital" && selectedDigital && (
+  <>
+    <button onClick={() => {
+      setSelectedDigital(null)
+      setSelectedVariant(null)
+      setInputValue("")
+      setAgree(false)
+    }}>
+      ← Kembali
+    </button>
+
+    <h2>{selectedDigital.name}</h2>
+
+    {/* VARIANT */}
+    <div style={{ display: "grid", gap: 10 }}>
+      {selectedDigital.variants.map(v => (
+        <button key={v.name}
+          onClick={() => setSelectedVariant(v)}
+          style={{
+            padding: 12,
+            borderRadius: 10,
+            border: "1px solid #ddd",
+            background: selectedVariant?.name === v.name ? "#111" : "#fff",
+            color: selectedVariant?.name === v.name ? "#fff" : "#333"
+          }}>
+          {v.name} - Rp {formatRupiah(v.price)}
+        </button>
+      ))}
+    </div>
+
+    {selectedVariant && (
+      <>
+        {/* INTERNET */}
+        {selectedDigital.type === "internet" && (
+          <>
+            <p style={{ fontSize: 12, color: "#666" }}>
+              ⚠️ Kuota tergantung area masing-masing. 
+              Silakan cek area kamu terlebih dahulu untuk mengetahui estimasi kuota yang didapat. <br />
+              <a href="https://raw.githack.com/vieralola/Cekareaviera.html/main/Cekareaviera.html" target="_blank">
+                Cek area kamu di sini
+              </a>
+            </p>
+
+            <input
+              placeholder="Nomor HP"
+              value={inputValue}
+              onChange={e => setInputValue(e.target.value)}
+              style={{ padding: 12, borderRadius: 10, border: "1px solid #ddd", marginTop: 10 }}
+            />
+
+            <label style={{ fontSize: 12, display: "block", marginTop: 10 }}>
+              <input type="checkbox" onChange={e => setAgree(e.target.checked)} />
+              Saya sudah cek area
+            </label>
+          </>
+        )}
+
+        {/* IMEI */}
+        {selectedDigital.type === "imei" && (
+          <input
+            placeholder="Masukkan IMEI (contoh: *#06#)"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+            style={{ padding: 12, borderRadius: 10, border: "1px solid #ddd", marginTop: 10 }}
+          />
+        )}
+
+        <button
+          disabled={
+            !selectedVariant ||
+            !inputValue ||
+            (selectedDigital.type === "internet" && !agree)
+          }
+          onClick={() => {
+            const message = `*ORDER DIGITAL*
+
+Produk: ${selectedDigital.name}
+Varian: ${selectedVariant.name}
+Data: ${inputValue}
+Harga: Rp ${formatRupiah(selectedVariant.price)}
+`
+            window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+          }}
+          style={{
+            marginTop: 16,
+            padding: 14,
+            width: "100%",
+            borderRadius: 12,
+            background: "#111",
+            color: "#fff",
+            border: "none"
+          }}
+        >
+          Checkout
+        </button>
+      </>
+    )}
+  </>
+)}
 
       {menuType === "fnb" && (
         <>
@@ -495,18 +616,6 @@ function App() {
 </div>
 
                 <br />
-
-                <button onClick={handleCheckout}
-                  style={{
-                    width: "100%",
-                    padding: 14,
-                    background: primaryColor,
-                    color: "white",
-                    borderRadius: 12,
-                    border: "none"
-                  }}>
-                  Checkout
-                </button>
               </div>
             </>
           )}
@@ -569,6 +678,51 @@ function App() {
             </div>
           )}
         </>
+      )}
+      {/* 👇 INI TEMPAT LU TARO STICKY */}
+      {selectedBrand && cart.length > 0 && (
+        <div style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          background: "#fff",
+          borderTop: "1px solid #eee",
+          padding: "10px 16px",
+          boxShadow: "0 -4px 20px rgba(0,0,0,0.05)"
+        }}>
+          <div style={{
+            maxWidth: 600,
+            margin: "auto",
+            padding: "0 8px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 10
+          }}>
+            
+            <div>
+              <p style={{ margin: 0, fontSize: 12, color: "#666" }}>Total</p>
+              <h3 style={{ margin: 0 }}>Rp. {formatRupiah(total)}</h3>
+            </div>
+
+            <button
+              onClick={handleCheckout}
+              style={{
+                minWidth: 110,
+                padding: "12px 18px",
+                background: "#111",
+                color: "#fff",
+                borderRadius: 10,
+                border: "none",
+                fontWeight: 500
+              }}
+            >
+              Checkout
+            </button>
+
+          </div>
+        </div>
       )}
     </div>
   )

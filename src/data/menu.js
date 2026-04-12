@@ -63,3 +63,30 @@ export const brands = [
     ]
   }
 ]
+
+export const digitalProducts = [
+  {
+    id: "imei",
+    name: "Unblock IMEI",
+    type: "imei",
+    variants: [
+      { name: "1 Bulan", price: 75000 },
+      { name: "3 Bulan", price: 95000 }
+    ]
+  },
+  {
+    id: "internet",
+    name: "Paket Akrab XL/Axis",
+    type: "internet",
+    variants: [
+      { name: "Super Mini", price: 50000 },
+      { name: "Extra Mini", price: 56000 },
+      { name: "Mini", price: 62000 },
+      { name: "Big", price: 68000 },
+      { name: "JV2", price: 75000 },
+      { name: "SB", price: 85000 },
+      { name: "SJ", price: 93000 },
+      { name: "Mega Big", price: 105000 },
+    ]
+  }
+]
