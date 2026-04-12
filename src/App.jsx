@@ -249,6 +249,7 @@ if (time.length < 3) {
 
   const handleCheckoutDigital = () => {
   if (!selectedVariant) return
+  if (loading) return
 
   if (selectedDigital.type === "internet" && !agree) {
     showToast("Cek area dulu", "error")
@@ -260,20 +261,26 @@ if (time.length < 3) {
   setTimeout(() => {
     const orderId = generateDigitalId(selectedDigital.type)
 
-    let message = `*FORM ORDER NKS DIGITAL*\n\n`
-    message += `No. Pesanan : ${orderId}\n`
-    message += `Produk : ${selectedDigital.name}\n`
-    message += `Varian : ${selectedVariant.name}\n`
+    let message = ""
 
     if (selectedDigital.type === "internet") {
-      message += `No. HP : ${inputValue}\n`
+      message += `*FORM ORDER NKS DIGITAL*\n\n`
+      message += `No. Pesanan : ${orderId}\n`
+      message += `Produk : Paket Akrab XL/Axis\n`
+      message += `Paket : ${selectedVariant.name}\n`
+      message += `No. HP : ${inputValue}\n\n`
+
+      message += `*Total       : Rp ${formatRupiah(selectedVariant.price)}*`
     }
 
     if (selectedDigital.type === "imei") {
-      message += `IMEI : (kirim dalam bentuk foto)\n`
-    }
+      message += `*FORM ORDER NKS DIGITAL*\n\n`
+      message += `No. Pesanan : ${orderId}\n`
+      message += `Produk : Unblock IMEI\n`
+      message += `Durasi : ${selectedVariant.name}\n\n`
 
-    message += `\nTotal : Rp. ${formatRupiah(selectedVariant.price)}`
+      message += `*Total       : Rp ${formatRupiah(selectedVariant.price)}*`
+    }
 
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
     setSelectedDigital(null)
