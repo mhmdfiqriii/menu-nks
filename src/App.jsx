@@ -276,6 +276,11 @@ if (time.length < 3) {
     message += `\nTotal : Rp. ${formatRupiah(selectedVariant.price)}`
 
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+    setSelectedDigital(null)
+    setSelectedVariant(null)
+    setInputValue("")
+    setAgree(false)
+    showToast("Pesanan dibuka di Whatsapp")
 
     setLoading(false)
   }, 600)
