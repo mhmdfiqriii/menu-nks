@@ -14,6 +14,7 @@ import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
 import logo from "./assets/nks_logo.png"
 import listKouta from "./assets/list_kouta.png"
+import bannerimei from "./assets/banner_imei.png"
 import imeiIcon from "./assets/imei_icon.png"
 import koutaIcon from "./assets/kouta_icon.png"
 
@@ -83,7 +84,7 @@ function App() {
 
   const showToast = (text, type = "success") => {
     setToast({ text, type })
-    setTimeout(() => setToast({ text: "", type: "success" }), 1500)
+    setTimeout(() => setToast({ text: "", type: "success" }), 5000)
   }
 
   const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
@@ -206,7 +207,7 @@ function App() {
   return
 }
 
-if (name.length < 2) {
+if (name.length < 3) {
   showToast("Nama terlalu pendek", "error")
   return
 }
@@ -215,6 +216,11 @@ if (name.length < 2) {
   setErrorField("outlet")
   showToast("Outlet belum diisi", "error")
   outletRef.current.focus()
+  return
+}
+
+if (outlet.length < 6) {
+  showToast("Nama outlet terlalu pendek", "error")
   return
 }
 
@@ -297,7 +303,7 @@ if (time.length < 3) {
     showToast("Pesanan dibuka di Whatsapp")
 
     setLoading(false)
-  }, 600)
+  }, 300)
 }
 
   const primaryColor = "#111"
@@ -334,8 +340,8 @@ if (time.length < 3) {
         gap: 10,
         marginBottom: 20
       }}>
-        <img src={logo} style={{ height: 28 }} />
-        <h2 style={{ margin: 0, fontWeight: 600 }}>NKS</h2>
+        <img src={logo} style={{ height: 50 }} />
+        <h1 style={{ margin: 0, fontWeight: 600, }}>NIKA STORE</h1>
       </div>
 
       {/* MENU TYPE */}
@@ -440,6 +446,19 @@ if (time.length < 3) {
   />
 )}
 
+    {/* GAMBAR INTERNET */}
+    {selectedDigital.type === "imei" && (
+    <img 
+    src={bannerimei}
+    style={{
+      width: "100%",
+      borderRadius: 14,
+      marginTop: 10,
+      marginBottom: 10
+    }}
+  />
+)}
+
     {/* VARIANT */}
     <div style={{ display: "grid", gap: 10 }}>
       {selectedDigital.variants.map(v => (
@@ -520,7 +539,7 @@ if (time.length < 3) {
           <>
             <p style={{ fontSize: 12, color: "#666", marginTop: 12 }}>
               ⚠️ Kirim IMEI dalam bentuk foto ke Admin.
-              (Pengaturan → Tentang Ponsel → IMEI)
+              (*#06# di call center → Screeshoot)
             </p>
           </>
         )}
@@ -716,7 +735,7 @@ if (time.length < 3) {
     />
     {errorField === "name" && (
       <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
-        Nama wajib diisi
+        Nama wajib diisi. Contoh: Dani
       </p>
     )}
   </div>
@@ -724,11 +743,12 @@ if (time.length < 3) {
   <div>
     <input
       ref={outletRef}
-      placeholder="Contoh: Ruko Margonda"
+      placeholder="Nama Outlet"
       value={outlet}
       onChange={e => {
   let val = e.target.value
   val = val.replace(/\s+/g, " ").trimStart()
+  val = val.replace(/\b\w/g, c => c.toUpperCase())
   setOutlet(val)
 }}
       style={{
@@ -740,7 +760,7 @@ if (time.length < 3) {
     />
     {errorField === "outlet" && (
       <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
-        Outlet wajib diisi
+        Outlet wajib diisi. Contoh: Ruko Margonda
       </p>
     )}
   </div>
@@ -748,7 +768,7 @@ if (time.length < 3) {
   <div>
     <input
   ref={timeRef}
-  placeholder="Contoh: Sekarang atau Jam 07.30"
+  placeholder="Jam Pengambilan"
   value={time}
  onChange={e => {
   let val = e.target.value
@@ -764,7 +784,7 @@ if (time.length < 3) {
 />
     {errorField === "time" && (
       <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
-        Jam pengambilan wajib diisi
+        Jam pengambilan wajib diisi. Contoh: Sekarang atau Jam 07.30
       </p>
     )}
   </div>
