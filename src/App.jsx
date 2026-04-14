@@ -261,13 +261,39 @@ if (time.length < 3) {
   }
 
   const handleCheckoutDigital = () => {
-  if (!selectedVariant) return
-  if (loading) return
+  // VALIDASI DULU (PALING ATAS)
+  if (selectedDigital.type === "internet") {
+    if (!inputValue.trim()) {
+      setErrorField("phone")
+      showToast("Nomor belum diisi", "error")
+      return
+    }
 
-  if (selectedDigital.type === "internet" && !agree) {
-    showToast("Cek area dulu", "error")
+    if (inputValue.length < 10) {
+      setErrorField("phone")
+      showToast("Nomor terlalu pendek", "error")
+      return
+    }
+
+    if (inputValue.length > 13) {
+      setErrorField("phone")
+      showToast("Nomor terlalu panjang", "error")
+      return
+    }
+
+    if (!agree) {
+      showToast("Pastikan kamu sudah mengecek area", "error")
+      return
+    }
+  }
+
+  // BARU CEK INI
+  if (!selectedVariant) {
+    showToast("Pilih paket dulu", "error")
     return
   }
+
+  if (loading) return
 
   setLoading(true)
 
@@ -295,15 +321,19 @@ if (time.length < 3) {
       message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
     }
 
+    setErrorField("")
+
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+
     setSelectedDigital(null)
     setSelectedVariant(null)
     setInputValue("")
     setAgree(false)
+
     showToast("Pesanan dibuka di Whatsapp")
 
     setLoading(false)
-  }, 300)
+  }, 600)
 }
 
   const primaryColor = "#111"
@@ -510,12 +540,17 @@ if (time.length < 3) {
   }}
   style={{
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 12,
     border: errorField === "phone" ? "1px solid red" : "1px solid #ddd",
     marginTop: 10,
     width: "100%"
   }}
 />
+{errorField === "phone" && (
+      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+        Masukan nomor yang ingin dituju.
+      </p>
+        )}
 
 <label style={{ 
   fontSize: 12, 
@@ -546,11 +581,7 @@ if (time.length < 3) {
 
         {/* CHECKOUT */}
         <button
-  disabled={
-    loading ||
-    !selectedVariant ||
-    (selectedDigital.type === "internet" && (!inputValue || !agree))
-  }
+  disabled={loading}
   onClick={handleCheckoutDigital}
   style={{
     marginTop: 16,
@@ -559,8 +590,7 @@ if (time.length < 3) {
     borderRadius: 12,
     background: loading ? "#888" : "#111",
     color: "#fff",
-    border: "none",
-    fontWeight: 600
+    border: "none"
   }}
 >
   {loading ? "Memproses..." : "Checkout"}
