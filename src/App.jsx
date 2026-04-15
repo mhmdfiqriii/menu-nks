@@ -47,6 +47,25 @@ const digitalImages = {
   kouta: koutaIcon
 }
 
+const formatPhone = (num) => {
+  if (!num) return ""
+
+  // hapus semua selain angka
+  let cleaned = num.replace(/\D/g, "")
+
+  // ubah 08 jadi 628
+  if (cleaned.startsWith("08")) {
+    cleaned = "628" + cleaned.slice(2)
+  }
+
+  // kalau udah 62 biarin
+  if (cleaned.startsWith("62")) {
+    return cleaned
+  }
+
+  return cleaned
+}
+
 function App() {
   const [menuType, setMenuType] = useState("fnb")
   const [selectedBrand, setSelectedBrand] = useState(null)
@@ -307,7 +326,8 @@ if (time.length < 3) {
       message += `No. Pesanan : ${orderId}\n`
       message += `Produk : Paket Akrab XL/Axis\n`
       message += `Paket : ${selectedVariant.name}\n`
-      message += `No. HP : ${inputValue}\n\n`
+      const formattedPhone = formatPhone(inputValue)
+      message += `No. HP : ${formattedPhone}\n`
 
       message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
     }
