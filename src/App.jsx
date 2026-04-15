@@ -5,6 +5,7 @@ import "@fontsource/poppins/600.css"
 import "@fontsource/poppins/700.css"
 import "@fontsource/poppins/800.css"
 import "@fontsource/poppins/900.css"
+import { supabase } from './lib/supabase'
 import { useState, useEffect, useRef } from "react"
 import { brands } from "./data/menu"
 import { digitalProducts } from "./data/menu"
@@ -65,6 +66,7 @@ const formatPhone = (num) => {
 
   return cleaned
 }
+
 
 function App() {
   const [menuType, setMenuType] = useState("fnb")
@@ -213,7 +215,7 @@ function App() {
 
   const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (cart.length === 0) {
       showToast("Keranjang masih kosong", "error")
       return
@@ -276,11 +278,34 @@ if (time.length < 3) {
 
     message += `\nTotal : Rp. ${formatRupiah(total)}`
 
+    const saveOrder = async () => {
+  const { error } = await supabase.from("orders").insert([
+    {
+      order_id: orderId,
+      type: "fnb",
+      product: selectedBrand?.name,
+      variant: cart.map(item => 
+      `${item.name} (${item.qty}x)${item.options ? ` - ${item.options}` : ""}` ).join(", "),
+      phone: "-", // kosong dulu
+      price: total
+    }
+  ])
+
+  if (error) {
+    console.log("ERROR DB:", error)
+    showToast("Gagal simpan ke database", "error")
+  } else {
+    console.log("SUKSES MASUK DB")
+  }
+}
+
+await saveOrder()
+
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
   }
 
-  const handleCheckoutDigital = () => {
-  // VALIDASI DULU (PALING ATAS)
+  const handleCheckoutDigital = async () => {
+  // VALIDASI
   if (selectedDigital.type === "internet") {
     if (!inputValue.trim()) {
       setErrorField("phone")
@@ -306,42 +331,59 @@ if (time.length < 3) {
     }
   }
 
-  // BARU CEK INI
   if (!selectedVariant) {
     showToast("Pilih paket dulu", "error")
     return
   }
 
   if (loading) return
-
   setLoading(true)
 
-  setTimeout(() => {
-    const orderId = generateDigitalId(selectedDigital.type)
+  const orderId = generateDigitalId(selectedDigital.type)
 
-    let message = ""
+  let message = ""
 
-    if (selectedDigital.type === "internet") {
-      message += `*FORM ORDER NKS DIGITAL*\n\n`
-      message += `No. Pesanan : ${orderId}\n`
-      message += `Produk : Paket Akrab XL/Axis\n`
-      message += `Paket : ${selectedVariant.name}\n`
-      const formattedPhone = formatPhone(inputValue)
-      message += `No. HP : ${formattedPhone}\n`
+  if (selectedDigital.type === "internet") {
+    const formattedPhone = formatPhone(inputValue)
 
-      message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
+    message += `*FORM ORDER NKS DIGITAL*\n\n`
+    message += `No. Pesanan : ${orderId}\n`
+    message += `Produk : Paket Akrab XL/Axis\n`
+    message += `Paket : ${selectedVariant.name}\n`
+    message += `No. HP : ${formattedPhone}\n`
+    message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
+  }
+
+  if (selectedDigital.type === "imei") {
+    message += `*FORM ORDER NKS DIGITAL*\n\n`
+    message += `No. Pesanan : ${orderId}\n`
+    message += `Produk : Unblock IMEI\n`
+    message += `Durasi : ${selectedVariant.name}\n\n`
+    message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
+  }
+
+  setErrorField("")
+
+  try {
+    const { error } = await supabase.from("orders").insert([
+      {
+        order_id: orderId,
+        type: selectedDigital.type,
+        product: selectedDigital.name,
+        variant: selectedVariant.name,
+        phone: formatPhone(inputValue),
+        price: selectedVariant.price
+      }
+    ])
+
+    if (error) {
+      console.log("ERROR DB:", error)
+      showToast("Gagal simpan ke database", "error")
+      setLoading(false)
+      return
     }
 
-    if (selectedDigital.type === "imei") {
-      message += `*FORM ORDER NKS DIGITAL*\n\n`
-      message += `No. Pesanan : ${orderId}\n`
-      message += `Produk : Unblock IMEI\n`
-      message += `Durasi : ${selectedVariant.name}\n\n`
-
-      message += `*Total : Rp ${formatRupiah(selectedVariant.price)}*`
-    }
-
-    setErrorField("")
+    console.log("SUKSES MASUK DB")
 
     window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
 
@@ -351,9 +393,12 @@ if (time.length < 3) {
     setAgree(false)
 
     showToast("Pesanan dibuka di Whatsapp")
+  } catch (err) {
+    console.log("ERROR:", err)
+    showToast("Terjadi error", "error")
+  }
 
-    setLoading(false)
-  }, 600)
+  setLoading(false)
 }
 
   const primaryColor = "#111"
