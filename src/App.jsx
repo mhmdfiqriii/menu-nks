@@ -567,7 +567,7 @@ if (time.length < 3) {
   }}
 />
 {errorField === "phone" && (
-      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+      <p style={{ color: "red", fontSize: 12, marginTop: 6 }}>
         Masukan nomor yang ingin dituju.
       </p>
         )}
