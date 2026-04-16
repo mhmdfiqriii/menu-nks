@@ -71,8 +71,8 @@ export const digitalProducts = [
     type: "imei",
     image: "imei",
     variants: [
-      { name: "1 Bulan", price: 75000 },
-      { name: "3 Bulan", price: 95000 }
+      { name: "1 Bulan", price: 65000 },
+      { name: "3 Bulan", price: 85000 }
     ]
   },
   {

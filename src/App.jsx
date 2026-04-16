@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react"
 import { brands } from "./data/menu"
 import { digitalProducts } from "./data/menu"
 
+import Admin from "./pages/Admin.jsx"
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
@@ -67,8 +68,8 @@ const formatPhone = (num) => {
   return cleaned
 }
 
-
 function App() {
+  const [page, setPage] = useState("home")
   const [menuType, setMenuType] = useState("fnb")
   const [selectedBrand, setSelectedBrand] = useState(null)
   const [cart, setCart] = useState([])
@@ -401,6 +402,10 @@ await saveOrder()
   setLoading(false)
 }
 
+if (page === "admin") {
+  return <Admin />
+}
+
   const primaryColor = "#111"
 
   return (
@@ -428,6 +433,10 @@ await saveOrder()
       )}
 
       {/* HEADER */}
+      <button onClick={() => setPage("admin")}>
+        Admin
+      </button>
+
       <div style={{
         display: "flex",
         justifyContent: "center",
