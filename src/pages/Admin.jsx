@@ -3,6 +3,8 @@ import { supabase } from "../lib/supabase"
 
 function Admin({ setPage }) {
   const [orders, setOrders] = useState([])
+  const [filter, setFilter] = useState("all")
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     const getData = async () => {
@@ -27,9 +29,7 @@ function Admin({ setPage }) {
       .update({ status })
       .eq("id", id)
 
-    if (error) {
-      console.log("ERROR:", error)
-    } else {
+    if (!error) {
       setOrders(prev =>
         prev.map(o =>
           o.id === id ? { ...o, status } : o
@@ -44,6 +44,19 @@ function Admin({ setPage }) {
     return "#52c41a"
   }
 
+  // 🔍 FILTER + SEARCH
+  const filteredOrders = orders.filter(order => {
+    const matchFilter = filter === "all" || order.status === filter
+    const matchSearch =
+      order.order_id?.toLowerCase().includes(search.toLowerCase()) ||
+      order.customer_name?.toLowerCase().includes(search.toLowerCase())
+
+    return matchFilter && matchSearch
+  })
+
+  // 💰 TOTAL OMZET
+  const totalOmzet = filteredOrders.reduce((acc, o) => acc + o.price, 0)
+
   return (
     <div style={{
       padding: 20,
@@ -52,25 +65,68 @@ function Admin({ setPage }) {
       fontFamily: "sans-serif"
     }}>
       
-      {/* tombol kembali */}
-      <div style={{ marginBottom: 10 }}>
-        <button
-          onClick={() => setPage("home")}
-          style={{
-            padding: "8px 12px",
-            borderRadius: 8,
-            border: "none",
-            background: "#eee",
-            cursor: "pointer"
-          }}
-        >
-          ← Kembali
-        </button>
-      </div>
+      {/* BACK */}
+      <button
+        onClick={() => setPage("home")}
+        style={{
+          marginBottom: 10,
+          padding: "8px 12px",
+          borderRadius: 8,
+          border: "none",
+          background: "#eee"
+        }}
+      >
+        ← Kembali
+      </button>
 
       <h1 style={{ textAlign: "center" }}>Admin Panel</h1>
 
-      {orders.map(order => (
+      {/* 🔍 SEARCH */}
+      <input
+        placeholder="Cari order ID"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{
+          width: "100%",
+          padding: 10,
+          borderRadius: 10,
+          border: "1px solid #ddd",
+          marginBottom: 10
+        }}
+      />
+
+      {/* 🔥 FILTER */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+        {["all", "pending", "proses", "selesai"].map(f => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            style={{
+              flex: 1,
+              padding: 8,
+              borderRadius: 8,
+              border: "none",
+              background: filter === f ? "#111" : "#eee",
+              color: filter === f ? "#fff" : "#333"
+            }}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+
+      {/* 💰 OMZET */}
+      <div style={{
+        marginBottom: 15,
+        padding: 12,
+        borderRadius: 10,
+        background: "#f5f5f5"
+      }}>
+        <b>Total Omzet:</b> Rp {totalOmzet.toLocaleString("id-ID")}
+      </div>
+
+      {/* LIST */}
+      {filteredOrders.map(order => (
         <div
           key={order.id}
           style={{
@@ -82,7 +138,6 @@ function Admin({ setPage }) {
           }}
         >
           <p><b>ID:</b> {order.order_id}</p>
-          <p><b>Type:</b> {order.type}</p>
           <p><b>Product:</b> {order.product}</p>
           <p><b>Variant:</b> {order.variant}</p>
           <p><b>Price:</b> Rp {order.price}</p>
@@ -100,29 +155,20 @@ function Admin({ setPage }) {
             </span>
           </p>
 
+          {/* FNB */}
           {order.type === "fnb" && (
             <>
               <p><b>Nama:</b> {order.customer_name}</p>
               <p><b>Outlet:</b> {order.outlet}</p>
-              <p><b>Jam:</b> {order.pickup_time}</p>
             </>
           )}
 
+          {/* INTERNET */}
           {order.type === "internet" && (
             <p><b>Phone:</b> {order.phone}</p>
           )}
 
-          {order.type === "imei" && (
-            <p style={{ fontSize: 12, color: "#999" }}>
-              Tidak ada data tambahan
-            </p>
-          )}
-
-          <div style={{
-            marginTop: 12,
-            display: "flex",
-            gap: 8
-          }}>
+          <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
             <button
               onClick={() => updateStatus(order.id, "proses")}
               style={{
