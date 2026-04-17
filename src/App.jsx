@@ -288,7 +288,11 @@ if (time.length < 3) {
       variant: cart.map(item => 
       `${item.name} (${item.qty}x)${item.options ? ` - ${item.options}` : ""}` ).join(", "),
       phone: "-", // kosong dulu
-      price: total
+      price: total,
+
+      customer_name: name,
+      outlet: outlet,
+      pickup_time: time
     }
   ])
 
@@ -403,7 +407,7 @@ await saveOrder()
 }
 
 if (page === "admin") {
-  return <Admin />
+  return <Admin setPage={setPage} />
 }
 
   const primaryColor = "#111"
@@ -444,6 +448,7 @@ if (page === "admin") {
         gap: 10,
         marginBottom: 20
       }}>
+        
         <img src={logo} style={{ height: 50 }} />
         <h1 style={{ margin: 0, fontWeight: 600, }}>NIKA STORE</h1>
       </div>
