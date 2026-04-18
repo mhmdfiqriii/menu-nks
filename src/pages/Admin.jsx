@@ -190,26 +190,7 @@ function Admin({ setPage, showToast }) {
           }}>
 
           <p><b>ID:</b> {order.order_id}</p>
-          <p><b>Product:</b> {order.product}</p>
-          <p><b>Variant:</b> {order.variant}</p>
-
-          {/* FNB */}
-          {order.type === "fnb" && (
-          <>
-          <p><b>Nama:</b> {order.customer_name}</p>
-          <p><b>Outlet:</b> {order.outlet}</p>
-          <p><b>Jam:</b> {order.pickup_time}</p>
-          </>
-          )}
-
-          {/* INTERNET */}
-          {order.type === "internet" && (
-          <p><b>No HP:</b> {order.phone}</p>
-          )}
-
-          <p><b>Price:</b> Rp. {formatRupiah(order.price)}</p>
-
-          <p>
+           <p>
             <b>Status:</b>{" "}
             <span style={{
               color: "#fff",
@@ -221,6 +202,28 @@ function Admin({ setPage, showToast }) {
               {formatStatus(order.status)}
             </span>
           </p>
+
+          
+        
+          {/* FNB */}
+          {order.type === "fnb" && (
+          <>
+          <p><b>Nama:</b> {order.customer_name}</p>
+          <p><b>Outlet:</b> {order.outlet}</p>
+          <p><b>Jam:</b> {order.pickup_time}</p>
+          </>
+          )}
+
+          {/* INTERNET */}
+          {order.type === "internet" && (
+          <>
+          <p><b>Product:</b> {order.product}</p>
+          <p><b>No HP:</b> {order.phone}</p>
+          </>
+          )}
+
+          <p><b>Variant:</b> {order.variant}</p>
+          <p><b>Price:</b> Rp. {formatRupiah(order.price)}</p>
 
           <div style={{ display: "flex", gap: 8 }}>
             <button onClick={() => updateStatus(order.id, "proses")}

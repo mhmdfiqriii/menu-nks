@@ -227,6 +227,7 @@ if (!name.trim()) {
   setErrorField({ field: "name", type: "empty" })
   showToast("Nama belum diisi", "error")
   nameRef.current.focus()
+  setLoading(false)
   return
 }
 
@@ -234,6 +235,7 @@ if (name.length < 3) {
   setErrorField({ field: "name", type: "short" })
   showToast("Nama terlalu pendek", "error")
   nameRef.current.focus()
+  setLoading(false)
   return
 }
 
@@ -242,6 +244,7 @@ if (!outlet.trim()) {
   setErrorField({ field: "outlet", type: "empty" })
   showToast("Outlet belum diisi", "error")
   outletRef.current.focus()
+  setLoading(false)
   return
 }
 
@@ -249,6 +252,7 @@ if (outlet.length < 6) {
   setErrorField({ field: "outlet", type: "short" })
   showToast("Nama outlet terlalu pendek", "error")
   outletRef.current.focus()
+  setLoading(false)
   return
 }
 
@@ -257,18 +261,23 @@ if (!time.trim()) {
   setErrorField({ field: "time", type: "empty" })
   showToast("Jam belum diisi", "error")
   timeRef.current.focus()
+  setLoading(false)
   return
 }
 
 if (time.length < 3) {
   setErrorField({ field: "time", type: "invalid" })
   showToast("Format jam aneh", "error")
+  setLoading(false)
   timeRef.current.focus()
   return
 }
 
-// RESET
-setErrorField({ field: "", type: "" })
+  if (loading) return
+  setLoading(true)
+
+    // RESET
+    setErrorField({ field: "", type: "" })
 
     const orderId = generateOrderId(selectedBrand?.name)
 
@@ -327,6 +336,7 @@ setTime("")
 setErrorField("")
 
 showToast("Pesanan dibuka di Whatsapp")
+setLoading(false)
   }
 
   const handleCheckoutDigital = async () => {
@@ -648,7 +658,7 @@ return (
           </>
         )}
 
-        {/* CHECKOUT */}
+        {/* CHECKOUT DIGITAL */}
         <button
   disabled={loading}
   onClick={handleCheckoutDigital}
@@ -999,20 +1009,22 @@ return (
               <h3 style={{ margin: 0 }}>Rp. {formatRupiah(total)}</h3>
             </div>
 
-            <button
-              onClick={handleCheckout}
-              style={{
-                minWidth: 110,
-                padding: "12px 18px",
-                background: "#111",
-                color: "#fff",
-                borderRadius: 10,
-                border: "none",
-                fontWeight: 500
-              }}
-            >
-              Checkout
-            </button>
+        {/* CHECKOUT FNB */}
+        <button
+          disabled={loading}
+          onClick={handleCheckout}
+          style={{
+          marginTop: 16,
+          padding: 14,
+          width: "50%",
+          borderRadius: 12,
+          background: loading ? "#888" : "#111",
+          color: "#fff",
+          border: "none"
+          }}
+        >
+          {loading ? "Memproses..." : "Checkout"}
+        </button>
 
           </div>
         </div>
