@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabase"
 function Admin({ setPage, showToast }) {
   const [orders, setOrders] = useState([])
   const [filter, setFilter] = useState("all")
+  const [typeFilter, setTypeFilter] = useState("all")
   const [search, setSearch] = useState("")
 
   const lastOrderId = useRef(null)
@@ -106,13 +107,15 @@ function Admin({ setPage, showToast }) {
   }, [])
 
   const filteredOrders = orders.filter(order => {
-    const matchFilter = filter === "all" || order.status === filter
-    const matchSearch =
-      order.order_id?.toLowerCase().includes(search.toLowerCase()) ||
-      order.customer_name?.toLowerCase().includes(search.toLowerCase())
+  const matchFilter = filter === "all" || order.status === filter
+  const matchType = typeFilter === "all" || order.type === typeFilter
 
-    return matchFilter && matchSearch
-  })
+  const matchSearch =
+    order.order_id?.toLowerCase().includes(search.toLowerCase()) ||
+    order.customer_name?.toLowerCase().includes(search.toLowerCase())
+
+  return matchFilter && matchType && matchSearch
+})
 
   const totalOmzet = filteredOrders.reduce((acc, o) => acc + o.price, 0)
 
@@ -128,11 +131,12 @@ function Admin({ setPage, showToast }) {
       
       <button onClick={() => setPage("home")}
         style={{
-          marginBottom: 10,
-          padding: "8px 12px",
-          borderRadius: 8,
-          border: "1px solid #ddd",
-          background: "#fff"
+          marginBottom: 12,
+          padding: "8px 16px",
+          borderRadius: 999,
+          border: "none",
+          background: "#eee",
+          fontWeight: 500
         }}>
         ← Kembali
       </button>
@@ -152,7 +156,7 @@ function Admin({ setPage, showToast }) {
         }}
       />
 
-      <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
         {["all", "pending", "proses", "selesai"].map(f => (
           <button key={f}
             onClick={() => setFilter(f)}
@@ -168,6 +172,23 @@ function Admin({ setPage, showToast }) {
           </button>
         ))}
       </div>
+
+      <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+  {["all", "fnb", "internet", "imei"].map(t => (
+    <button key={t}
+      onClick={() => setTypeFilter(t)}
+      style={{
+        flex: 1,
+        padding: 8,
+        borderRadius: 8,
+        border: "1px solid #ddd",
+        background: typeFilter === t ? "#111" : "#fff",
+        color: typeFilter === t ? "#fff" : "#333"
+      }}>
+      {t.toUpperCase()}
+    </button>
+  ))}
+</div>
 
       <div style={{
         marginBottom: 15,
@@ -189,6 +210,19 @@ function Admin({ setPage, showToast }) {
             background: "#fff"
           }}>
 
+          <p>
+          <b>Type:</b>{" "}
+          <span style={{
+            padding: "2px 8px",
+            borderRadius: 6,
+            fontSize: 11,
+            background: order.type === "fnb" ? "#e6f4ff" : "#fff7e6",
+            color: order.type === "fnb" ? "#1677ff" : "#d46b08"
+          }}>
+          {order.type.toUpperCase()}
+          </span>
+          </p>
+
           <p><b>ID:</b> {order.order_id}</p>
            <p>
             <b>Status:</b>{" "}
@@ -203,7 +237,9 @@ function Admin({ setPage, showToast }) {
             </span>
           </p>
 
-          
+          <p style={{ fontSize: 12, color: "#666" }}>
+          {new Date(order.created_at).toLocaleString("id-ID")}
+          </p>
         
           {/* FNB */}
           {order.type === "fnb" && (
