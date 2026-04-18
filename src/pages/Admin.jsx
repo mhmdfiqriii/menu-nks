@@ -66,40 +66,37 @@ function Admin({ setPage, showToast }) {
       .channel("orders-realtime")
 
       // ✅ ORDER BARU
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "orders" },
-        (payload) => {
-          console.log("INSERT:", payload)
+.on(
+  "postgres_changes",
+  { event: "*", schema: "public", table: "orders" },
+  (payload) => {
+    console.log("REALTIME MASUK:", payload)
 
-          const data = payload.new
-          data.status = cleanStatus(data.status)
+    if (!payload.new) return
 
-          notify(data.id)
+    const data = payload.new
+    data.status = cleanStatus(data.status)
 
-          setOrders(prev => [data, ...prev])
-        }
-      )
+    setOrders(prev => {
+      const exists = prev.find(o => o.id === data.id)
 
-      // ✅ UPDATE STATUS
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "orders" },
-        (payload) => {
-          console.log("UPDATE:", payload)
-
-          const data = payload.new
-          data.status = cleanStatus(data.status)
-
-          setOrders(prev =>
-            prev.map(o => o.id === data.id ? data : o)
-          )
-        }
-      )
+      if (exists) {
+        return prev.map(o => o.id === data.id ? data : o)
+      } else {
+        notify(data.id)
+        return [data, ...prev]
+      }
+    })
+  }
+)
 
       .subscribe((status) => {
-        console.log("SUB:", status)
-      })
+  console.log("SUB:", status)
+
+  if (status === "SUBSCRIBED") {
+    console.log("Realtime aktif")
+  }
+})
 
     return () => {
       supabase.removeChannel(channel)
@@ -141,7 +138,7 @@ function Admin({ setPage, showToast }) {
       <h1 style={{ textAlign: "center" }}>Admin Panel</h1>
 
       <input
-        placeholder="Cari order ID / nama"
+        placeholder="Cari Kode Order ID. Contoh: KKM / IMEI / AKRAB"
         value={search}
         onChange={e => setSearch(e.target.value)}
         style={{

@@ -317,7 +317,16 @@ setErrorField({ field: "", type: "" })
 
 await saveOrder()
 
-    window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
+
+setSelectedBrand(null)
+setCart([])
+setName("")
+setOutlet("")
+setTime("")
+setErrorField("")
+
+showToast("Pesanan dibuka di Whatsapp")
   }
 
   const handleCheckoutDigital = async () => {
