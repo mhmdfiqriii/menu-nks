@@ -283,6 +283,7 @@ if (time.length < 3) {
   const { error } = await supabase.from("orders").insert([
     {
       order_id: orderId,
+      status: "pending",
       type: "fnb",
       product: selectedBrand?.name,
       variant: cart.map(item => 
@@ -373,6 +374,7 @@ await saveOrder()
     const { error } = await supabase.from("orders").insert([
       {
         order_id: orderId,
+        status: "pending",
         type: selectedDigital.type,
         product: selectedDigital.name,
         variant: selectedVariant.name,
@@ -406,119 +408,88 @@ await saveOrder()
   setLoading(false)
 }
 
-if (page === "admin") {
-  return <Admin setPage={setPage} />
-}
-
   const primaryColor = "#111"
 
-  return (
-    <div style={{
-      padding: isMobile ? 14 : 20,
-      maxWidth: 600,
-      margin: "auto",
-      paddingBottom: cart.length > 0 ? 100 : 30
-    }}>
+return (
+  <div style={{
+    padding: isMobile ? 14 : 20,
+    maxWidth: 600,
+    margin: "auto",
+    paddingBottom: cart.length > 0 ? 100 : 30
+  }}>
 
-      {toast.text && (
-        <div style={{
-          position: "fixed",
-          top: 20,
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: toast.type === "error" ? "#ff4d4f" : "#111",
-          color: "#fff",
-          padding: "10px 16px",
-          borderRadius: 10,
-          fontSize: 13
-        }}>
-          {toast.text}
-        </div>
-      )}
-
-      {/* HEADER */}
-      <button onClick={() => setPage("admin")}>
-        Admin
-      </button>
-
+    {/* TOAST (JANGAN DIUBAH) */}
+    {toast.text && (
       <div style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 10,
-        marginBottom: 20
+        position: "fixed",
+        top: 20,
+        left: "50%",
+        transform: "translateX(-50%)",
+        background: toast.type === "error" ? "#ff4d4f" : "#111",
+        color: "#fff",
+        padding: "10px 16px",
+        borderRadius: 10,
+        fontSize: 13
       }}>
+        {toast.text}
+      </div>
+    )}
+
+    {/* 🔥 HOME */}
+    {page === "home" && (
+      <>
+        {/* HEADER */}
+        <button onClick={() => setPage("admin")}>
+          Admin
+        </button>
+
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 20
+        }}>
+          <img src={logo} style={{ height: 50 }} />
+          <h1 style={{ margin: 0, fontWeight: 600 }}>NIKA STORE</h1>
+        </div>
+
+        {/* MENU TYPE */}
+
+
+                <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+          <button onClick={() => { setMenuType("fnb"); resetAll() }}
+            style={{
+              flex: 1,
+              padding: 13,
+              fontSize: 13,
+              borderRadius: 999,
+              border: "none",
+              background: menuType === "fnb" ? "#111" : "#eee",
+              color: menuType === "fnb" ? "#fff" : "#333",
+              transition: "0.2s",
+              fontWeight: 500
+            }}>
+            F&B
+          </button>
+
+          <button onClick={() => { setMenuType("digital"); resetAll() }}
+            style={{
+              flex: 1,
+              padding: 13,
+              fontSize: 13,
+              borderRadius: 999,
+              border: "none",
+              background: menuType === "digital" ? "#111" : "#eee",
+              color: menuType === "digital" ? "#fff" : "#333",
+              transition: "0.2s",
+              fontWeight: 500
+            }}>
+            Produk Digital
+          </button>
+        </div>
         
-        <img src={logo} style={{ height: 50 }} />
-        <h1 style={{ margin: 0, fontWeight: 600, }}>NIKA STORE</h1>
-      </div>
-
-      {/* MENU TYPE */}
-      <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
-        <button onClick={() => { setMenuType("fnb"); resetAll() }}
-          style={{
-            flex: 1,
-            padding: 13,
-            fontSize: 13,
-            borderRadius: 999,
-            border: "none",
-            background: menuType === "fnb" ? "#111" : "#eee",
-            color: menuType === "fnb" ? "#fff" : "#333",
-            transition: "0.2s",
-            fontWeight: 500
-          }}>
-          F&B
-        </button>
-
-        <button onClick={() => { setMenuType("digital"); resetAll() }}
-          style={{
-            flex: 1,
-            padding: 13,
-            fontSize: 13,
-            borderRadius: 999,
-            border: "none",
-            background: menuType === "digital" ? "#111" : "#eee",
-            color: menuType === "digital" ? "#fff" : "#333",
-            transition: "0.2s",
-            fontWeight: 500
-          }}>
-          Produk Digital
-        </button>
-      </div>
-
-      {menuType === "digital" && !selectedDigital && (
-  <>
-    <h2>Pilih Produk</h2>
-
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
-      gap: 16
-    }}>
-      {digitalProducts.map(p => (
-  <div key={p.id}
-    onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}  
-    onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-    onClick={() => setSelectedDigital(p)}
-    style={{
-      border: "1px solid #eee",
-      borderRadius: 16,
-      padding: 14,
-      textAlign: "center",
-      cursor: "pointer",
-      transition: "0.2s"
-    }}>
-    <div style={{ height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
-    <img src={digitalImages[p.image]} style={{ maxHeight: "70%"}} />
-    </div>
-    <p style={{ fontWeight: 600 }}> {p.name} </p>
-  </div>
-))}
-    </div>
-  </>
-)}
-
-{menuType === "digital" && selectedDigital && (
+        {menuType === "digital" && selectedDigital && (
   <>
     <button
       onClick={() => {
@@ -1009,6 +980,45 @@ if (page === "admin") {
           </div>
         </div>
       )}
+
+        {menuType === "digital" && !selectedDigital && (
+          <>
+            <h2>Pilih Produk</h2>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr",
+              gap: 16
+            }}>
+              {digitalProducts.map(p => (
+                <div key={p.id}
+                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}
+                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+                  onClick={() => setSelectedDigital(p)}
+                  style={{
+                    border: "1px solid #eee",
+                    borderRadius: 16,
+                    padding: 14,
+                    textAlign: "center",
+                    cursor: "pointer",
+                    transition: "0.2s"
+                  }}>
+                  <div style={{ height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <img src={digitalImages[p.image]} style={{ maxHeight: "70%" }} />
+                  </div>
+                  <p style={{ fontWeight: 600 }}>{p.name}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </>
+    )}
+
+    {/* 🔥 ADMIN */}
+    {page === "admin" && (
+      <Admin setPage={setPage} showToast={showToast} />
+    )}
     </div>
   )
 }
