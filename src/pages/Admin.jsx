@@ -42,6 +42,8 @@ function Admin({ setPage, showToast }) {
     return status?.charAt(0).toUpperCase() + status?.slice(1)
   }
 
+  const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
+
   useEffect(() => {
     // ✅ initial fetch (sekali doang)
     const init = async () => {
@@ -174,7 +176,7 @@ function Admin({ setPage, showToast }) {
         background: "#fff",
         border: "1px solid #eee"
       }}>
-        <b>Total Omzet:</b> Rp {totalOmzet.toLocaleString("id-ID")}
+        <b>Total Omzet:</b> Rp. {totalOmzet.toLocaleString("id-ID")}
       </div>
 
       {filteredOrders.map(order => (
@@ -190,7 +192,22 @@ function Admin({ setPage, showToast }) {
           <p><b>ID:</b> {order.order_id}</p>
           <p><b>Product:</b> {order.product}</p>
           <p><b>Variant:</b> {order.variant}</p>
-          <p><b>Price:</b> Rp {order.price}</p>
+
+          {/* FNB */}
+          {order.type === "fnb" && (
+          <>
+          <p><b>Nama:</b> {order.customer_name}</p>
+          <p><b>Outlet:</b> {order.outlet}</p>
+          <p><b>Jam:</b> {order.pickup_time}</p>
+          </>
+          )}
+
+          {/* INTERNET */}
+          {order.type === "internet" && (
+          <p><b>No HP:</b> {order.phone}</p>
+          )}
+
+          <p><b>Price:</b> Rp. {formatRupiah(order.price)}</p>
 
           <p>
             <b>Status:</b>{" "}
