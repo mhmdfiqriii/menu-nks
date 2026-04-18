@@ -95,7 +95,7 @@ function App() {
   const timeRef = useRef()
   const menuRef = useRef()
 
-  const [errorField, setErrorField] = useState("")
+  const [errorField, setErrorField] = useState({ field:"", type:""})
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 500)
@@ -222,43 +222,53 @@ function App() {
       return
     }
 
-    if (!name.trim()) {
-  setErrorField("name")
+    // NAME
+if (!name.trim()) {
+  setErrorField({ field: "name", type: "empty" })
   showToast("Nama belum diisi", "error")
   nameRef.current.focus()
   return
 }
 
 if (name.length < 3) {
+  setErrorField({ field: "name", type: "short" })
   showToast("Nama terlalu pendek", "error")
+  nameRef.current.focus()
   return
 }
 
-    if (!outlet.trim()) {
-  setErrorField("outlet")
+// OUTLET
+if (!outlet.trim()) {
+  setErrorField({ field: "outlet", type: "empty" })
   showToast("Outlet belum diisi", "error")
   outletRef.current.focus()
   return
 }
 
 if (outlet.length < 6) {
+  setErrorField({ field: "outlet", type: "short" })
   showToast("Nama outlet terlalu pendek", "error")
+  outletRef.current.focus()
   return
 }
 
-    if (!time.trim()) {
-  setErrorField("time")
+// TIME
+if (!time.trim()) {
+  setErrorField({ field: "time", type: "empty" })
   showToast("Jam belum diisi", "error")
   timeRef.current.focus()
   return
 }
 
 if (time.length < 3) {
+  setErrorField({ field: "time", type: "invalid" })
   showToast("Format jam aneh", "error")
+  timeRef.current.focus()
   return
 }
 
-    setErrorField("")
+// RESET
+setErrorField({ field: "", type: "" })
 
     const orderId = generateOrderId(selectedBrand?.name)
 
@@ -488,7 +498,7 @@ return (
             Produk Digital
           </button>
         </div>
-        
+
         {menuType === "digital" && selectedDigital && (
   <>
     <button
@@ -813,11 +823,17 @@ return (
         border: errorField === "name" ? "1px solid red" : "1px solid #ddd"
       }}
     />
-    {errorField === "name" && (
-      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
-        Nama wajib diisi. Contoh: Dani
-      </p>
-    )}
+    {errorField.field === "name" && errorField.type === "empty" && (
+  <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+    Nama wajib diisi.
+  </p>
+)}
+
+{errorField.field === "name" && errorField.type === "short" && (
+  <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+    Nama minimal 3 huruf. Contoh: Ega
+  </p>
+)}
   </div>
 
   <div>
@@ -838,11 +854,17 @@ return (
         border: errorField === "outlet" ? "1px solid red" : "1px solid #ddd"
       }}
     />
-    {errorField === "outlet" && (
-      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
-        Outlet wajib diisi. Contoh: Ruko Margonda
-      </p>
-    )}
+    {errorField.field === "outlet" && errorField.type === "empty" && (
+  <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+    Outlet wajib diisi.
+  </p>
+)}
+
+{errorField.field === "outlet" && errorField.type === "short" && (
+  <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+    Nama outlet minimal 6 huruf. Contoh: Ruko Margonda
+  </p>
+)}
   </div>
 
   <div>
@@ -862,11 +884,17 @@ return (
     border: errorField === "time" ? "1px solid red" : "1px solid #ddd"
   }}
 />
-    {errorField === "time" && (
-      <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
-        Jam pengambilan wajib diisi. Contoh: Sekarang atau Jam 07.30
-      </p>
-    )}
+    {errorField.field === "time" && errorField.type === "empty" && (
+  <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+    Jam pengambilan wajib diisi.
+  </p>
+)}
+
+{errorField.field === "time" && errorField.type === "invalid" && (
+  <p style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+    Masukkan jam yang valid. Contoh: 07.30 atau Sekarang
+  </p>
+)}
   </div>
 
 </div>
