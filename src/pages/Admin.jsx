@@ -7,6 +7,7 @@ function Admin({ setPage, showToast }) {
   const [typeFilter, setTypeFilter] = useState("all")
   const [search, setSearch] = useState("")
   const [highlightId, setHighlightId] = useState(null)
+  const topRef = useRef(null)
 
   // 🔥 NEW
   const [selectedOrder, setSelectedOrder] = useState(null)
@@ -43,10 +44,13 @@ if (selectedOrder) {
   const lastOrderId = useRef(null)
   const channelRef = useRef(null)
   const audioRef = useRef(null)
+  const prosesAudioRef = useRef(null)
+  const doneAudioRef = useRef(null)
 
   useEffect(() => {
   audioRef.current = new Audio("/notif.mp3")
-  audioRef.current.load()
+  prosesAudioRef.current = new Audio("/pending.mp3")
+  doneAudioRef.current = new Audio("/done.mp3")
   }, [])
 
   const cleanStatus = (status) => {
@@ -76,17 +80,25 @@ const notify = (id) => {
   }
 }
 
-  const updateStatus = async (id, status) => {
-    const { error } = await supabase
-      .from("orders")
-      .update({ status })
-      .eq("id", id)
+const updateStatus = async (id, status) => {
+  const { error } = await supabase
+    .from("orders")
+    .update({ status })
+    .eq("id", id)
 
-    if (error) console.log(error)
+  if (error) console.log(error)
 
-    // 🔥 biar modal ikut update
-    setSelectedOrder(prev => prev ? { ...prev, status } : null)
+  // 🔊 SOUND
+  if (status === "proses") {
+    prosesAudioRef.current?.play().catch(() => {})
   }
+
+  if (status === "selesai") {
+    doneAudioRef.current?.play().catch(() => {})
+  }
+
+  setSelectedOrder(prev => prev ? { ...prev, status } : null)
+}
 
   const getStatusColor = (status) => {
     if (status === "pending") return "#ff4d4f"
@@ -112,8 +124,12 @@ const notify = (id) => {
         setOrders(data.map(o => ({
           ...o,
           status: cleanStatus(o.status)
-        })))
-      }
+        }))
+        .sort((a, b) => {
+      const priority = { pending: 0, proses: 1, selesai: 2 }
+      return priority[a.status] - priority[b.status]
+        })
+      )}
     }
 
     fetchOrders()
@@ -142,8 +158,7 @@ const notify = (id) => {
                 notify(data.id)
 
                 setHighlightId(data.id)
-                setTimeout(() => setHighlightId(null), 2000)
-
+                setTimeout(() => {topRef.current?.scrollIntoView({ behavior: "smooth" })}, 100)
                 return [data, ...prev]
               }
             })
@@ -152,7 +167,7 @@ const notify = (id) => {
 
         .subscribe((status) => {
           if (status === "TIMED_OUT") {
-            showToast("Realtime putus, pakai backup...", "error")
+            showToast("Trying Reconnect To Database...", "error")
             setTimeout(createChannel, 3000)
           }
         })
@@ -168,9 +183,10 @@ const notify = (id) => {
         supabase.removeChannel(channelRef.current)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const filteredOrders = orders.filter(order => {
+    const filteredOrders = orders.filter(order => {
     const matchFilter = filter === "all" || order.status === filter
     const matchType = typeFilter === "all" || order.type === typeFilter
 
@@ -182,6 +198,7 @@ const notify = (id) => {
   })
 
   const totalOmzet = filteredOrders.reduce((acc, o) => acc + o.price, 0)
+  
 
   return (
     <div style={{
@@ -204,9 +221,11 @@ const notify = (id) => {
 
       <h1 style={{ textAlign: "center" }}>Admin Panel</h1>
 
+      <div ref={topRef}></div>
+
       {/* FILTER */}
       <input
-        placeholder="Cari order..."
+        placeholder="Cari ID/Kode Order."
         value={search}
         onChange={e => setSearch(e.target.value)}
         style={{
@@ -220,8 +239,14 @@ const notify = (id) => {
 
       {/* FILTER BUTTON */}
       <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-      {["all", "pending", "proses", "selesai"].map(f => (
-      <button key={f}
+{["all", "pending", "proses", "selesai"].map(f => {
+  const count =
+    f === "all"
+      ? orders.length
+      : orders.filter(o => o.status === f).length
+
+  return (
+    <button key={f}
       onClick={() => setFilter(f)}
       style={{
         flex: 1,
@@ -229,11 +254,17 @@ const notify = (id) => {
         borderRadius: 8,
         border: "1px solid #ddd",
         background: filter === f ? "#111" : "#fff",
-        color: filter === f ? "#fff" : "#333"
-      }}>
-      {formatStatus(f)}
-      </button>
-      ))}
+        color: filter === f ? "#fff" : "#333",
+        fontSize: 12,
+        display: "flex",
+        justifyContent: "center",
+        gap: 4
+      }}
+    >
+      {formatStatus(f)} ({count})
+    </button>
+  )
+})}
       </div>
 
       <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
@@ -265,7 +296,7 @@ const notify = (id) => {
       </div>
 
       {/* CARD */}
-      {filteredOrders.map(order => (
+{filteredOrders.map(order => (
   <div
     key={order.id}
     onClick={() => setSelectedOrder(order)}
@@ -283,18 +314,13 @@ const notify = (id) => {
     }}
   >
 
-    {/* TOP ROW */}
+    {/* TOP */}
     <div style={{
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 6
+      alignItems: "center"
     }}>
-      <span style={{
-        fontSize: 12,
-        color: "#666",
-        fontWeight: 500
-      }}>
+      <span style={{ fontSize: 12, color: "#666" }}>
         {order.type.toUpperCase()}
       </span>
 
@@ -309,21 +335,67 @@ const notify = (id) => {
       </span>
     </div>
 
-    {/* ORDER ID */}
+    {/* ID */}
     <div style={{
       fontSize: 18,
       fontWeight: 700,
-      marginBottom: 6
+      margin: "6px 0"
     }}>
       {order.order_id}
     </div>
 
-    {/* PRICE */}
+    {/* BOTTOM */}
     <div style={{
-      fontSize: 14,
-      fontWeight: 600
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
     }}>
-      Rp {formatRupiah(order.price)}
+      <span style={{ fontWeight: 600 }}>
+        Rp {formatRupiah(order.price)}
+      </span>
+
+      {/* 🔥 QUICK ACTION */}
+      <div style={{ display: "flex", gap: 6 }}>
+        
+        {/* PROSES */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            updateStatus(order.id, "proses")
+          }}
+          disabled={order.status !== "pending"}
+          style={{
+            fontSize: 10,
+            padding: "4px 8px",
+            borderRadius: 6,
+            border: "none",
+            background: order.status === "pending" ? "#faad14" : "#ddd",
+            color: "#fff"
+          }}
+        >
+          P
+        </button>
+
+        {/* SELESAI */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            updateStatus(order.id, "selesai")
+          }}
+          disabled={order.status === "selesai"}
+          style={{
+            fontSize: 10,
+            padding: "4px 8px",
+            borderRadius: 6,
+            border: "none",
+            background: order.status !== "selesai" ? "#389e0d" : "#ddd",
+            color: "#fff"
+          }}
+        >
+          D
+        </button>
+
+      </div>
     </div>
 
   </div>
@@ -414,29 +486,29 @@ const notify = (id) => {
 
       {/* ACTION */}
       <div className="admin-actions">
-        <button
-          className={`admin-btn ${
-            selectedOrder.status === "selesai"
-              ? "btn-disabled"
-              : "btn-proses"
-          }`}
-          disabled={selectedOrder.status === "selesai"}
-          onClick={() => updateStatus(selectedOrder.id, "proses")}
-        >
-          Proses
-        </button>
+<button
+  className={`admin-btn ${
+    selectedOrder.status !== "pending"
+      ? "btn-disabled"
+      : "btn-proses"
+  }`}
+  disabled={selectedOrder.status !== "pending"}
+  onClick={() => updateStatus(selectedOrder.id, "proses")}
+>
+  Proses
+</button>
 
-        <button
-          className={`admin-btn ${
-            selectedOrder.status === "selesai"
-              ? "btn-disabled"
-              : "btn-selesai"
-          }`}
-          disabled={selectedOrder.status === "selesai"}
-          onClick={() => updateStatus(selectedOrder.id, "selesai")}
-        >
-          Selesai
-        </button>
+<button
+  className={`admin-btn ${
+    selectedOrder.status === "selesai"
+      ? "btn-disabled"
+      : "btn-selesai"
+  }`}
+  disabled={selectedOrder.status === "selesai"}
+  onClick={() => updateStatus(selectedOrder.id, "selesai")}
+>
+  Selesai
+</button>
       </div>
 
       <button

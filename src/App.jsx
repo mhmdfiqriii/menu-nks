@@ -403,6 +403,7 @@ setLoading(false)
       {
         order_id: orderId,
         status: "pending",
+        created_at: new Date().toISOString(),
         type: selectedDigital.type,
         product: selectedDigital.name,
         variant: selectedVariant.name,

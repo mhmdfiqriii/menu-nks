@@ -373,6 +373,8 @@ input:focus {
 .btn-disabled {
   background: #ddd;
   color: #999;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-close {
