@@ -10,6 +10,9 @@ function Admin({ setPage, showToast }) {
   const [soundOn, setSoundOn] = useState(true)
 
   const topRef = useRef(null)
+  const totalPending = orders.filter(o => o.status === "pending").length
+  const totalProses = orders.filter(o => o.status === "proses").length
+  const totalSelesai = orders.filter(o => o.status === "selesai").length
 
   // 🔥 NEW
   const [selectedOrder, setSelectedOrder] = useState(null)
@@ -237,6 +240,7 @@ if (status === "selesai" && soundOn) {
 
       <h1 style={{ textAlign: "center", margin: 0 }}>Admin Panel</h1>
 
+      {/* SOUND TOGGLE */}
       <div style={{
   display: "flex",
   marginBottom: 10
@@ -319,16 +323,37 @@ if (status === "selesai" && soundOn) {
       ))}
       </div>
 
-      {/* OMZET */}
-      <div style={{
-        marginBottom: 15,
-        padding: 12,
-        borderRadius: 10,
-        background: "#fff",
-        border: "1px solid #eee"
-      }}>
-      <b>Total Omzet:</b> Rp. {totalOmzet.toLocaleString("id-ID")}
-      </div>
+      {/* DASHBOARD MINI */}
+<div style={{
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gap: 10,
+  marginBottom: 15
+}}>
+
+  <div className="dash-card">
+    <div className="dash-label">Pending</div>
+    <div className="dash-value">{totalPending}</div>
+  </div>
+
+  <div className="dash-card">
+    <div className="dash-label">Proses</div>
+    <div className="dash-value">{totalProses}</div>
+  </div>
+
+  <div className="dash-card">
+    <div className="dash-label">Selesai</div>
+    <div className="dash-value">{totalSelesai}</div>
+  </div>
+
+  <div className="dash-card">
+    <div className="dash-label">Omzet</div>
+    <div className="dash-value">
+      Rp {formatRupiah(totalOmzet)}
+    </div>
+  </div>
+
+</div>
 
       {/* CARD */}
 {filteredOrders.map(order => (
