@@ -100,6 +100,19 @@ function App() {
   const [errorField, setErrorField] = useState({ field:"", type:""})
 
   useEffect(() => {
+  const checkHash = () => {
+    if (window.location.hash === "#admin") {
+      setPage("admin-login")
+    }
+  }
+
+  checkHash()
+  window.addEventListener("hashchange", checkHash)
+
+  return () => window.removeEventListener("hashchange", checkHash)
+  }, [])
+
+  useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 500)
     check()
     window.addEventListener("resize", check)
@@ -470,9 +483,6 @@ return (
     {page === "home" && (
       <>
         {/* HEADER */}
-<button onClick={() => setPage("admin-login")}>
-  Admin
-</button>
 
         <div style={{
           display: "flex",
