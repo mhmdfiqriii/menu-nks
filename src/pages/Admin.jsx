@@ -7,6 +7,8 @@ function Admin({ setPage, showToast }) {
   const [typeFilter, setTypeFilter] = useState("all")
   const [search, setSearch] = useState("")
   const [highlightId, setHighlightId] = useState(null)
+  const [soundOn, setSoundOn] = useState(true)
+
   const topRef = useRef(null)
 
   // 🔥 NEW
@@ -53,6 +55,17 @@ if (selectedOrder) {
   doneAudioRef.current = new Audio("/done.mp3")
   }, [])
 
+  useEffect(() => {
+  const saved = localStorage.getItem("sound")
+  if (saved !== null) {
+    setSoundOn(saved === "true")
+  }
+  }, [])
+
+  useEffect(() => {
+  localStorage.setItem("sound", soundOn)
+  }, [soundOn])
+
   const cleanStatus = (status) => {
     return status?.replace(/'/g, "").trim().toLowerCase()
   }
@@ -64,13 +77,13 @@ const notify = (id) => {
   if (now - lastNotifyTime.current < 1000) return
 
   if (id !== lastOrderId.current) {
-    // 🔥 PLAY AUDIO DULU
-    if (audioRef.current) {
+
+    // 🔊 SOUND
+    if (soundOn && audioRef.current) {
       audioRef.current.currentTime = 0
       audioRef.current.play().catch(() => {})
     }
 
-    // 🔥 BARU TOAST
     setTimeout(() => {
       showToast("Order baru masuk 🚨")
     }, 200)
@@ -89,13 +102,13 @@ const updateStatus = async (id, status) => {
   if (error) console.log(error)
 
   // 🔊 SOUND
-  if (status === "proses") {
-    prosesAudioRef.current?.play().catch(() => {})
-  }
+if (status === "proses" && soundOn) {
+  prosesAudioRef.current?.play().catch(() => {})
+}
 
-  if (status === "selesai") {
-    doneAudioRef.current?.play().catch(() => {})
-  }
+if (status === "selesai" && soundOn) {
+  doneAudioRef.current?.play().catch(() => {})
+}
 
   setSelectedOrder(prev => prev ? { ...prev, status } : null)
 }
@@ -214,7 +227,6 @@ const updateStatus = async (id, status) => {
     }}>
 
       <button onClick={() => setPage("home")} style={{
-        marginBottom: 12,
         padding: "8px 16px",
         borderRadius: 999,
         border: "none",
@@ -223,7 +235,26 @@ const updateStatus = async (id, status) => {
         ← Kembali
       </button>
 
-      <h1 style={{ textAlign: "center" }}>Admin Panel</h1>
+      <h1 style={{ textAlign: "center", margin: 0 }}>Admin Panel</h1>
+
+      <div style={{
+  display: "flex",
+  marginBottom: 10
+}}>
+  <button
+    onClick={() => setSoundOn(prev => !prev)}
+    style={{
+      padding: "6px 12px",
+      borderRadius: 999,
+      border: "1px solid #ddd",
+      background: soundOn ? "#111" : "#fff",
+      color: soundOn ? "#fff" : "#333",
+      fontSize: 12
+    }}
+  >
+    {soundOn ? "🔊 ON" : "🔇 OFF"}
+  </button>
+</div>
 
       <div ref={topRef}></div>
 
