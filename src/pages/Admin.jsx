@@ -17,10 +17,48 @@ function Admin({ setPage, showToast }) {
   // 🔥 NEW
   const [selectedOrder, setSelectedOrder] = useState(null)
 
-  // 🔥 sebelum return
-let items = []
+  // TIMER ORDER
+  const getTimeAgo = (date) => {
+  const now = new Date()
+  const created = new Date(date)
 
-if (selectedOrder) {
+  const diff = Math.floor((now - created) / 1000) // detik
+
+  if (diff < 60) return `${diff} detik lalu`
+  
+  const minutes = Math.floor(diff / 60)
+  if (minutes < 60) return `${minutes} menit lalu`
+
+  const hours = Math.floor(minutes / 60)
+  return `${hours} jam lalu`
+  }
+
+  const getTimeColor = (date) => {
+  const now = new Date()
+  const created = new Date(date)
+
+  const minutes = Math.floor((now - created) / 60000)
+
+  if (minutes >= 15) return "#cf1322" // merah tua (bahaya)
+  if (minutes >= 10) return "#ff4d4f" // merah
+  if (minutes >= 5) return "#faad14" // kuning
+  return "#666" // normal
+  }
+
+  const [, setTick] = useState(0)
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setTick(t => t + 1)
+  }, 60000) // tiap 1 menit
+
+  return () => clearInterval(interval)
+  }, [])
+
+  // 🔥 sebelum return
+  let items = []
+
+  if (selectedOrder) {
   try {
     // 🟢 coba parse JSON (data baru)
     const parsed = JSON.parse(selectedOrder.variant)
@@ -402,6 +440,13 @@ if (status === "selesai" && soundOn) {
       margin: "6px 0"
     }}>
       {order.order_id}
+      <div style={{
+  fontSize: 12,
+  color: getTimeColor(order.created_at),
+  marginBottom: 6
+}}>
+  ⏱️ {getTimeAgo(order.created_at)}
+</div>
     </div>
 
     {/* BOTTOM */}
