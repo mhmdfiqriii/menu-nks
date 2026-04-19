@@ -47,7 +47,7 @@ if (selectedOrder) {
   useEffect(() => {
   audioRef.current = new Audio("/notif.mp3")
   audioRef.current.load()
-  }, [showToast])
+  }, [])
 
   const cleanStatus = (status) => {
     return status?.replace(/'/g, "").trim().toLowerCase()
@@ -266,164 +266,189 @@ const notify = (id) => {
 
       {/* CARD */}
       {filteredOrders.map(order => (
-        <div key={order.id}
-          onClick={() => setSelectedOrder(order)}
-          style={{
-            cursor: "pointer",
-            border: highlightId === order.id ? "2px solid #1677ff" : "1px solid #eee",
-            borderRadius: 14,
-            padding: 16,
-            marginBottom: 14,
-            background: "#fff"
-          }}>
+  <div
+    key={order.id}
+    onClick={() => setSelectedOrder(order)}
+    style={{
+      cursor: "pointer",
+      borderRadius: 16,
+      padding: 16,
+      marginBottom: 14,
+      background: "#fff",
+      borderLeft: `6px solid ${getStatusColor(order.status)}`,
+      boxShadow: highlightId === order.id
+        ? "0 0 0 2px #1677ff"
+        : "0 2px 6px rgba(0,0,0,0.05)",
+      opacity: order.status === "selesai" ? 0.6 : 1
+    }}
+  >
 
-          <p><b>{order.type.toUpperCase()}</b> - {order.order_id}</p>
-          <p><b>Status:</b>{" "}
-          <span style={{
-            color: "#fff",
-            background: getStatusColor(order.status),
-            padding: "4px 10px",
-            borderRadius: 999,
-            fontSize: 12
-          }}>
-          {formatStatus(order.status)}
-          </span>
-          </p>
-          <p>Rp {formatRupiah(order.price)}</p>
+    {/* TOP ROW */}
+    <div style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 6
+    }}>
+      <span style={{
+        fontSize: 12,
+        color: "#666",
+        fontWeight: 500
+      }}>
+        {order.type.toUpperCase()}
+      </span>
 
-        </div>
-      ))}
-
-      {/* 🔥 MODAL */}
-      {selectedOrder && (
-        <div
-          onClick={() => setSelectedOrder(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{
-              background: "#fff",
-              padding: 20,
-              width: "90%",
-              maxWidth: 400,
-              borderRadius: 16
-            }}
-          >
-            <h3 style={{ textAlign: "center", marginBottom: 10 }}>
-  DETAIL ORDER
-</h3>
-
-<hr />
-
-<p><b>Type:</b> {selectedOrder.type.toUpperCase()}</p>
-<p><b>ID:</b> {selectedOrder.order_id}</p>
-
-<p>
-  <b>Status:</b>{" "}
-  <span style={{
-    color: "#fff",
-    background: getStatusColor(selectedOrder.status),
-    padding: "4px 10px",
-    borderRadius: 999,
-    fontSize: 12
-  }}>
-    {formatStatus(selectedOrder.status)}
-  </span>
-</p>
-
-<p style={{ fontSize: 12, color: "#666" }}>
-  {new Date(selectedOrder.created_at).toLocaleString("id-ID", {timeZone: "Asia/Jakarta"})}
-</p>
-
-<hr />
-
-{/* FNB */}
-{selectedOrder.type === "fnb" && (
-  <>
-    <p><b>DATA PEMBELI</b></p>
-    <p>Nama: {selectedOrder.customer_name}</p>
-    <p>Outlet: {selectedOrder.outlet}</p>
-    <p>Jam: {selectedOrder.pickup_time}</p>
-
-    <hr />
-  </>
-)}
-
-{/* INTERNET */}
-{selectedOrder.type === "internet" && (
-  <>
-    <p><b>DATA PEMBELI</b></p>
-    <p>No HP: {selectedOrder.phone}</p>
-
-    <hr />
-  </>
-)}
-
-{/* PESANAN */}
-<p><b>PESANAN</b></p>
-
-{/* P.FNB */}
-{selectedOrder.type === "fnb" && items.map((item, i) => (
-  <div key={i} style={{ marginBottom: 6 }}>
-    <div>
-      {i + 1}. {item.name} ({item.qty}x)
+      <span style={{
+        fontSize: 11,
+        padding: "4px 10px",
+        borderRadius: 999,
+        background: getStatusColor(order.status),
+        color: "#fff"
+      }}>
+        {formatStatus(order.status)}
+      </span>
     </div>
 
-    {item.options && (
-      <div style={{ fontSize: 12, color: "#666" }}>
-        {item.options}
-      </div>
-    )}
+    {/* ORDER ID */}
+    <div style={{
+      fontSize: 18,
+      fontWeight: 700,
+      marginBottom: 6
+    }}>
+      {order.order_id}
+    </div>
+
+    {/* PRICE */}
+    <div style={{
+      fontSize: 14,
+      fontWeight: 600
+    }}>
+      Rp {formatRupiah(order.price)}
+    </div>
+
   </div>
 ))}
 
-{/* P>DIGITAL */}
-{selectedOrder.type !== "fnb" && (
-  <p>
-    Variant: {selectedOrder.variant}
-  </p>
+      {/* 🔥 MODAL */}
+{selectedOrder && (
+  <div
+    className="admin-modal-overlay"
+    onClick={() => setSelectedOrder(null)}
+  >
+    <div
+      className="admin-modal-box"
+      onClick={e => e.stopPropagation()}
+    >
+
+      {/* HEADER */}
+      <div className="admin-header">
+        <div className="admin-id">
+          {selectedOrder.order_id}
+        </div>
+
+        <div
+          className="admin-status"
+          style={{ background: getStatusColor(selectedOrder.status) }}
+        >
+          {formatStatus(selectedOrder.status)}
+        </div>
+      </div>
+
+      <div className="admin-sub">
+        {selectedOrder.type.toUpperCase()} •{" "}
+        {new Date(selectedOrder.created_at)
+          .toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}
+      </div>
+
+      {/* DATA */}
+{selectedOrder.type === "fnb" && (
+  <div className="admin-section">
+    <div className="admin-label">Data Pembeli</div>
+
+    <div>Nama Pemesan : {selectedOrder.customer_name}</div>
+    <div>Outlet : {selectedOrder.outlet}</div>
+    <div>Jam Pengambilan : {selectedOrder.pickup_time}</div>
+  </div>
 )}
 
-<hr />
-
-<p><b>TOTAL</b></p>
-<p>Rp {formatRupiah(selectedOrder.price)}</p>
-
-            <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
-              <button
-                disabled={selectedOrder.status === "selesai"}
-                onClick={() => updateStatus(selectedOrder.id, "proses")}
-                style={{ flex: 1 }}
-              >
-                Proses
-              </button>
-
-              <button
-                disabled={selectedOrder.status === "selesai"}
-                onClick={() => updateStatus(selectedOrder.id, "selesai")}
-                style={{ flex: 1 }}
-              >
-                Selesai
-              </button>
-            </div>
-
-            <button
-              onClick={() => setSelectedOrder(null)}
-              style={{ marginTop: 10, width: "100%" }}
-            >
-              Tutup
-            </button>
-          </div>
+      {selectedOrder.type === "internet" && (
+        <div className="admin-section">
+          <div className="admin-label">Data Pembeli</div>
+          <div>No. HP : {selectedOrder.phone}</div>
         </div>
       )}
+
+      {/* PESANAN */}
+      <div className="admin-section">
+        <div className="admin-label">Pesanan</div>
+
+        {/* FNB */}
+        {selectedOrder.type === "fnb" && items.map((item, i) => (
+          <div key={i} style={{ marginBottom: 10 }}>
+            <div>
+              {i + 1}. {item.name} ({item.qty}x)
+            </div>
+
+            {item.options && (
+              <div style={{ fontSize: 12, color: "#666" }}>
+                {item.options}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* DIGITAL */}
+        {selectedOrder.type !== "fnb" && (
+          <div>Varian : {selectedOrder.variant}
+          </div>
+        )}
+      </div>
+
+      {/* TOTAL */}
+      <div className="admin-total">
+        <div className="admin-label">Total</div>
+        <div className="admin-total-price">
+          Rp {formatRupiah(selectedOrder.price)}
+        </div>
+      </div>
+
+      {/* ACTION */}
+      <div className="admin-actions">
+        <button
+          className={`admin-btn ${
+            selectedOrder.status === "selesai"
+              ? "btn-disabled"
+              : "btn-proses"
+          }`}
+          disabled={selectedOrder.status === "selesai"}
+          onClick={() => updateStatus(selectedOrder.id, "proses")}
+        >
+          Proses
+        </button>
+
+        <button
+          className={`admin-btn ${
+            selectedOrder.status === "selesai"
+              ? "btn-disabled"
+              : "btn-selesai"
+          }`}
+          disabled={selectedOrder.status === "selesai"}
+          onClick={() => updateStatus(selectedOrder.id, "selesai")}
+        >
+          Selesai
+        </button>
+      </div>
+
+      <button
+        className="btn-close"
+        onClick={() => setSelectedOrder(null)}
+      >
+        Tutup
+      </button>
+
+    </div>
+  </div>
+)}
 
     </div>
   )
