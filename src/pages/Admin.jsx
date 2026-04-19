@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase"
 
 function Admin({ setPage, showToast }) {
   const [orders, setOrders] = useState([])
-  const [filter, setFilter] = useState("all")
+  const [filter, setFilter] = useState("pending")
   const [typeFilter, setTypeFilter] = useState("all")
   const [search, setSearch] = useState("")
   const [highlightId, setHighlightId] = useState(null)
@@ -111,6 +111,10 @@ const updateStatus = async (id, status) => {
   }
 
   const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
+
+  useEffect(() => {
+  window.scrollTo(0, 0)
+  }, [])
 
   useEffect(() => {
 

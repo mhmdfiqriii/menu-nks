@@ -16,7 +16,7 @@ function AdminLogin({ setPage, showToast }) {
     setLoading(true)
 
     // 🔐 LOGIN SEDERHANA (HARDCODE DULU)
-    if (username === "admin" && password === "123456") {
+    if (username === "admin" && password === "123") {
       showToast("Login berhasil")
       setTimeout(() => {
         setPage("admin")
