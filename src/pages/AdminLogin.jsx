@@ -1,31 +1,38 @@
 import { useState } from "react"
+import { supabase } from "../lib/supabase"
 
 function AdminLogin({ setPage, showToast }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const handleLogin = () => {
-    if (loading) return
+const handleLogin = async () => {
+  if (loading) return
 
-    if (!username || !password) {
-      showToast("Isi semua field", "error")
-      return
-    }
-
-    setLoading(true)
-
-    // 🔐 LOGIN SEDERHANA (HARDCODE DULU)
-    if (username === "admin" && password === "123") {
-      showToast("Login berhasil")
-      setTimeout(() => {
-        setPage("admin")
-      }, 500)
-    } else {
-      showToast("Username / Password salah", "error")
-      setLoading(false)
-    }
+  if (!username || !password) {
+    showToast("Isi semua field", "error")
+    return
   }
+
+  setLoading(true)
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: username,
+    password: password
+  })
+
+  if (error) {
+    showToast("Login gagal", "error")
+    setLoading(false)
+    return
+  }
+
+  // 🔥 simpan user
+  localStorage.setItem("admin_user", data.user.email)
+
+  showToast("Login berhasil")
+  setPage("admin")
+}
 
   return (
     <div className="login-container">
@@ -35,7 +42,7 @@ function AdminLogin({ setPage, showToast }) {
         <h2 className="login-title">Admin Login</h2>
 
         <input
-          placeholder="Username"
+          placeholder="Email"
           value={username}
           onChange={e => setUsername(e.target.value)}
           className="login-input"

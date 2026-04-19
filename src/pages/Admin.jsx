@@ -14,6 +14,22 @@ function Admin({ setPage, showToast }) {
   const totalProses = orders.filter(o => o.status === "proses").length
   const totalSelesai = orders.filter(o => o.status === "selesai").length
 
+  const adminUser = localStorage.getItem("admin_user")
+
+  useEffect(() => {
+  const checkUser = async () => {
+    const { data } = await supabase.auth.getUser()
+
+    if (!data.user) {
+      setPage("admin-login")
+    }
+  }
+
+  checkUser()
+}, [])
+
+  const role = localStorage.getItem("role")
+
   // Export to csv/excel
   const exportCSV = () => {
   if (orders.length === 0) {
@@ -97,6 +113,12 @@ const rows = filteredOrders.map(o => [
   }
 
   const [, setTick] = useState(0)
+
+  useEffect(() => {
+  if (!adminUser) {
+    setPage("admin-login")
+  }
+}, [])
 
   useEffect(() => {
   const interval = setInterval(() => {
@@ -185,24 +207,32 @@ const notify = (id) => {
   }
 }
 
+// UPDATE STATUS + TRACK USERD
 const updateStatus = async (id, status) => {
   const { error } = await supabase
     .from("orders")
-    .update({ status })
+    .update({
+      status,
+      updated_by: adminUser,
+      updated_at: new Date().toISOString()
+    })
     .eq("id", id)
 
   if (error) console.log(error)
 
   // 🔊 SOUND
-if (status === "proses" && soundOn) {
-  prosesAudioRef.current?.play().catch(() => {})
-}
+  if (soundOn) {
+    if (status === "proses") {
+      prosesAudioRef.current?.play().catch(() => {})
+    }
+    if (status === "selesai") {
+      doneAudioRef.current?.play().catch(() => {})
+    }
+  }
 
-if (status === "selesai" && soundOn) {
-  doneAudioRef.current?.play().catch(() => {})
-}
-
-  setSelectedOrder(prev => prev ? { ...prev, status } : null)
+  setSelectedOrder(prev =>
+    prev ? { ...prev, status } : null
+  )
 }
 
   const getStatusColor = (status) => {
@@ -318,15 +348,6 @@ if (status === "selesai" && soundOn) {
       minHeight: "100vh"
     }}>
 
-      <button onClick={() => setPage("home")} style={{
-        padding: "8px 16px",
-        borderRadius: 999,
-        border: "none",
-        background: "#eee"
-      }}>
-        ← Kembali
-      </button>
-
       <h1 style={{ textAlign: "center", margin: 0 }}>Admin Panel</h1>
 
       {/* SOUND TOGGLE */}
@@ -348,6 +369,22 @@ if (status === "selesai" && soundOn) {
     {soundOn ? "🔊 ON" : "🔇 OFF"}
   </button>
 </div>
+
+  <button
+    onClick={async () => {
+      await supabase.auth.signOut()
+      localStorage.removeItem("admin_user")
+      setPage("home")
+    }}
+    style={{
+      padding: "8px 16px",
+      borderRadius: 999,
+      border: "none",
+      background: "#eee",
+    }}
+  >
+    Logout
+  </button>
 
 
       <div ref={topRef}></div>
@@ -445,6 +482,7 @@ if (status === "selesai" && soundOn) {
 
 </div>
 
+{role === "admin" && (
 <button
   onClick={exportCSV}
   style={{
@@ -459,6 +497,7 @@ if (status === "selesai" && soundOn) {
 >
   Export CSV
 </button>
+)}
 
       {/* CARD */}
 {filteredOrders.map(order => (
@@ -597,6 +636,19 @@ if (status === "selesai" && soundOn) {
           {formatStatus(selectedOrder.status)}
         </div>
       </div>
+
+{selectedOrder.updated_by && (
+  <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
+    Diupdate oleh: {selectedOrder.updated_by}
+  </div>
+)}
+
+{selectedOrder.updated_at && (
+  <div style={{ fontSize: 12, color: "#666" }}>
+    Waktu: {new Date(selectedOrder.updated_at)
+      .toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}
+  </div>
+)}
 
       <div className="admin-sub">
         {selectedOrder.type.toUpperCase()} •{" "}
