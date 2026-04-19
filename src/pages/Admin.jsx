@@ -14,6 +14,57 @@ function Admin({ setPage, showToast }) {
   const totalProses = orders.filter(o => o.status === "proses").length
   const totalSelesai = orders.filter(o => o.status === "selesai").length
 
+  // Export to csv/excel
+  const exportCSV = () => {
+  if (orders.length === 0) {
+    showToast("Tidak ada data", "error")
+    return
+  }
+
+  const headers = [
+    "Order ID",
+    "Type",
+    "Status",
+    "Customer",
+    "Outlet",
+    "Phone",
+    "Variant",
+    "Price",
+    "Created At"
+  ]
+
+const safe = (val) => `"${String(val).replace(/"/g, '""')}"`
+
+const rows = filteredOrders.map(o => [
+  safe(o.order_id),
+  safe(o.type),
+  safe(o.status),
+  safe(o.customer_name || "-"),
+  safe(o.outlet || "-"),
+  safe(o.phone || "-"),
+  safe(o.variant),
+  safe(o.price),
+  safe(new Date(o.created_at).toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta"
+  }))
+])
+
+  const csvContent = [
+    headers.join(","),
+    ...rows.map(r => r.join(","))
+  ].join("\n")
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+  const url = URL.createObjectURL(blob)
+
+  const link = document.createElement("a")
+  link.href = url
+  link.setAttribute("download", `orders-${Date.now()}.csv`)
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
   // 🔥 NEW
   const [selectedOrder, setSelectedOrder] = useState(null)
 
@@ -298,6 +349,7 @@ if (status === "selesai" && soundOn) {
   </button>
 </div>
 
+
       <div ref={topRef}></div>
 
       {/* FILTER */}
@@ -392,6 +444,21 @@ if (status === "selesai" && soundOn) {
   </div>
 
 </div>
+
+<button
+  onClick={exportCSV}
+  style={{
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
+    border: "none",
+    background: "#111",
+    color: "#fff",
+    width: "100%"
+  }}
+>
+  Export CSV
+</button>
 
       {/* CARD */}
 {filteredOrders.map(order => (
