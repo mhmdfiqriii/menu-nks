@@ -16,6 +16,8 @@ function Admin({ setPage, showToast }) {
 
   const adminUser = localStorage.getItem("admin_user")
 
+  const displayName = adminUser?.split("@")[0]
+
   useEffect(() => {
   const checkUser = async () => {
     const { data } = await supabase.auth.getUser()
@@ -114,10 +116,18 @@ const rows = filteredOrders.map(o => [
 
   const [, setTick] = useState(0)
 
-  useEffect(() => {
-  if (!adminUser) {
-    setPage("admin-login")
+useEffect(() => {
+  const checkUser = async () => {
+    const { data } = await supabase.auth.getSession()
+
+    if (!data.session) {
+      setPage("admin-login")
+    } else {
+      localStorage.setItem("admin_user", data.session.user.email)
+    }
   }
+
+  checkUser()
 }, [])
 
   useEffect(() => {
@@ -276,34 +286,36 @@ const updateStatus = async (id, status) => {
     const interval = setInterval(fetchOrders, 5000)
 
     const createChannel = () => {
-      const channel = supabase
-        .channel("orders-realtime")
+  const channel = supabase
+    .channel("orders-realtime")
 
-        .on(
-          "postgres_changes",
-          { event: "*", schema: "public", table: "orders" },
-          (payload) => {
-            const data = payload.new
-            if (!data) return
+    .on(
+      "postgres_changes",
+      { event: "INSERT", schema: "public", table: "orders" },
+      (payload) => {
+        const data = payload.new
+        if (!data) return
 
-            data.status = cleanStatus(data.status)
+        data.status = cleanStatus(data.status)
 
-            setOrders(prev => {
-              const exists = prev.find(o => o.id === data.id)
+        // 🔥 NOTIF LANGSUNG
+        notify(data.id)
 
-              if (exists) {
-                return prev.map(o => o.id === data.id ? data : o)
-              } else {
-                notify(data.id)
+        setHighlightId(data.id)
+        setTimeout(() => {
+          topRef.current?.scrollIntoView({ behavior: "smooth" })
+        }, 100)
 
-                setHighlightId(data.id)
-                setTimeout(() => {topRef.current?.scrollIntoView({ behavior: "smooth" })}, 100)
-                return [data, ...prev]
-              }
-            })
+        setOrders(prev => {
+          const exists = prev.find(o => o.id === data.id)
+
+          if (exists) {
+            return prev.map(o => o.id === data.id ? data : o)
+          } else {
+            return [data, ...prev]
           }
-        )
-
+        })
+      })
         .subscribe((status) => {
           if (status === "TIMED_OUT") {
             showToast("Trying Reconnect To Database...", "error")
@@ -349,12 +361,23 @@ const updateStatus = async (id, status) => {
     }}>
 
       <h1 style={{ textAlign: "center", margin: 0 }}>Admin Panel</h1>
+      <p style={{
+  textAlign: "center",
+  fontSize: 13,
+  color: "#666",
+  margin: "auto"
+}}>
+  Selamat datang👋 <b>{displayName}</b>
+</p>
 
-      {/* SOUND TOGGLE */}
-      <div style={{
+<div style={{
   display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
   marginBottom: 10
 }}>
+
+  {/* SOUND */}
   <button
     onClick={() => setSoundOn(prev => !prev)}
     style={{
@@ -368,8 +391,8 @@ const updateStatus = async (id, status) => {
   >
     {soundOn ? "🔊 ON" : "🔇 OFF"}
   </button>
-</div>
 
+  {/* LOGOUT */}
   <button
     onClick={async () => {
       await supabase.auth.signOut()
@@ -377,15 +400,17 @@ const updateStatus = async (id, status) => {
       setPage("home")
     }}
     style={{
-      padding: "8px 16px",
+      padding: "6px 12px",
       borderRadius: 999,
       border: "none",
-      background: "#eee",
+      background: "#fff",
+      fontSize: 12
     }}
   >
     Logout
   </button>
 
+</div>
 
       <div ref={topRef}></div>
 

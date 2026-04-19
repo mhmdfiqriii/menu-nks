@@ -10,6 +10,9 @@ import { useState, useEffect, useRef } from "react"
 import { brands } from "./data/menu"
 import { digitalProducts } from "./data/menu"
 
+import Kopken from "./pages/Kopken"
+import Fore from "./pages/Fore"
+import JanjiJiwa from "./pages/JanjiJiwa"
 import Admin from "./pages/Admin.jsx"
 import AdminLogin from "./pages/AdminLogin.jsx"
 
@@ -21,6 +24,7 @@ import listKouta from "./assets/list_kouta.png"
 import bannerimei from "./assets/banner_imei.png"
 import imeiIcon from "./assets/imei_icon.png"
 import koutaIcon from "./assets/kouta_icon.png"
+
 
 const generateOrderId = (brandName) => {
   const time = Date.now().toString().slice(-6)
@@ -98,6 +102,18 @@ function App() {
   const menuRef = useRef()
 
   const [errorField, setErrorField] = useState({ field:"", type:""})
+
+  useEffect(() => {
+  const checkSession = async () => {
+    const { data } = await supabase.auth.getSession()
+
+    if (data.session) {
+      setPage("admin")
+    }
+  }
+
+  checkSession()
+}, [])
 
   useEffect(() => {
   const checkHash = () => {
