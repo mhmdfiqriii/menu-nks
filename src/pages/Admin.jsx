@@ -6,23 +6,75 @@ function Admin({ setPage, showToast }) {
   const [filter, setFilter] = useState("all")
   const [typeFilter, setTypeFilter] = useState("all")
   const [search, setSearch] = useState("")
+  const [highlightId, setHighlightId] = useState(null)
 
+  // 🔥 NEW
+  const [selectedOrder, setSelectedOrder] = useState(null)
+
+  // 🔥 sebelum return
+let items = []
+
+if (selectedOrder) {
+  try {
+    // 🟢 coba parse JSON (data baru)
+    const parsed = JSON.parse(selectedOrder.variant)
+
+    if (Array.isArray(parsed)) {
+      items = parsed
+    } else {
+      items = []
+    }
+
+  } catch {
+    // 🔴 fallback buat data lama (string ||)
+    if (selectedOrder.variant?.includes("||")) {
+      items = selectedOrder.variant.split("||").map(v => ({
+        name: v,
+        qty: "",
+        options: ""
+      }))
+    } else {
+      items = []
+    }
+  }
+}
+
+  const lastNotifyTime = useRef(0)
   const lastOrderId = useRef(null)
+  const channelRef = useRef(null)
+  const audioRef = useRef(null)
+
+  useEffect(() => {
+  audioRef.current = new Audio("/notif.mp3")
+  audioRef.current.load()
+  }, [showToast])
 
   const cleanStatus = (status) => {
     return status?.replace(/'/g, "").trim().toLowerCase()
   }
 
-  const notify = (id) => {
-    if (id !== lastOrderId.current) {
-      showToast("Order baru masuk 🚨")
+// NOTIF
+const notify = (id) => {
+  const now = Date.now()
 
-      const audio = new Audio("/notif.mp3")
-      audio.play().catch(() => {})
+  if (now - lastNotifyTime.current < 1000) return
 
-      lastOrderId.current = id
+  if (id !== lastOrderId.current) {
+    // 🔥 PLAY AUDIO DULU
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0
+      audioRef.current.play().catch(() => {})
     }
+
+    // 🔥 BARU TOAST
+    setTimeout(() => {
+      showToast("Order baru masuk 🚨")
+    }, 200)
+
+    lastOrderId.current = id
+    lastNotifyTime.current = now
   }
+}
 
   const updateStatus = async (id, status) => {
     const { error } = await supabase
@@ -31,6 +83,9 @@ function Admin({ setPage, showToast }) {
       .eq("id", id)
 
     if (error) console.log(error)
+
+    // 🔥 biar modal ikut update
+    setSelectedOrder(prev => prev ? { ...prev, status } : null)
   }
 
   const getStatusColor = (status) => {
@@ -46,76 +101,85 @@ function Admin({ setPage, showToast }) {
   const formatRupiah = (angka) => new Intl.NumberFormat("id-ID").format(angka)
 
   useEffect(() => {
-    // ✅ initial fetch (sekali doang)
-    const init = async () => {
+
+    const fetchOrders = async () => {
       const { data } = await supabase
         .from("orders")
         .select("*")
         .order("created_at", { ascending: false })
 
       if (data) {
-        setOrders(
-          data.map(o => ({
-            ...o,
-            status: cleanStatus(o.status)
-          }))
-        )
+        setOrders(data.map(o => ({
+          ...o,
+          status: cleanStatus(o.status)
+        })))
       }
     }
 
-    init()
+    fetchOrders()
 
-    const channel = supabase
-      .channel("orders-realtime")
+    const interval = setInterval(fetchOrders, 5000)
 
-      // ✅ ORDER BARU
-.on(
-  "postgres_changes",
-  { event: "*", schema: "public", table: "orders" },
-  (payload) => {
-    console.log("REALTIME MASUK:", payload)
+    const createChannel = () => {
+      const channel = supabase
+        .channel("orders-realtime")
 
-    if (!payload.new) return
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "orders" },
+          (payload) => {
+            const data = payload.new
+            if (!data) return
 
-    const data = payload.new
-    data.status = cleanStatus(data.status)
+            data.status = cleanStatus(data.status)
 
-    setOrders(prev => {
-      const exists = prev.find(o => o.id === data.id)
+            setOrders(prev => {
+              const exists = prev.find(o => o.id === data.id)
 
-      if (exists) {
-        return prev.map(o => o.id === data.id ? data : o)
-      } else {
-        notify(data.id)
-        return [data, ...prev]
-      }
-    })
-  }
-)
+              if (exists) {
+                return prev.map(o => o.id === data.id ? data : o)
+              } else {
+                notify(data.id)
 
-      .subscribe((status) => {
-  console.log("SUB:", status)
+                setHighlightId(data.id)
+                setTimeout(() => setHighlightId(null), 2000)
 
-  if (status === "SUBSCRIBED") {
-    console.log("Realtime aktif")
-  }
-})
+                return [data, ...prev]
+              }
+            })
+          }
+        )
+
+        .subscribe((status) => {
+          if (status === "TIMED_OUT") {
+            showToast("Realtime putus, pakai backup...", "error")
+            setTimeout(createChannel, 3000)
+          }
+        })
+
+      channelRef.current = channel
+    }
+
+    createChannel()
 
     return () => {
-      supabase.removeChannel(channel)
+      clearInterval(interval)
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current)
+      }
     }
   }, [])
 
   const filteredOrders = orders.filter(order => {
-  const matchFilter = filter === "all" || order.status === filter
-  const matchType = typeFilter === "all" || order.type === typeFilter
+    const matchFilter = filter === "all" || order.status === filter
+    const matchType = typeFilter === "all" || order.type === typeFilter
 
-  const matchSearch =
-    order.order_id?.toLowerCase().includes(search.toLowerCase()) ||
-    order.customer_name?.toLowerCase().includes(search.toLowerCase())
+    const matchSearch =
+      order.order_id?.toLowerCase().includes(search.toLowerCase()) ||
+      order.customer_name?.toLowerCase().includes(search.toLowerCase())
 
-  return matchFilter && matchType && matchSearch
-})
+    return matchFilter && matchType && matchSearch
+  })
 
   const totalOmzet = filteredOrders.reduce((acc, o) => acc + o.price, 0)
 
@@ -124,27 +188,25 @@ function Admin({ setPage, showToast }) {
       padding: 20,
       maxWidth: 600,
       margin: "auto",
-      fontFamily: "Poppins, sans-serif",
       background: "#fafafa",
       minHeight: "100vh"
     }}>
-      
-      <button onClick={() => setPage("home")}
-        style={{
-          marginBottom: 12,
-          padding: "8px 16px",
-          borderRadius: 999,
-          border: "none",
-          background: "#eee",
-          fontWeight: 500
-        }}>
+
+      <button onClick={() => setPage("home")} style={{
+        marginBottom: 12,
+        padding: "8px 16px",
+        borderRadius: 999,
+        border: "none",
+        background: "#eee"
+      }}>
         ← Kembali
       </button>
 
       <h1 style={{ textAlign: "center" }}>Admin Panel</h1>
 
+      {/* FILTER */}
       <input
-        placeholder="Cari Kode Order ID. Contoh: KKM / IMEI / AKRAB"
+        placeholder="Cari order..."
         value={search}
         onChange={e => setSearch(e.target.value)}
         style={{
@@ -156,26 +218,27 @@ function Admin({ setPage, showToast }) {
         }}
       />
 
-            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-        {["all", "pending", "proses", "selesai"].map(f => (
-          <button key={f}
-            onClick={() => setFilter(f)}
-            style={{
-              flex: 1,
-              padding: 8,
-              borderRadius: 8,
-              border: "1px solid #ddd",
-              background: filter === f ? "#111" : "#fff",
-              color: filter === f ? "#fff" : "#333"
-            }}>
-            {formatStatus(f)}
-          </button>
-        ))}
+      {/* FILTER BUTTON */}
+      <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+      {["all", "pending", "proses", "selesai"].map(f => (
+      <button key={f}
+      onClick={() => setFilter(f)}
+      style={{
+        flex: 1,
+        padding: 8,
+        borderRadius: 8,
+        border: "1px solid #ddd",
+        background: filter === f ? "#111" : "#fff",
+        color: filter === f ? "#fff" : "#333"
+      }}>
+      {formatStatus(f)}
+      </button>
+      ))}
       </div>
 
       <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-  {["all", "fnb", "internet", "imei"].map(t => (
-    <button key={t}
+      {["all", "fnb", "internet", "imei"].map(t => (
+      <button key={t}
       onClick={() => setTypeFilter(t)}
       style={{
         flex: 1,
@@ -186,10 +249,11 @@ function Admin({ setPage, showToast }) {
         color: typeFilter === t ? "#fff" : "#333"
       }}>
       {t.toUpperCase()}
-    </button>
-  ))}
-</div>
+      </button>
+      ))}
+      </div>
 
+      {/* OMZET */}
       <div style={{
         marginBottom: 15,
         padding: 12,
@@ -197,97 +261,170 @@ function Admin({ setPage, showToast }) {
         background: "#fff",
         border: "1px solid #eee"
       }}>
-        <b>Total Omzet:</b> Rp. {totalOmzet.toLocaleString("id-ID")}
+      <b>Total Omzet:</b> Rp. {totalOmzet.toLocaleString("id-ID")}
       </div>
 
+      {/* CARD */}
       {filteredOrders.map(order => (
         <div key={order.id}
+          onClick={() => setSelectedOrder(order)}
           style={{
-            border: "1px solid #eee",
+            cursor: "pointer",
+            border: highlightId === order.id ? "2px solid #1677ff" : "1px solid #eee",
             borderRadius: 14,
             padding: 16,
             marginBottom: 14,
             background: "#fff"
           }}>
 
-          <p>
-          <b>Type:</b>{" "}
+          <p><b>{order.type.toUpperCase()}</b> - {order.order_id}</p>
+          <p><b>Status:</b>{" "}
           <span style={{
-            padding: "2px 8px",
-            borderRadius: 6,
-            fontSize: 11,
-            background: order.type === "fnb" ? "#e6f4ff" : "#fff7e6",
-            color: order.type === "fnb" ? "#1677ff" : "#d46b08"
+            color: "#fff",
+            background: getStatusColor(order.status),
+            padding: "4px 10px",
+            borderRadius: 999,
+            fontSize: 12
           }}>
-          {order.type.toUpperCase()}
+          {formatStatus(order.status)}
           </span>
           </p>
+          <p>Rp {formatRupiah(order.price)}</p>
 
-          <p><b>ID:</b> {order.order_id}</p>
-           <p>
-            <b>Status:</b>{" "}
-            <span style={{
-              color: "#fff",
-              background: getStatusColor(order.status),
-              padding: "4px 10px",
-              borderRadius: 999,
-              fontSize: 12
-            }}>
-              {formatStatus(order.status)}
-            </span>
-          </p>
+        </div>
+      ))}
 
-          <p style={{ fontSize: 12, color: "#666" }}>
-          {new Date(order.created_at).toLocaleString("id-ID")}
-          </p>
-        
-          {/* FNB */}
-          {order.type === "fnb" && (
-          <>
-          <p><b>Nama:</b> {order.customer_name}</p>
-          <p><b>Outlet:</b> {order.outlet}</p>
-          <p><b>Jam:</b> {order.pickup_time}</p>
-          </>
-          )}
+      {/* 🔥 MODAL */}
+      {selectedOrder && (
+        <div
+          onClick={() => setSelectedOrder(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              background: "#fff",
+              padding: 20,
+              width: "90%",
+              maxWidth: 400,
+              borderRadius: 16
+            }}
+          >
+            <h3 style={{ textAlign: "center", marginBottom: 10 }}>
+  DETAIL ORDER
+</h3>
 
-          {/* INTERNET */}
-          {order.type === "internet" && (
-          <>
-          <p><b>Product:</b> {order.product}</p>
-          <p><b>No HP:</b> {order.phone}</p>
-          </>
-          )}
+<hr />
 
-          <p><b>Variant:</b> {order.variant}</p>
-          <p><b>Price:</b> Rp. {formatRupiah(order.price)}</p>
+<p><b>Type:</b> {selectedOrder.type.toUpperCase()}</p>
+<p><b>ID:</b> {selectedOrder.order_id}</p>
 
-          <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={() => updateStatus(order.id, "proses")}
-              style={{
-                flex: 1,
-                padding: 8,
-                borderRadius: 8,
-                border: "none",
-                background: "#faad14",
-                color: "#fff"
-              }}>
-              Proses
-            </button>
+<p>
+  <b>Status:</b>{" "}
+  <span style={{
+    color: "#fff",
+    background: getStatusColor(selectedOrder.status),
+    padding: "4px 10px",
+    borderRadius: 999,
+    fontSize: 12
+  }}>
+    {formatStatus(selectedOrder.status)}
+  </span>
+</p>
 
-            <button onClick={() => updateStatus(order.id, "selesai")}
-              style={{
-                flex: 1,
-                padding: 8,
-                borderRadius: 8,
-                border: "none",
-                background: "#389e0d",
-                color: "#fff"
-              }}>
-              Selesai
+<p style={{ fontSize: 12, color: "#666" }}>
+  {new Date(selectedOrder.created_at).toLocaleString("id-ID", {timeZone: "Asia/Jakarta"})}
+</p>
+
+<hr />
+
+{/* FNB */}
+{selectedOrder.type === "fnb" && (
+  <>
+    <p><b>DATA PEMBELI</b></p>
+    <p>Nama: {selectedOrder.customer_name}</p>
+    <p>Outlet: {selectedOrder.outlet}</p>
+    <p>Jam: {selectedOrder.pickup_time}</p>
+
+    <hr />
+  </>
+)}
+
+{/* INTERNET */}
+{selectedOrder.type === "internet" && (
+  <>
+    <p><b>DATA PEMBELI</b></p>
+    <p>No HP: {selectedOrder.phone}</p>
+
+    <hr />
+  </>
+)}
+
+{/* PESANAN */}
+<p><b>PESANAN</b></p>
+
+{/* P.FNB */}
+{selectedOrder.type === "fnb" && items.map((item, i) => (
+  <div key={i} style={{ marginBottom: 6 }}>
+    <div>
+      {i + 1}. {item.name} ({item.qty}x)
+    </div>
+
+    {item.options && (
+      <div style={{ fontSize: 12, color: "#666" }}>
+        {item.options}
+      </div>
+    )}
+  </div>
+))}
+
+{/* P>DIGITAL */}
+{selectedOrder.type !== "fnb" && (
+  <p>
+    Variant: {selectedOrder.variant}
+  </p>
+)}
+
+<hr />
+
+<p><b>TOTAL</b></p>
+<p>Rp {formatRupiah(selectedOrder.price)}</p>
+
+            <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+              <button
+                disabled={selectedOrder.status === "selesai"}
+                onClick={() => updateStatus(selectedOrder.id, "proses")}
+                style={{ flex: 1 }}
+              >
+                Proses
+              </button>
+
+              <button
+                disabled={selectedOrder.status === "selesai"}
+                onClick={() => updateStatus(selectedOrder.id, "selesai")}
+                style={{ flex: 1 }}
+              >
+                Selesai
+              </button>
+            </div>
+
+            <button
+              onClick={() => setSelectedOrder(null)}
+              style={{ marginTop: 10, width: "100%" }}
+            >
+              Tutup
             </button>
           </div>
         </div>
-      ))}
+      )}
+
     </div>
   )
 }

@@ -299,14 +299,13 @@ if (time.length < 3) {
     message += `\nTotal : Rp. ${formatRupiah(total)}`
 
     const saveOrder = async () => {
-  const { error } = await supabase.from("orders").insert([
+    const { error } = await supabase.from("orders").insert([
     {
       order_id: orderId,
       status: "pending",
       type: "fnb",
       product: selectedBrand?.name,
-      variant: cart.map(item => 
-      `${item.name} (${item.qty}x)${item.options ? ` - ${item.options}` : ""}` ).join(", "),
+      variant: JSON.stringify(cart),
       phone: "-", // kosong dulu
       price: total,
 
