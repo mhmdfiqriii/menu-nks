@@ -11,6 +11,8 @@ import { brands } from "./data/menu"
 import { digitalProducts } from "./data/menu"
 
 import Admin from "./pages/Admin.jsx"
+import AdminLogin from "./pages/AdminLogin.jsx"
+
 import kkm from "./assets/kkm.webp"
 import jjw from "./assets/jjw.webp"
 import fore from "./assets/fore.webp"
@@ -468,9 +470,9 @@ return (
     {page === "home" && (
       <>
         {/* HEADER */}
-        <button onClick={() => setPage("admin")}>
-          Admin
-        </button>
+<button onClick={() => setPage("admin-login")}>
+  Admin
+</button>
 
         <div style={{
           display: "flex",
@@ -1065,9 +1067,13 @@ return (
     )}
 
     {/* 🔥 ADMIN */}
-    {page === "admin" && (
-      <Admin setPage={setPage} showToast={showToast} />
-    )}
+{page === "admin-login" && (
+  <AdminLogin setPage={setPage} showToast={showToast} />
+)}
+
+{page === "admin" && (
+  <Admin setPage={setPage} showToast={showToast} />
+)}
     </div>
   )
 }
