@@ -1,13 +1,11 @@
-import "@fontsource/poppins/400.css"
-import "@fontsource/poppins/500.css"
-import "@fontsource/poppins/600.css"
-import "@fontsource/poppins/700.css"
-import "@fontsource/poppins/800.css"
-import "@fontsource/poppins/900.css"
+import React from "react"
+import ReactDOM from "react-dom/client"
+import App from "./App"
+import "./index.css"
+import { BrowserRouter } from "react-router-dom"
 
-import { createRoot } from "react-dom/client"
-import App from './App.jsx'
-
-createRoot(document.getElementById('root')).render(
-  <App />
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 )
