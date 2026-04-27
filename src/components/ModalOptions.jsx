@@ -6,14 +6,26 @@ function ModalOptions({
   onConfirm
 }) {
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-      <div className="bg-white w-[90%] max-w-sm rounded-2xl p-5 animate-[scaleIn_.2s]">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] flex items-center justify-center px-4">
 
-        <h3 className="font-semibold mb-3">{item.name}</h3>
+      <div className="w-full max-w-sm rounded-3xl bg-white p-5 border border-[#ffe1e1] shadow-xl">
+
+        <div className="mb-4">
+          <p className="text-lg font-bold text-[#DB0007]">
+            {item.name}
+          </p>
+
+          <p className="text-xs text-gray-500 mt-1">
+            Pilih varian dulu. Hidup memang penuh opsi.
+          </p>
+        </div>
 
         {Object.entries(item.options).map(([key, values]) => (
-          <div key={key} className="mb-3">
-            <p className="text-xs text-gray-500 mb-1">{key}</p>
+          <div key={key} className="mb-4">
+
+            <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">
+              {key}
+            </p>
 
             <div className="flex flex-wrap gap-2">
               {values.map(v => {
@@ -23,12 +35,15 @@ function ModalOptions({
                   <button
                     key={v}
                     onClick={() =>
-                      setSelectedOptions(prev => ({ ...prev, [key]: v }))
+                      setSelectedOptions(prev => ({
+                        ...prev,
+                        [key]: v
+                      }))
                     }
-                    className={`px-3 py-1 rounded-full text-xs border ${
+                    className={`px-3 py-2 rounded-full text-xs border transition-all ${
                       active
-                        ? "bg-black text-white border-black"
-                        : "bg-white border-gray-300"
+                        ? "bg-[#DB0007] text-white border-[#DB0007]"
+                        : "bg-white text-gray-700 border-gray-300"
                     }`}
                   >
                     {v}
@@ -36,23 +51,26 @@ function ModalOptions({
                 )
               })}
             </div>
+
           </div>
         ))}
 
         <button
           onClick={onConfirm}
-          className="w-full bg-black text-white py-2 rounded-xl mt-2"
+          className="w-full bg-[#DB0007] text-white py-3 rounded-2xl font-medium active:scale-95 transition-all"
         >
-          Tambah
+          Tambah ke Keranjang
         </button>
 
         <button
           onClick={onClose}
-          className="w-full bg-gray-100 py-2 rounded-xl mt-2 text-sm"
+          className="w-full mt-2 bg-gray-100 text-gray-700 py-3 rounded-2xl text-sm"
         >
           Batal
         </button>
+
       </div>
+
     </div>
   )
 }

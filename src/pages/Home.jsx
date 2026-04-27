@@ -19,7 +19,7 @@ function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 600)
+    const t = setTimeout(() => setLoading(false), 550)
     return () => clearTimeout(t)
   }, [])
 
@@ -41,7 +41,11 @@ function Home() {
       .channel("settings")
       .on(
         "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "settings" },
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "settings"
+        },
         (payload) => {
           setStatus(payload.new.admin_status)
         }
@@ -57,7 +61,9 @@ function Home() {
       return
     }
 
-    navigate(path)
+    setTimeout(() => {
+      navigate(path)
+    }, 120)
   }
 
   const brands = [
@@ -84,7 +90,7 @@ function Home() {
     },
     {
       name: "Produk Digital",
-      color: "#111",
+      color: "#111111",
       desc: "IMEI & Paket Kuota Termurah.",
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/icon-kouta.svg",
       path: "/digital"
@@ -100,18 +106,20 @@ function Home() {
         <div className="p-4 space-y-6">
 
           {/* BANNER */}
-          {loading
-            ? <Skeleton className="w-full h-[210px]" />
-            : <PromoBanner />
-          }
+          {loading ? (
+            <Skeleton className="w-full h-[210px]" />
+          ) : (
+            <PromoBanner />
+          )}
 
           {/* WELCOME */}
-          {loading
-            ? <Skeleton className="w-full h-[120px]" />
-            : <WelcomeCard />
-          }
+          {loading ? (
+            <Skeleton className="w-full h-[120px]" />
+          ) : (
+            <WelcomeCard />
+          )}
 
-          {/* ===== FNB ===== */}
+          {/* COFFEE */}
           <SectionHeader
             title="🔥 COFFEE DEALS"
             tags={["50% OFF", "Special Promo"]}
@@ -120,7 +128,10 @@ function Home() {
           <div className="space-y-3">
             {loading
               ? [...Array(3)].map((_, i) => (
-                  <Skeleton key={i} className="w-full h-[80px]" />
+                  <Skeleton
+                    key={i}
+                    className="w-full h-[82px]"
+                  />
                 ))
               : brands.slice(0, 3).map((b, i) => (
                   <BrandCard
@@ -128,38 +139,42 @@ function Home() {
                     data={b}
                     onClick={() => handleClick(b.path)}
                   />
-                ))
-            }
+                ))}
           </div>
 
-          {/* ===== DIGITAL ===== */}
+          {/* DIGITAL */}
           <SectionHeader
             title="🌐 DIGITAL DEALS"
             tags={["Special Price"]}
           />
 
           <div className="space-y-3">
-            {loading
-              ? <Skeleton className="w-full h-[80px]" />
-              : (
-                <BrandCard
-                  data={brands[3]}
-                  onClick={() => handleClick(brands[3].path)}
-                />
-              )
-            }
+            {loading ? (
+              <Skeleton className="w-full h-[82px]" />
+            ) : (
+              <BrandCard
+                data={brands[3]}
+                onClick={() =>
+                  handleClick(brands[3].path)
+                }
+              />
+            )}
           </div>
 
           {/* FOOTER */}
-          <p className="text-center text-xs text-gray-400 pt-4">
-            © 2026 Web Developed by mhmdfiqriii_
-          </p>
+          <div className="pt-3 pb-6">
+            <p className="text-center text-xs text-gray-400">
+              © 2026 Web Developed by mhmdfiqriii_
+            </p>
+          </div>
 
         </div>
       </PageWrapper>
 
       {showModal && (
-        <OfflineModal onClose={() => setShowModal(false)} />
+        <OfflineModal
+          onClose={() => setShowModal(false)}
+        />
       )}
     </div>
   )

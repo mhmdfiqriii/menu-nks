@@ -2,43 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== BASE ===== */
+/* ===============================
+   BASE
+================================= */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(180deg, #f8f8f8, #f1f1f1);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.2px;
+  color: #111827;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-/* ===== SCROLLBAR (BIAR GA NORAK) ===== */
+/* ===============================
+   SELECTION
+================================= */
+::selection {
+  background: rgba(16, 185, 129, 0.18);
+  color: #111827;
+}
+
+/* ===============================
+   SCROLLBAR
+================================= */
 ::-webkit-scrollbar {
-  height: 4px;
   width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.15);
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 999px;
 }
 
-/* ===== ANIMATION UTIL ===== */
-@layer utilities {
-  .fade-in {
-    animation: fadeIn 0.4s ease forwards;
-  }
-
-  .slide-up {
-    animation: slideUp 0.4s ease forwards;
-  }
-
-  .glass {
-    backdrop-filter: blur(12px);
-    background: rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.4);
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
 }
 
-/* ===== KEYFRAMES ===== */
+/* ===============================
+   KEYFRAMES
+================================= */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -61,13 +75,68 @@ body {
 
 @keyframes shimmer {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(-120%);
   }
+
   100% {
-    transform: translateX(100%);
+    transform: translateX(120%);
   }
 }
 
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: .92;
+  }
+}
+
+/* ===============================
+   UTILITIES
+================================= */
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  .slide-up {
+    animation: slideUp 0.45s ease forwards;
+  }
+
+  .soft-pulse {
+    animation: softPulse 2s ease-in-out infinite;
+  }
+
+  .glass {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+  }
+
+  .glass-dark {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(17, 24, 39, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .card-shadow {
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  }
+
+  .card-shadow-hover {
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.10);
+  }
+}
+
+/* ===============================
+   SHIMMER EFFECT
+================================= */
 .shimmer {
   position: relative;
   overflow: hidden;
@@ -77,11 +146,38 @@ body {
   content: "";
   position: absolute;
   inset: 0;
+  transform: translateX(-120%);
   background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.4),
-    transparent
+    110deg,
+    transparent 0%,
+    rgba(255,255,255,0.28) 45%,
+    rgba(255,255,255,0.52) 50%,
+    rgba(255,255,255,0.28) 55%,
+    transparent 100%
   );
-  animation: shimmer 2.5s infinite;
+  animation: shimmer 2.8s linear infinite;
+  pointer-events: none;
+}
+
+/* ===============================
+   IMAGE DEFAULT
+================================= */
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===============================
+   BUTTON RESET MINI
+================================= */
+button {
+  font-family: inherit;
+}
+
+/* ===============================
+   MOBILE TAP HIGHLIGHT
+================================= */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }

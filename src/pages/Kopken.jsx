@@ -8,14 +8,13 @@ function Kopken() {
   const navigate = useNavigate()
   const brand = brands.find(b => b.name === "Kopi Kenangan")
 
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem("cart_kopken")
+    return saved ? JSON.parse(saved) : []
+  })
+
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedOptions, setSelectedOptions] = useState({})
-
-  useEffect(() => {
-    const saved = localStorage.getItem("cart_kopken")
-    if (saved) setCart(JSON.parse(saved))
-  }, [])
 
   useEffect(() => {
     localStorage.setItem("cart_kopken", JSON.stringify(cart))
@@ -35,7 +34,15 @@ function Kopken() {
         )
       }
 
-      return [...prev, { ...item, price: finalPrice, qty: 1, options: optionsText }]
+      return [
+        ...prev,
+        {
+          ...item,
+          price: finalPrice,
+          qty: 1,
+          options: optionsText
+        }
+      ]
     })
 
     setSelectedItem(null)
@@ -49,9 +56,10 @@ function Kopken() {
 
   const calculatePrice = () => {
     if (!selectedItem) return 0
-    let price = selectedItem.price
 
+    let price = selectedItem.price
     const size = selectedOptions["Size"]
+
     if (size?.includes("Large")) price += 6000
     if (size?.includes("Jumbo")) price += 16000
 
@@ -64,31 +72,63 @@ function Kopken() {
     addToCart(selectedItem, text, price)
   }
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
+  const total = cart.reduce(
+    (acc, item) => acc + item.price * item.qty,
+    0
+  )
 
   return (
-    <div className="max-w-md mx-auto p-4 pb-24">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff5f5] p-4 pb-28">
 
-      <button onClick={() => navigate("/")} className="text-sm mb-3">
+      <button
+        onClick={() => navigate("/")}
+        className="text-sm mb-4 text-[#DB0007] font-medium"
+      >
         ← Kembali
       </button>
 
-      <h1 className="text-2xl font-semibold mb-4">{brand.name}</h1>
+      <div className="rounded-3xl bg-white border border-[#ffd6d6] p-5 shadow-sm mb-5">
+        <div className="w-14 h-14 rounded-2xl bg-[#DB0007]/10 flex items-center justify-center mb-4">
+          <span className="text-[#DB0007] text-xl font-bold">K</span>
+        </div>
+
+        <h1 className="text-2xl font-bold text-[#DB0007]">
+          {brand.name}
+        </h1>
+
+        <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+          Mengenang mantan sambil ngopi. Kombinasi pahit,
+          manis, dan keputusan hidup yang buruk.
+        </p>
+      </div>
 
       <div className="space-y-3">
         {brand.menu.map(item => (
-          <MenuCard key={item.id} item={item} onClick={() => handleOpenOptions(item)} />
+          <MenuCard
+            key={item.id}
+            item={item}
+            onClick={() => handleOpenOptions(item)}
+          />
         ))}
       </div>
 
-      {/* STICKY MINI CART */}
       {cart.length > 0 && (
         <div
           onClick={() => navigate("/kopken/cart")}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-black text-white p-4 rounded-xl flex justify-between cursor-pointer"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md rounded-2xl bg-[#DB0007] text-white px-5 py-4 flex items-center justify-between shadow-xl cursor-pointer active:scale-[0.98] transition-all"
         >
-          <span>{cart.length} item</span>
-          <span>Rp {new Intl.NumberFormat("id-ID").format(total)}</span>
+          <div>
+            <p className="text-xs text-white/80">
+              {cart.length} item dipilih
+            </p>
+            <p className="font-semibold">
+              Lihat Keranjang
+            </p>
+          </div>
+
+          <p className="font-bold text-sm">
+            Rp {new Intl.NumberFormat("id-ID").format(total)}
+          </p>
         </div>
       )}
 
