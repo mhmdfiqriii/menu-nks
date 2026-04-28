@@ -4,6 +4,7 @@ import Kopken from "./pages/Kopken"
 import KopkenCart from "./pages/KopkenCart"
 import Fore from "./pages/Fore"
 import JanjiJiwa from "./pages/JanjiJiwa"
+import Digital from "./pages/Digital"
 import Admin from "./pages/Admin"
 import AdminLogin from "./pages/AdminLogin"
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/kopken/cart" element={<KopkenCart />} />
         <Route path="/fore" element={<Fore />} />
         <Route path="/janji" element={<JanjiJiwa />} />
+        <Route path="/digital" element={<Digital />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
