@@ -71,28 +71,28 @@ function Home() {
       name: "Kopi Kenangan",
       color: "#DB0007",
       desc: "Mengenang Mantan Dengan Segelas Kopi.",
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/logo-kkm.webp",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/kopken/logo.webp",
       path: "/kopken"
     },
     {
       name: "Fore Coffee",
       color: "#006041",
       desc: "Esensi Kopi Premium di Setiap Karya.",
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/logo-fore.webp",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/fore/logo.webp",
       path: "/fore"
     },
     {
       name: "Janji Jiwa",
       color: "#ff5052",
       desc: "Kopi dari hati untuk Teman Sejiwa.",
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/logo-jjw.webp",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/janji-jiwa/logo.webp",
       path: "/janji"
     },
     {
       name: "Produk Digital",
       color: "#111111",
       desc: "IMEI & Paket Kuota Termurah.",
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/icon-kouta.svg",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/digital/logo.png",
       path: "/digital"
     }
   ]

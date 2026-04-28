@@ -8,7 +8,7 @@ function Header({ status }) {
         <div className="flex items-center gap-3 min-w-0">
 
           <img
-            src="https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/logo-nks.png"
+            src="https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/nika-store/logo.png"
             className="h-10 w-10 rounded-xl shadow-sm shrink-0"
           />
 
