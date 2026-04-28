@@ -181,3 +181,19 @@ button {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-page-enter {
+  animation: pageEnter .28s ease;
+}
