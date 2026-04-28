@@ -1,5 +1,3 @@
-// src/pages/Digital.jsx
-
 import { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { digitalProducts } from "../data/menu"
@@ -79,65 +77,73 @@ Total: Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#f8fafc] pb-10">
 
-      <div className="sticky top-0 z-20 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white px-4 py-4 shadow-md">
-
+      {/* HEADER */}
+      <div className="sticky top-0 z-20 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white px-4 py-3 shadow-md">
         <div className="flex items-center justify-between">
 
           <button
             onClick={() => navigate("/")}
-            className="w-12 h-12 rounded-2xl bg-white/10 active:scale-95 text-xl"
+            className="w-11 h-11 rounded-2xl bg-white/10 active:scale-95 text-lg"
           >
             ←
           </button>
 
           <div className="flex-1 px-3">
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-xl font-bold leading-tight">
               NKS Digital
             </h1>
 
-            <p className="text-sm text-white/75">
+            <p className="text-xs text-white/75">
               Layanan Digital
             </p>
           </div>
 
-          <div className="text-2xl opacity-70">
+          <div className="text-xl opacity-75">
             🖥️
           </div>
 
         </div>
       </div>
 
-      <div className="p-4 space-y-5">
+      <div className="p-4 space-y-4">
 
-        <div className="rounded-3xl bg-gradient-to-r from-indigo-800 to-violet-700 text-white p-5 shadow-xl">
+        {/* HERO */}
+        <div className="rounded-3xl bg-gradient-to-r from-indigo-800 to-violet-700 text-white p-5 shadow-xl overflow-hidden relative">
 
-          <p className="text-sm tracking-[4px] uppercase text-white/70">
-            BELI LANGSUNG VIA WHATSAPP
-          </p>
+          <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10"></div>
 
-          <p className="text-2xl font-bold mt-3 leading-relaxed">
-            Pilih produk → Isi form → Langsung chat admin
-          </p>
+          <div className="relative">
+            <p className="text-[11px] tracking-[4px] uppercase text-white/70">
+              BELI VIA WHATSAPP
+            </p>
 
-          <div className="flex gap-2 mt-4 flex-wrap">
-            <span className="text-xs px-3 py-1 rounded-full bg-white/15">
-              ⚡ Proses cepat
-            </span>
+            <p className="text-xl font-bold mt-3 leading-snug">
+              Pilih produk, isi data, langsung chat admin.
+            </p>
 
-            <span className="text-xs px-3 py-1 rounded-full bg-white/15">
-              💲 Harga Promo
-            </span>
+            <div className="flex gap-2 mt-4 flex-wrap">
+              <span className="text-[11px] px-3 py-1 rounded-full bg-white/15">
+                ⚡ Proses cepat
+              </span>
+
+              <span className="text-[11px] px-3 py-1 rounded-full bg-white/15">
+                💲 Harga promo
+              </span>
+            </div>
           </div>
 
         </div>
 
-        {products.map((item) => (
-          <DigitalCard
-            key={item.id}
-            item={item}
-            onClick={() => openModal(item)}
-          />
-        ))}
+        {/* LIST */}
+        <div className="space-y-3">
+          {products.map((item) => (
+            <DigitalCard
+              key={item.id}
+              item={item}
+              onClick={() => openModal(item)}
+            />
+          ))}
+        </div>
 
       </div>
 

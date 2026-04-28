@@ -15,6 +15,7 @@ function DigitalModal({
 
       <div className="w-full max-w-md bg-white rounded-t-[34px] p-5 max-h-[92vh] overflow-y-auto slide-up">
 
+        {/* HEADER */}
         <div className="flex items-start justify-between gap-3">
 
           <div className="flex gap-3">
@@ -22,7 +23,7 @@ function DigitalModal({
             <img
               src={selected.logo}
               alt={selected.name}
-              className="w-16 h-16 rounded-2xl bg-gray-100 object-contain p-2 border"
+              className="w-14 h-14 rounded-2xl bg-gray-100 object-contain p-2 border"
             />
 
             <div>
@@ -30,11 +31,11 @@ function DigitalModal({
                 Checkout Digital
               </p>
 
-              <h3 className="text-2xl font-bold leading-tight">
+              <h3 className="text-xl font-bold leading-tight">
                 {selected.name}
               </h3>
 
-              <p className="text-lg text-indigo-600 font-semibold">
+              <p className="text-base text-indigo-600 font-semibold">
                 {selected.brand}
               </p>
             </div>
@@ -43,13 +44,14 @@ function DigitalModal({
 
           <button
             onClick={closeModal}
-            className="w-12 h-12 rounded-2xl bg-gray-100 text-2xl active:scale-95"
+            className="w-11 h-11 rounded-2xl bg-gray-100 text-2xl active:scale-95"
           >
             ×
           </button>
 
         </div>
 
+        {/* COVER */}
         <div className="mt-5 rounded-3xl border bg-indigo-50 p-4">
 
           <img
@@ -65,17 +67,17 @@ function DigitalModal({
                 Provider
               </p>
 
-              <p className="text-2xl font-bold text-indigo-700">
+              <p className="text-xl font-bold text-indigo-700 leading-tight">
                 {selected.name}
               </p>
             </div>
 
             <div className="text-right">
               <p className="text-sm text-gray-400">
-                Durasi
+                Paket
               </p>
 
-              <p className="text-xl font-bold">
+              <p className="text-lg font-bold leading-tight">
                 {variant}
               </p>
             </div>
@@ -84,11 +86,11 @@ function DigitalModal({
 
           <div className="mt-4 pt-4 border-t flex justify-between items-end gap-3">
 
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="text-sm text-gray-600 leading-relaxed max-w-[58%]">
               {selected.desc}
             </p>
 
-            <p className="text-3xl font-bold text-indigo-600 whitespace-nowrap">
+            <p className="text-2xl font-bold text-indigo-600 whitespace-nowrap">
               Rp {new Intl.NumberFormat("id-ID").format(selectedPrice)}
             </p>
 
@@ -96,6 +98,7 @@ function DigitalModal({
 
         </div>
 
+        {/* VARIANT */}
         <div className="mt-5">
           <p className="font-semibold mb-2">
             Pilih Paket
@@ -118,6 +121,7 @@ function DigitalModal({
           </div>
         </div>
 
+        {/* INPUT */}
         <div className="mt-5">
           <p className="font-semibold mb-2">
             {selected.id === "imei"
@@ -133,9 +137,10 @@ function DigitalModal({
           />
         </div>
 
+        {/* BUTTON */}
         <button
           onClick={checkoutWhatsApp}
-          className="w-full mt-6 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xl font-bold active:scale-[0.99]"
+          className="w-full mt-6 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-bold active:scale-[0.99]"
         >
           Checkout via WhatsApp
         </button>
