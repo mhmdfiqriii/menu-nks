@@ -106,7 +106,7 @@ function PromoBanner() {
           <img
             key={i}
             src={b.img}
-            className="w-full h-[220px] object-cover flex-shrink-0"
+            className="w-full h-[190px] object-cover flex-shrink-0"
           />
         ))}
       </div>
