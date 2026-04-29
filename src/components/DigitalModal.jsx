@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+
 function DigitalModal({
   selected,
   variant,
@@ -9,7 +11,25 @@ function DigitalModal({
   checkoutWhatsApp,
   loading
 }) {
+  const [checked, setChecked] = useState(false)
+
+  useEffect(() => {
+    setChecked(false)
+  }, [selected, variant])
+
   if (!selected) return null
+
+  const isImei = selected.id === "imei"
+  const canCheckout = isImei || checked
+
+  const handleCheckout = () => {
+    if (!isImei && !checked) {
+      alert("Centang dulu kalau sudah cek area. Jangan barbar.")
+      return
+    }
+
+    checkoutWhatsApp()
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/45 backdrop-blur-sm flex items-end justify-center">
@@ -22,7 +42,6 @@ function DigitalModal({
           <div className="flex items-start justify-between gap-3">
 
             <div className="flex gap-3">
-
               <img
                 src={selected.logo}
                 alt={selected.name}
@@ -42,7 +61,6 @@ function DigitalModal({
                   {selected.brand}
                 </p>
               </div>
-
             </div>
 
             <button
@@ -124,8 +142,8 @@ function DigitalModal({
             </div>
           </div>
 
-          {/* CONDITIONAL */}
-          {selected.id === "imei" ? (
+          {/* IMEI */}
+          {isImei ? (
             <div className="mt-5 rounded-2xl bg-amber-50 border border-amber-200 p-4">
               <p className="font-semibold text-sm text-amber-800">
                 Catatan
@@ -137,30 +155,75 @@ function DigitalModal({
               </p>
             </div>
           ) : (
-            <div className="mt-5">
-              <p className="font-semibold mb-2">
-                Nomor Tujuan *
-              </p>
+            <>
+              {/* WARNING */}
+              <div className="mt-5 rounded-2xl bg-orange-50 border border-orange-200 p-4">
+                <p className="font-semibold text-sm text-orange-800">
+                  ⚠️ Informasi Kuota
+                </p>
 
-              <input
-                value={target}
-                onChange={(e) => setTarget(e.target.value)}
-                placeholder="Masukkan nomor tujuan"
-                className="w-full border rounded-2xl px-4 py-4 outline-none focus:border-indigo-500"
-              />
-            </div>
+                <p className="text-sm text-orange-700 mt-2 leading-relaxed">
+                  Kuota yang diterima tergantung area masing-masing.
+                  Silakan cek area kamu terlebih dahulu untuk
+                  mengetahui estimasi kuota yang didapat.
+                </p>
+
+                <a
+                  href="https://mhmdfiqriii.github.io/cek-area-akrab/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block mt-3 text-sm font-semibold text-indigo-600"
+                >
+                  Cek Area →
+                </a>
+              </div>
+
+              {/* INPUT */}
+              <div className="mt-5">
+                <p className="font-semibold mb-2">
+                  Nomor Tujuan *
+                </p>
+
+                <input
+                  value={target}
+                  onChange={(e) => setTarget(e.target.value)}
+                  placeholder="Masukkan nomor tujuan"
+                  className="w-full border rounded-2xl px-4 py-4 outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              {/* CHECKBOX */}
+              <label className="mt-4 flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={(e) => setChecked(e.target.checked)}
+                  className="mt-1 w-4 h-4 accent-indigo-600"
+                />
+
+                <span className="text-sm text-gray-700 leading-relaxed">
+                  Saya sudah cek area dan paham jumlah kuota
+                  bisa berbeda tiap wilayah.
+                </span>
+              </label>
+            </>
           )}
 
         </div>
 
-        {/* STICKY BUTTON */}
+        {/* BUTTON */}
         <div className="sticky bottom-0 bg-white border-t p-4">
           <button
-            onClick={checkoutWhatsApp}
-            className="w-full py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-bold active:scale-[0.99]"
+            onClick={handleCheckout}
+            disabled={!canCheckout || loading}
+            className={`w-full py-4 rounded-2xl text-lg font-bold transition-all ${
+              canCheckout
+                ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
+                : "bg-gray-200 text-gray-400"
+            }`}
           >
             {loading
-              ? "Menghubungkan WhatsApp..."
+              ? "Mengarahkan ke WhatsApp..."
               : "Checkout via WhatsApp"}
           </button>
         </div>
