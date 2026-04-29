@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { ChevronLeft, ShoppingCart } from "lucide-react"
 import { supabase } from "../lib/supabase"
 
 function KopkenCart() {
@@ -20,7 +21,7 @@ function KopkenCart() {
     if (saved) setCart(JSON.parse(saved))
   }, [])
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0)
+  const total = cart.reduce((a, b) => a + b.price * b.qty, 0)
 
   const handleCheckout = async () => {
     if (!name.trim()) return nameRef.current.focus()
@@ -30,18 +31,6 @@ function KopkenCart() {
     setLoading(true)
 
     const orderId = `KKM-${Date.now().toString().slice(-6)}`
-
-    let message = `*FORM ORDER NKS*\n\n`
-    message += `No: ${orderId}\n`
-    message += `Nama: ${name}\n`
-    message += `Outlet: ${outlet}\n`
-    message += `Jam: ${time}\n\n`
-
-    cart.forEach((item, i) => {
-      message += `${i + 1}. ${item.name} (${item.qty}x)\n`
-    })
-
-    message += `\nTotal: Rp ${total}`
 
     await supabase.from("orders").insert([{
       order_id: orderId,
@@ -55,47 +44,85 @@ function KopkenCart() {
       pickup_time: time
     }])
 
-    window.open(`https://wa.me/6285704550839?text=${encodeURIComponent(message)}`)
-
-    localStorage.removeItem("cart_kopken")
     navigate("/kopken")
   }
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7]">
 
-      <button onClick={() => navigate("/kopken")} className="text-sm mb-3">
-        ← Kembali
-      </button>
+      <div className="sticky top-0 bg-[#DB0007] text-white px-4 py-3 shadow-md">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate("/kopken")}
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
+          >
+            <ChevronLeft size={22} />
+          </button>
 
-      <h1 className="text-xl font-semibold mb-4">Keranjang</h1>
-
-      <div className="bg-white p-4 rounded-2xl border space-y-2">
-        {cart.map(item => (
-          <div key={item.id + item.options} className="flex justify-between text-sm">
-            <span>{item.name} ({item.qty})</span>
-            <span>Rp {item.price * item.qty}</span>
+          <div>
+            <h1 className="font-bold">Keranjang</h1>
+            <p className="text-xs text-white/75">Checkout Order</p>
           </div>
-        ))}
+        </div>
       </div>
 
-      <div className="mt-4 space-y-2">
-        <input ref={nameRef} placeholder="Nama" className="w-full border p-3 rounded-xl"
-          onChange={e => setName(e.target.value)} />
+      <div className="p-4 space-y-4">
 
-        <input ref={outletRef} placeholder="Outlet" className="w-full border p-3 rounded-xl"
-          onChange={e => setOutlet(e.target.value)} />
+        <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-2">
+          {cart.map((item) => (
+            <div
+              key={item.id + item.options}
+              className="flex justify-between text-sm"
+            >
+              <span>{item.name} ({item.qty})</span>
+              <span>
+                Rp {new Intl.NumberFormat("id-ID").format(item.price * item.qty)}
+              </span>
+            </div>
+          ))}
+        </div>
 
-        <input ref={timeRef} placeholder="Jam" className="w-full border p-3 rounded-xl"
-          onChange={e => setTime(e.target.value)} />
+        <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-3">
+          <input
+            ref={nameRef}
+            placeholder="Nama"
+            className="w-full border rounded-2xl px-4 py-3"
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <input
+            ref={outletRef}
+            placeholder="Outlet"
+            className="w-full border rounded-2xl px-4 py-3"
+            onChange={(e) => setOutlet(e.target.value)}
+          />
+
+          <input
+            ref={timeRef}
+            placeholder="Jam Ambil"
+            className="w-full border rounded-2xl px-4 py-3"
+            onChange={(e) => setTime(e.target.value)}
+          />
+        </div>
+
       </div>
 
-      <button
-        onClick={handleCheckout}
-        className="w-full bg-black text-white py-3 rounded-xl mt-4"
-      >
-        {loading ? "Loading..." : "Checkout"}
-      </button>
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md">
+        <button
+          onClick={handleCheckout}
+          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl"
+        >
+          <div className="flex items-center gap-2">
+            <ShoppingCart size={18} />
+            <span>{loading ? "Loading..." : "Checkout"}</span>
+          </div>
+
+          <span>
+            Rp {new Intl.NumberFormat("id-ID").format(total)}
+          </span>
+        </button>
+      </div>
+
     </div>
   )
 }

@@ -1,36 +1,36 @@
 import { useNavigate } from "react-router-dom"
+import { ChevronLeft, Coffee } from "lucide-react"
 
 function Fore() {
   const navigate = useNavigate()
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#f6f7f2] p-4">
+    <div className="max-w-md mx-auto min-h-screen bg-[#f6f7f2]">
 
-      <button
-        onClick={() => navigate("/")}
-        className="text-sm mb-4"
-      >
-        ← Kembali
-      </button>
+      <div className="sticky top-0 bg-[#006041] text-white px-4 py-3 shadow-md">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => navigate("/")}
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
+          >
+            <ChevronLeft size={22} />
+          </button>
 
-      <div className="rounded-3xl p-5 bg-white border shadow-sm">
-        <div className="w-14 h-14 rounded-2xl bg-[#006041]/10 flex items-center justify-center mb-4">
-          <span className="text-[#006041] font-bold">F</span>
+          <div className="flex-1 px-3">
+            <h1 className="font-bold text-lg">Fore Coffee</h1>
+            <p className="text-xs text-white/75">Coming Soon</p>
+          </div>
+
+          <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
+            <Coffee size={18} />
+          </div>
         </div>
+      </div>
 
-        <h1 className="text-2xl font-bold text-[#006041]">
-          Fore Coffee
-        </h1>
-
-        <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-          Kopi modern dengan rasa premium dan tampilan clean.
-          Cocok buat manusia yang pura-pura produktif sambil pegang latte.
-        </p>
-
-        <div className="mt-5 rounded-2xl bg-[#006041] text-white p-4">
-          <p className="text-xs opacity-80">COMING SOON</p>
-          <p className="font-semibold mt-1">
-            Menu Fore sedang disiapkan
+      <div className="p-4">
+        <div className="rounded-3xl bg-white p-5 border shadow-sm">
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Menu Fore sedang disiapkan. Kapitalisme butuh waktu.
           </p>
         </div>
       </div>

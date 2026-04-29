@@ -1,40 +1,38 @@
 import { useNavigate } from "react-router-dom"
+import { ChevronLeft, HeartHandshake } from "lucide-react"
 
 function JanjiJiwa() {
   const navigate = useNavigate()
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] p-4">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7]">
 
-      <button
-        onClick={() => navigate("/")}
-        className="text-sm mb-4"
-      >
-        ← Kembali
-      </button>
+      <div className="sticky top-0 bg-[#ff5052] text-white px-4 py-3 shadow-md">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => navigate("/")}
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
+          >
+            <ChevronLeft size={22} />
+          </button>
 
-      <div className="rounded-3xl p-5 bg-white border shadow-sm">
+          <div className="flex-1 px-3">
+            <h1 className="font-bold text-lg">Janji Jiwa</h1>
+            <p className="text-xs text-white/75">Coming Soon</p>
+          </div>
 
-        <div className="w-14 h-14 rounded-2xl bg-[#ff5052]/10 flex items-center justify-center mb-4">
-          <span className="text-[#ff5052] font-bold">J</span>
+          <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
+            <HeartHandshake size={18} />
+          </div>
         </div>
+      </div>
 
-        <h1 className="text-2xl font-bold text-[#ff5052]">
-          Janji Jiwa
-        </h1>
-
-        <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-          Kopi dari hati untuk teman sejiwa.
-          Branding manis, warna tegas, cocok untuk rakyat yang suka promo.
-        </p>
-
-        <div className="mt-5 rounded-2xl bg-[#ff5052] text-white p-4">
-          <p className="text-xs opacity-80">COMING SOON</p>
-          <p className="font-semibold mt-1">
-            Menu Janji Jiwa sedang diproses
+      <div className="p-4">
+        <div className="rounded-3xl bg-white p-5 border shadow-sm">
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Menu Janji Jiwa sedang diproses. Janji mudah, deploy sulit.
           </p>
         </div>
-
       </div>
 
     </div>
