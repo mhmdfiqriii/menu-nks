@@ -1,34 +1,40 @@
+import { MessageCircle, MoonStar } from "lucide-react"
+
 function OfflineModal({ onClose }) {
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white w-[90%] max-w-sm rounded-2xl p-6 text-center">
+    <div className="fixed inset-0 bg-black/45 backdrop-blur-sm z-50 flex items-center justify-center px-4">
 
-        <div className="text-3xl mb-2">😔</div>
+      <div className="w-full max-w-sm bg-white rounded-3xl p-6 shadow-xl">
 
-        <h3 className="font-semibold text-lg">
+        <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto">
+          <MoonStar size={24} />
+        </div>
+
+        <h3 className="text-lg font-bold text-center mt-4">
           Layanan Sedang Tutup
         </h3>
 
-        <p className="text-sm text-gray-500 mt-2">
-          Admin sedang offline. Silakan hubungi admin
-          untuk informasi lebih lanjut.
+        <p className="text-sm text-gray-500 text-center mt-2 leading-relaxed">
+          Admin sedang offline. Manusia juga butuh istirahat, tragis memang.
         </p>
 
         <button
+          onClick={() => window.open("https://wa.me/6285704550839")}
+          className="w-full h-12 rounded-2xl bg-green-600 text-white font-semibold mt-5 flex items-center justify-center gap-2"
+        >
+          <MessageCircle size={18} />
+          Chat Admin
+        </button>
+
+        <button
           onClick={onClose}
-          className="w-full bg-gray-200 py-2 rounded-xl mt-4"
+          className="w-full h-12 rounded-2xl bg-gray-100 text-gray-700 font-semibold mt-2"
         >
           Kembali
         </button>
 
-        <button
-          onClick={() => window.open("https://wa.me/6285704550839")}
-          className="w-full bg-green-500 text-white py-2 rounded-xl mt-2"
-        >
-          Chat Admin
-        </button>
-
       </div>
+
     </div>
   )
 }

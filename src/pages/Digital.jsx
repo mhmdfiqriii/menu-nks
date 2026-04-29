@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { ChevronLeft, Monitor } from "lucide-react"
 import { digitalProducts } from "../data/menu"
 import DigitalCard from "../components/DigitalCard"
 import DigitalModal from "../components/DigitalModal"
@@ -10,6 +11,7 @@ function Digital() {
   const [selected, setSelected] = useState(null)
   const [variant, setVariant] = useState("")
   const [target, setTarget] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const products = useMemo(() => {
     return digitalProducts.map((item) => {
@@ -18,21 +20,29 @@ function Digital() {
           ...item,
           brand: "NKS DIGITAL",
           desc: "Unlock sinyal hilang, proses cepat dan aman.",
+          type: "imei",
           color: "from-violet-700 to-indigo-700",
           badge: "⚡ Proses cepat",
-          logo: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/imei/logo.png",
-          cover: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/imei/cover.jpg"
+          prefix: "IMEI",
+          logo:
+            "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/imei/logo.png",
+          cover:
+            "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/imei/cover.jpg"
         }
       }
 
       return {
         ...item,
         brand: "NKS DIGITAL",
-        desc: "Paket akrab XL / Axis harga waras.",
+        desc: "Paket akrab XL / Axis.",
+        type: "kuota",
         color: "from-sky-600 to-blue-700",
         badge: "💲 Harga promo",
-        logo: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/kuota/logo.png",
-        cover: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/kuota/cover.jpg"
+        prefix: "AKRAB",
+        logo:
+          "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/kuota/logo.png",
+        cover:
+          "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/digital/kuota/cover.jpg"
       }
     })
   }, [])
@@ -47,31 +57,58 @@ function Digital() {
     setSelected(null)
     setVariant("")
     setTarget("")
+    setLoading(false)
   }
 
   const selectedPrice =
-    selected?.variants.find((v) => v.name === variant)?.price || 0
+    selected?.variants?.find((v) => v.name === variant)?.price || 0
+
+  const createOrderId = () => {
+    const randomId = Math.floor(100000 + Math.random() * 900000)
+    return `${selected.prefix}-${randomId}`
+  }
 
   const checkoutWhatsApp = () => {
-    if (!target.trim()) {
-      alert("Isi nomor / email dulu. Masa admin suruh nebak.")
+    if (!selected) return
+
+    if (selected.type !== "imei" && !target.trim()) {
+      alert("Isi nomor dulu. Masa admin disuruh nerawang.")
       return
     }
 
-    const text = `Halo admin, saya mau order:
+    const orderId = createOrderId()
 
-Produk: ${selected.name}
-Varian: ${variant}
-Tujuan: ${target}
+    let text = ""
 
-Total: Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}
-`
+    if (selected.type === "imei") {
+      text = `*FORM ORDER NKS DIGITAL*
 
-    const url =
-      "https://wa.me/6285704550839?text=" +
-      encodeURIComponent(text)
+No. Pesanan : ${orderId}
+Produk      : ${selected.name}
+Durasi      : ${variant}
 
-    window.open(url, "_blank")
+*Total       : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
+    } else {
+      text = `*FORM ORDER NKS DIGITAL*
+
+No. Pesanan : ${orderId}
+Produk      : ${selected.name}
+Paket       : ${variant}
+No. HP      : ${target}
+
+*Total       : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
+    }
+
+    setLoading(true)
+
+    setTimeout(() => {
+      const url =
+        "https://wa.me/6285704550839?text=" +
+        encodeURIComponent(text)
+
+      window.open(url, "_blank")
+      setLoading(false)
+    }, 900)
   }
 
   return (
@@ -83,9 +120,9 @@ Total: Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}
 
           <button
             onClick={() => navigate("/")}
-            className="w-11 h-11 rounded-2xl bg-white/10 active:scale-95 text-lg"
+            className="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center active:scale-95 transition-all"
           >
-            ←
+            <ChevronLeft size={22} />
           </button>
 
           <div className="flex-1 px-3">
@@ -98,8 +135,8 @@ Total: Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}
             </p>
           </div>
 
-          <div className="text-xl opacity-75">
-            🖥️
+          <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center opacity-80">
+            <Monitor size={20} />
           </div>
 
         </div>
@@ -119,6 +156,10 @@ Total: Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}
 
             <p className="text-xl font-bold mt-3 leading-snug">
               Pilih produk, isi data, langsung chat admin.
+            </p>
+
+            <p className="text-xs text-white/70 mt-2">
+              100+ order selesai
             </p>
 
             <div className="flex gap-2 mt-4 flex-wrap">
@@ -156,6 +197,7 @@ Total: Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}
         selectedPrice={selectedPrice}
         closeModal={closeModal}
         checkoutWhatsApp={checkoutWhatsApp}
+        loading={loading}
       />
 
     </div>

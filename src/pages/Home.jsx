@@ -91,7 +91,7 @@ function Home() {
     {
       name: "Produk Digital",
       color: "#111111",
-      desc: "IMEI & Paket Kuota Termurah.",
+      desc: "Unblock IMEI & Paket Kuota Termurah.",
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/digital/logo.png",
       path: "/digital"
     }
@@ -145,7 +145,7 @@ function Home() {
           {/* DIGITAL */}
           <SectionHeader
             title="🌐 DIGITAL DEALS"
-            tags={["Special Price"]}
+            tags={["Best Price", "50% OFF"]}
           />
 
           <div className="space-y-3">
