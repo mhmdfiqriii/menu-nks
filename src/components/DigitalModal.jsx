@@ -186,12 +186,12 @@ function DigitalModal({
               {/* INFO */}
               <div className="mt-5 rounded-2xl bg-orange-50 border border-orange-200 p-4">
                 <p className="font-semibold text-sm text-orange-800">
-                  Informasi Kuota
+                  ⚠️ Informasi Kuota
                 </p>
 
                 <p className="text-sm text-orange-700 mt-2 leading-relaxed">
                   Kuota tergantung area masing-masing.
-                  Cek wilayahmu dulu biar hidup lebih tenang.
+                  Silahkan cek area kamu terlebih dahulu untuk mengetahui estimasi kouta yang masuk.
                 </p>
 
                 <a
