@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { ChevronLeft, HeartHandshake } from "lucide-react"
+import { ChevronLeft, Coffee } from "lucide-react"
 
 function JanjiJiwa() {
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ function JanjiJiwa() {
           </div>
 
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
-            <HeartHandshake size={18} />
+            <Coffee size={18} />
           </div>
         </div>
       </div>

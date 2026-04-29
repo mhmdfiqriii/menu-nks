@@ -14,9 +14,9 @@ function DigitalModal({
   return (
     <div className="fixed inset-0 z-50 bg-black/45 backdrop-blur-sm flex items-end justify-center">
 
-      <div className="w-full max-w-md bg-white rounded-t-[34px] max-h-[92vh] overflow-y-auto slide-up">
+      <div className="w-full max-w-md bg-white rounded-t-[34px] h-[92vh] overflow-y-auto slide-up">
 
-        <div className="p-5 pb-28">
+        <div className="p-5">
 
           {/* HEADER */}
           <div className="flex items-start justify-between gap-3">
@@ -154,7 +154,7 @@ function DigitalModal({
         </div>
 
         {/* STICKY BUTTON */}
-        <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t p-4">
+        <div className="sticky bottom-0 bg-white border-t p-4">
           <button
             onClick={checkoutWhatsApp}
             className="w-full py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-bold active:scale-[0.99]"

@@ -90,7 +90,7 @@ function Home() {
     },
     {
       name: "Produk Digital",
-      color: "#111111",
+      color: "#4f46e5",
       desc: "Unblock IMEI & Paket Kuota Termurah.",
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/digital/logo.png",
       path: "/digital"

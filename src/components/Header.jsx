@@ -1,4 +1,4 @@
-import { MessageCircle, Store } from "lucide-react"
+import { MessageCircle } from "lucide-react"
 
 function Header({ status }) {
   const online = status === "online"
@@ -8,9 +8,11 @@ function Header({ status }) {
       <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between gap-3">
 
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-11 h-11 rounded-2xl bg-black text-white flex items-center justify-center shadow-sm shrink-0">
-            <Store size={18} />
-          </div>
+
+          <img
+            src="https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/nika-store/logo.png"
+            className="w-11 h-11 rounded-2xl object-cover shadow-sm shrink-0"
+          />
 
           <div className="min-w-0">
             <p className="font-bold text-sm tracking-wide text-gray-900 truncate">
@@ -32,7 +34,7 @@ function Header({ status }) {
 
         <button
           onClick={() => window.open("https://wa.me/6285704550839")}
-          className="h-10 px-4 rounded-2xl bg-green-600 text-white text-xs font-semibold flex items-center gap-2 active:scale-95 transition-all shadow-sm"
+          className="h-10 px-4 rounded-2xl bg-green-600 text-white text-xs font-semibold flex items-center gap-2 active:scale-95 shadow-sm"
         >
           <MessageCircle size={15} />
           Chat

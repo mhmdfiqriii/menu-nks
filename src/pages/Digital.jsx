@@ -84,19 +84,19 @@ function Digital() {
       text = `*FORM ORDER NKS DIGITAL*
 
 No. Pesanan : ${orderId}
-Produk      : ${selected.name}
-Durasi      : ${variant}
+Produk : ${selected.name}
+Durasi : ${variant}
 
-*Total       : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
+*Total : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
     } else {
       text = `*FORM ORDER NKS DIGITAL*
 
 No. Pesanan : ${orderId}
-Produk      : ${selected.name}
-Paket       : ${variant}
-No. HP      : ${target}
+Produk : ${selected.name}
+Paket : ${variant}
+No. HP : ${target}
 
-*Total       : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
+*Total : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
     }
 
     setLoading(true)
@@ -155,7 +155,7 @@ No. HP      : ${target}
             </p>
 
             <p className="text-xl font-bold mt-3 leading-snug">
-              Pilih produk, isi data, langsung chat admin.
+              Pilih produk, cari varian, langsung chat admin.
             </p>
 
             <p className="text-xs text-white/70 mt-2">
