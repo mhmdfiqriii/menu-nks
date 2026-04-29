@@ -78,23 +78,30 @@ function Kopken() {
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
 
-      <div className="sticky top-0 z-20 bg-[#DB0007] text-white px-4 py-3 shadow-md">
-        <div className="flex items-center justify-between">
+      {/* FIXED HEADER */}
+      <div className="sticky top-0 z-30 bg-[#DB0007]/90 backdrop-blur-md text-white border-b border-white/10">
+        <div className="px-4 h-[64px] flex items-center justify-between">
+
           <button
             onClick={() => navigate("/")}
-            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center active:scale-95"
           >
             <ChevronLeft size={22} />
           </button>
 
-          <div className="flex-1 px-3">
-            <h1 className="font-bold text-lg">Kopi Kenangan</h1>
-            <p className="text-xs text-white/75">Menu Order</p>
+          <div className="flex-1 px-3 leading-tight">
+            <h1 className="font-bold text-[15px]">
+              Kopi Kenangan
+            </h1>
+            <p className="text-[11px] text-white/75">
+              Menu Order
+            </p>
           </div>
 
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
             <Coffee size={18} />
           </div>
+
         </div>
       </div>
 

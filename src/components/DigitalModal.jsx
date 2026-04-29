@@ -22,7 +22,6 @@ function DigitalModal({
   if (!selected) return null
 
   const isImei = selected.id === "imei"
-
   const checkKey = `${selected.id}-${variant}`
   const checked = checkedMap[checkKey] || false
 
@@ -31,24 +30,6 @@ function DigitalModal({
       ? true
       : checked && target.trim()
 
-  const handleCheckout = () => {
-    if (loading) return
-
-    if (!isImei) {
-      if (!target.trim()) {
-        alert("Isi nomor tujuan dulu. Masa admin cenayang.")
-        return
-      }
-
-      if (!checked) {
-        alert("Centang dulu kalau sudah cek area.")
-        return
-      }
-    }
-
-    checkoutWhatsApp()
-  }
-
   const toggleCheck = () => {
     setCheckedMap((prev) => ({
       ...prev,
@@ -56,14 +37,31 @@ function DigitalModal({
     }))
   }
 
+  const handleCheckout = () => {
+    if (loading) return
+
+    if (!isImei) {
+      if (!target.trim()) {
+        alert("Isi nomor tujuan dulu. Mesin dukun sedang libur.")
+        return
+      }
+
+      if (!checked) {
+        alert("Ceklis dulu kalau sudah cek area.")
+        return
+      }
+    }
+
+    checkoutWhatsApp()
+  }
+
   return (
     <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-sm flex items-end justify-center fade-in">
 
-      {/* PANEL */}
-      <div className="w-full max-w-md bg-white rounded-t-[34px] h-[92vh] overflow-y-auto shadow-2xl slide-up">
+      <div className="w-full max-w-md bg-white rounded-t-[38px] h-[85vh] overflow-hidden shadow-2xl slide-up">
 
         {/* CONTENT */}
-        <div className="p-5 pb-32">
+        <div className="h-full overflow-y-auto p-5 pb-36">
 
           {/* HEADER */}
           <div className="flex items-start justify-between gap-3">
@@ -94,7 +92,7 @@ function DigitalModal({
 
             <button
               onClick={closeModal}
-              className="w-11 h-11 rounded-2xl bg-gray-100 flex items-center justify-center active:scale-95 transition-all"
+              className="w-11 h-11 rounded-2xl bg-gray-100 flex items-center justify-center active:scale-95"
             >
               <X size={20} />
             </button>
@@ -102,12 +100,12 @@ function DigitalModal({
           </div>
 
           {/* COVER */}
-          <div className="mt-5 rounded-3xl border border-indigo-100 bg-gradient-to-b from-indigo-50 to-white p-4 shadow-sm">
+          <div className="mt-5 rounded-3xl border border-indigo-100 bg-gradient-to-b from-indigo-50 to-white p-4">
 
             <img
               src={selected.cover}
               alt={selected.name}
-              className="w-full rounded-2xl object-cover"
+              className="w-full max-h-[220px] rounded-2xl object-cover"
             />
 
             <div className="mt-4 flex justify-between gap-4">
@@ -159,7 +157,7 @@ function DigitalModal({
                 <button
                   key={v.name}
                   onClick={() => setVariant(v.name)}
-                  className={`px-3 py-2 rounded-full text-sm border transition-all active:scale-95 ${
+                  className={`px-4 py-2 rounded-full text-sm border transition-all duration-200 active:scale-95 ${
                     variant === v.name
                       ? "bg-indigo-600 text-white border-indigo-600 shadow-md"
                       : "bg-white border-gray-300 text-gray-700"
@@ -179,21 +177,21 @@ function DigitalModal({
               </p>
 
               <p className="text-sm text-amber-700 mt-2 leading-relaxed">
-                Kirim screenshot IMEI kamu ke admin.
-                Ketik *#606# di call center.
+                Kirim screenshot IMEI ke admin.
+                Ketik *#606# di menu telepon.
               </p>
             </div>
           ) : (
             <>
-              {/* INFO BOX */}
+              {/* INFO */}
               <div className="mt-5 rounded-2xl bg-orange-50 border border-orange-200 p-4">
                 <p className="font-semibold text-sm text-orange-800">
-                  ⚠️ Informasi Kuota
+                  Informasi Kuota
                 </p>
 
                 <p className="text-sm text-orange-700 mt-2 leading-relaxed">
-                  Kuota diterima tergantung area masing-masing.
-                  Cek area dulu supaya tidak sok kaget.
+                  Kuota tergantung area masing-masing.
+                  Cek wilayahmu dulu biar hidup lebih tenang.
                 </p>
 
                 <a
@@ -217,38 +215,51 @@ function DigitalModal({
                   value={target}
                   onChange={(e) => setTarget(e.target.value)}
                   placeholder="Masukkan nomor tujuan"
-                  className="w-full border rounded-2xl px-4 py-4 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all"
+                  className="w-full border rounded-2xl px-4 py-4 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
                 />
               </div>
 
-              {/* CUSTOM CHECKBOX */}
+              {/* PREMIUM CHECKBOX */}
               <button
                 type="button"
                 onClick={toggleCheck}
-                className="mt-4 flex items-start gap-3 text-left"
+                className={`mt-4 w-full rounded-2xl border p-4 flex items-start gap-3 text-left transition-all ${
+                  checked
+                    ? "bg-indigo-50 border-indigo-300"
+                    : "bg-white border-gray-200"
+                }`}
               >
                 <div
-                  className={`w-6 h-6 rounded-lg border flex items-center justify-center shrink-0 mt-[1px] transition-all ${
+                  className={`w-6 h-6 rounded-xl flex items-center justify-center shrink-0 ${
                     checked
-                      ? "bg-indigo-600 border-indigo-600 text-white"
-                      : "bg-white border-gray-300"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-100 text-transparent"
                   }`}
                 >
-                  {checked && <Check size={15} />}
+                  <Check size={15} />
                 </div>
 
-                <span className="text-sm text-gray-700 leading-relaxed">
-                  Saya sudah cek area dan paham jumlah kuota
-                  bisa berbeda tiap wilayah.
-                </span>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">
+                    Saya sudah cek area kuota
+                  </p>
+
+                  <p className="text-xs text-gray-500 mt-1">
+                    Jumlah kuota bisa berbeda tiap wilayah.
+                  </p>
+                </div>
               </button>
             </>
           )}
 
         </div>
 
-        {/* PREMIUM STICKY BUTTON */}
-        <div className="sticky bottom-0 bg-white/90 backdrop-blur border-t p-4">
+        {/* BUTTON */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white/92 backdrop-blur border-t p-4">
+
+          <p className="text-xs text-green-600 font-semibold text-center mb-3">
+            🟢 Admin online
+          </p>
 
           <button
             onClick={handleCheckout}
@@ -265,7 +276,7 @@ function DigitalModal({
                   size={20}
                   className="animate-spin"
                 />
-                Mengarahkan...
+                Menghubungkan ke WhatsApp...
               </>
             ) : (
               "Checkout via WhatsApp"

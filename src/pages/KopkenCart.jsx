@@ -48,21 +48,29 @@ function KopkenCart() {
   }
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7]">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
 
-      <div className="sticky top-0 bg-[#DB0007] text-white px-4 py-3 shadow-md">
-        <div className="flex items-center gap-3">
+      {/* HEADER */}
+      <div className="sticky top-0 z-30 bg-[#DB0007]/90 backdrop-blur-md text-white border-b border-white/10">
+        <div className="px-4 h-[64px] flex items-center gap-3">
+
           <button
             onClick={() => navigate("/kopken")}
-            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center active:scale-95 transition-all"
           >
             <ChevronLeft size={22} />
           </button>
 
           <div>
-            <h1 className="font-bold">Keranjang</h1>
-            <p className="text-xs text-white/75">Checkout Order</p>
+            <h1 className="font-bold text-[15px]">
+              Keranjang
+            </h1>
+
+            <p className="text-[11px] text-white/75">
+              Checkout Order
+            </p>
           </div>
+
         </div>
       </div>
 
@@ -75,6 +83,7 @@ function KopkenCart() {
               className="flex justify-between text-sm"
             >
               <span>{item.name} ({item.qty})</span>
+
               <span>
                 Rp {new Intl.NumberFormat("id-ID").format(item.price * item.qty)}
               </span>
@@ -83,6 +92,7 @@ function KopkenCart() {
         </div>
 
         <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-3">
+
           <input
             ref={nameRef}
             placeholder="Nama"
@@ -103,18 +113,22 @@ function KopkenCart() {
             className="w-full border rounded-2xl px-4 py-3"
             onChange={(e) => setTime(e.target.value)}
           />
+
         </div>
 
       </div>
 
+      {/* CTA */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md">
         <button
           onClick={handleCheckout}
-          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl"
+          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl active:scale-[0.98]"
         >
           <div className="flex items-center gap-2">
             <ShoppingCart size={18} />
-            <span>{loading ? "Loading..." : "Checkout"}</span>
+            <span>
+              {loading ? "Memproses..." : "Checkout"}
+            </span>
           </div>
 
           <span>

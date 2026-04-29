@@ -8,7 +8,7 @@ import Digital from "./pages/Digital"
 import Admin from "./pages/Admin"
 import AdminLogin from "./pages/AdminLogin"
 
-function RouteShell({ children }) {
+function RouteShell() {
   const location = useLocation()
 
   return (
@@ -16,15 +16,7 @@ function RouteShell({ children }) {
       key={location.pathname}
       className="animate-page-enter"
     >
-      {children}
-    </div>
-  )
-}
-
-function App() {
-  return (
-    <RouteShell>
-      <Routes>
+      <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/kopken" element={<Kopken />} />
         <Route path="/kopken/cart" element={<KopkenCart />} />
@@ -34,8 +26,12 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
-    </RouteShell>
+    </div>
   )
+}
+
+function App() {
+  return <RouteShell />
 }
 
 export default App
