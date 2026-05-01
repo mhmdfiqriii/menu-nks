@@ -2,39 +2,39 @@ export const brands = [
   {
     name: "Kopi Kenangan",
     menu: [
-      {
-        id: 1,
-        name: "Kopi Kenangan Mantan",
-        price: 13000,
-        originalPrice: 19000,
-        image:
-          "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/kopi-kenangan-mantan.png",
-        badge: "Promo",
-        options: {
-          Temperature: ["Ice", "Hot"],
-          Size: ["Regular", "Large", "Jumbo"],
-          "Sugar Level": [
-            "Normal Sugar",
-            "Less Sugar",
-            "No Sugar"
-          ],
-          "Ice Level": [
-            "Normal Ice",
-            "Less Ice",
-            "No Ice"
-          ]
-        }
-      },
-      {
-        id: 2,
-        name: "Friend Chip Cookies",
-        price: 12000,
-        originalPrice: 17000,
-        image:
-          "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/friend-chip-cookies.png",
-        badge: "Promo"
-      }
-    ]
+  {
+    id: 1,
+    name: "Kopi Kenangan Mantan",
+    category: "Coffee",
+    price: 13000,
+    originalPrice: 19000,
+    badge: "Promo",
+    image: "...",
+    options: {
+      Temperature: ["Ice", "Hot"],
+      Size: ["Regular", "Large", "Jumbo"],
+      "Sugar Level": [
+        "Normal Sugar",
+        "Less Sugar",
+        "No Sugar"
+      ],
+      "Ice Level": [
+        "Normal Ice",
+        "Less Ice",
+        "No Ice"
+      ]
+    }
+  },
+  {
+    id: 2,
+    name: "Friend Chip Cookies",
+    category: "Food",
+    price: 12000,
+    originalPrice: 17000,
+    badge: "Promo",
+    image: "..."
+  }
+]
   },
 
   {

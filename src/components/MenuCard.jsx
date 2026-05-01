@@ -3,72 +3,58 @@ function MenuCard({ item, onClick }) {
     new Intl.NumberFormat("id-ID").format(n)
 
   const discount =
-    item.originalPrice && item.originalPrice > item.price
-      ? item.originalPrice - item.price
-      : 0
+    item.originalPrice - item.price
 
   return (
-    <div className="bg-white rounded-3xl border border-[#ffdede] p-4 shadow-sm hover:shadow-md transition-all">
+    <div className="bg-white rounded-3xl border border-[#ffe3e3] p-4 shadow-sm">
 
       <div className="flex gap-4">
 
-        <div className="w-24 h-24 rounded-2xl bg-[#fff5f5] overflow-hidden shrink-0">
+        <div className="w-20 h-20 rounded-2xl bg-[#fff7f7] overflow-hidden shrink-0 flex items-center justify-center">
           <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover"
+            className="w-16 h-16 object-contain"
           />
         </div>
 
-        <div className="flex-1 min-w-0 flex flex-col justify-between">
+        <div className="flex-1 min-w-0">
 
-          <div>
-            {item.badge && (
-              <span className="inline-block text-[10px] px-2 py-1 rounded-full bg-[#ffe3e3] text-[#DB0007] font-semibold mb-2">
-                {item.badge}
-              </span>
-            )}
+          {item.badge && (
+            <span className="inline-block text-[10px] px-2 py-1 rounded-full bg-[#ffe5e5] text-[#DB0007] font-semibold mb-2">
+              {item.badge}
+            </span>
+          )}
 
-            <p className="font-bold text-gray-900 leading-snug">
-              {item.name}
-            </p>
+          <p className="font-bold text-lg text-gray-900 leading-tight">
+            {item.name}
+          </p>
 
-            <p className="text-xs text-gray-500 mt-1">
-              Fresh menu pilihan Kopi Kenangan
-            </p>
-          </div>
+          <p className="text-xs text-gray-500 mt-1">
+            Fresh menu pilihan Kopi Kenangan
+          </p>
 
-          <div className="mt-3">
+          <p className="text-sm line-through text-gray-400 mt-3">
+            Rp {format(item.originalPrice)}
+          </p>
 
-            {item.originalPrice && (
-              <p className="text-xs text-gray-400 line-through">
-                Rp {format(item.originalPrice)}
+          <div className="flex items-end justify-between mt-1 gap-3">
+            <div>
+              <p className="text-2xl font-bold text-[#DB0007]">
+                Rp {format(item.price)}
               </p>
-            )}
 
-            <div className="flex items-center justify-between gap-3 mt-1">
-
-              <div>
-                <p className="text-xl font-bold text-[#DB0007]">
-                  Rp {format(item.price)}
-                </p>
-
-                {discount > 0 && (
-                  <p className="text-[11px] text-green-600">
-                    Hemat Rp {format(discount)}
-                  </p>
-                )}
-              </div>
-
-              <button
-                onClick={onClick}
-                className="bg-[#DB0007] text-white px-4 py-2 rounded-2xl text-sm font-semibold active:scale-95 transition-all"
-              >
-                Tambah
-              </button>
-
+              <p className="text-xs text-green-600">
+                Hemat Rp {format(discount)}
+              </p>
             </div>
 
+            <button
+              onClick={onClick}
+              className="bg-[#DB0007] text-white px-5 py-2.5 rounded-2xl font-semibold active:scale-95"
+            >
+              Tambah
+            </button>
           </div>
 
         </div>

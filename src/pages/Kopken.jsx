@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ChevronLeft,
   ShoppingBag,
-  Coffee
+  Coffee,
+  Search
 } from "lucide-react"
 
 import { brands } from "../data/menu"
@@ -20,6 +21,7 @@ function Kopken() {
   const [cart, setCart] = useState(() => {
     const saved =
       localStorage.getItem("cart_kopken")
+
     return saved ? JSON.parse(saved) : []
   })
 
@@ -29,12 +31,41 @@ function Kopken() {
   const [selectedOptions, setSelectedOptions] =
     useState({})
 
+  const [search, setSearch] = useState("")
+  const [filter, setFilter] = useState("Semua")
+
   useEffect(() => {
     localStorage.setItem(
       "cart_kopken",
       JSON.stringify(cart)
     )
   }, [cart])
+
+  const categories = [
+    "Semua",
+    "Coffee",
+    "Food"
+  ]
+
+  const menu = useMemo(() => {
+    let data = [...brand.menu]
+
+    if (filter !== "Semua") {
+      data = data.filter(
+        (item) => item.category === filter
+      )
+    }
+
+    if (search.trim()) {
+      data = data.filter((item) =>
+        item.name
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      )
+    }
+
+    return data
+  }, [brand.menu, filter, search])
 
   const addToCart = (
     item,
@@ -52,10 +83,7 @@ function Kopken() {
         return prev.map((i) =>
           i.id === item.id &&
           i.options === optionsText
-            ? {
-                ...i,
-                qty: i.qty + 1
-              }
+            ? { ...i, qty: i.qty + 1 }
             : i
         )
       }
@@ -64,8 +92,8 @@ function Kopken() {
         ...prev,
         {
           ...item,
-          price: finalPrice,
           qty: 1,
+          price: finalPrice,
           options: optionsText
         }
       ]
@@ -75,9 +103,13 @@ function Kopken() {
     setSelectedOptions({})
   }
 
-  const handleOpenOptions = (item) => {
-    if (!item.options) return addToCart(item)
-    setSelectedItem(item)
+  const handleOpen = (item) => {
+    if (item.options) {
+      setSelectedItem(item)
+      return
+    }
+
+    addToCart(item)
   }
 
   const calculatePrice = () => {
@@ -87,16 +119,13 @@ function Kopken() {
     const size =
       selectedOptions["Size"]
 
-    if (size?.includes("Large"))
-      price += 6000
-
-    if (size?.includes("Jumbo"))
-      price += 16000
+    if (size === "Large") price += 6000
+    if (size === "Jumbo") price += 16000
 
     return price
   }
 
-  const handleConfirmAdd = () => {
+  const handleConfirm = () => {
     addToCart(
       selectedItem,
       Object.values(
@@ -106,13 +135,13 @@ function Kopken() {
     )
   }
 
-  const total = cart.reduce(
-    (a, b) => a + b.price * b.qty,
+  const qty = cart.reduce(
+    (a, b) => a + b.qty,
     0
   )
 
-  const qty = cart.reduce(
-    (a, b) => a + b.qty,
+  const total = cart.reduce(
+    (a, b) => a + b.qty * b.price,
     0
   )
 
@@ -123,7 +152,7 @@ function Kopken() {
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
 
       {/* HEADER */}
-      <div className="sticky top-0 z-30 bg-[#DB0007]/95 backdrop-blur text-white">
+      <div className="sticky top-0 z-30 bg-[#DB0007] text-white">
         <div className="px-4 h-[64px] flex items-center justify-between">
 
           <button
@@ -137,6 +166,7 @@ function Kopken() {
             <h1 className="font-bold text-[15px]">
               Kopi Kenangan
             </h1>
+
             <p className="text-[11px] text-white/75">
               Promo Menu Hari Ini
             </p>
@@ -145,51 +175,70 @@ function Kopken() {
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
             <Coffee size={18} />
           </div>
-
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4">
 
-        <div className="rounded-3xl bg-white p-5 border shadow-sm">
-          <h2 className="text-xl font-bold text-[#DB0007]">
-            Promo Kopi Kenangan
-          </h2>
+        {/* SEARCH */}
+        <div className="relative mb-4">
+          <Search
+            size={18}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+          />
 
-          <p className="text-sm text-gray-500 mt-2">
-            Harga promo asli.
-            Bukan diskon bohongan khas toko putus asa.
-          </p>
+          <input
+            value={search}
+            onChange={(e) =>
+              setSearch(e.target.value)
+            }
+            placeholder="Search menu..."
+            className="w-full rounded-3xl border bg-white py-3 pl-11 pr-4"
+          />
         </div>
 
+        {/* FILTER */}
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-4">
+          {categories.map((item) => (
+            <button
+              key={item}
+              onClick={() => setFilter(item)}
+              className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
+                filter === item
+                  ? "bg-[#DB0007] text-white"
+                  : "bg-white border"
+              }`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        {/* LIST */}
         <div className="space-y-3">
-          {brand.menu.map((item) => (
+          {menu.map((item) => (
             <MenuCard
               key={item.id}
               item={item}
-              onClick={() =>
-                handleOpenOptions(item)
-              }
+              onClick={() => handleOpen(item)}
             />
           ))}
         </div>
 
       </div>
 
-      {/* CART BAR */}
+      {/* BAR */}
       <div
         onClick={() =>
           navigate("/kopken/cart")
         }
-        className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl active:scale-[0.98] transition-all"
+        className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl"
       >
         <div className="flex items-center gap-3">
           <ShoppingBag
             size={18}
             className={
-              qty > 0
-                ? "animate-bounce"
-                : ""
+              qty > 0 ? "animate-bounce" : ""
             }
           />
 
@@ -206,7 +255,7 @@ function Kopken() {
           </div>
         </div>
 
-        <p className="font-bold text-sm">
+        <p className="font-bold">
           Rp {format(total)}
         </p>
       </div>
@@ -223,9 +272,10 @@ function Kopken() {
           onClose={() =>
             setSelectedItem(null)
           }
-          onConfirm={handleConfirmAdd}
+          onConfirm={handleConfirm}
         />
       )}
+
     </div>
   )
 }
