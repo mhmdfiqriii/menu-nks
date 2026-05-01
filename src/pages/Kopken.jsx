@@ -191,11 +191,11 @@ function Kopken() {
 
           <div className="flex-1 px-3">
             <h1 className="font-bold text-[15px]">
-              Kopi Kenangan
+              Kopi Kenangan Mantan
             </h1>
 
             <p className="text-[11px] text-white/75">
-              Promo Menu Hari Ini
+              Menu Order
             </p>
           </div>
 
@@ -213,18 +213,16 @@ function Kopken() {
 
           <div className="grid grid-cols-[18px_1fr] gap-3 text-[13px]">
             <span className="text-[#DB0007]">•</span>
-            <p><b>Metode</b> Pickup ambil di lokasi.</p>
+            <p><b>Ukuran & Promo:</b> Promo berlaku untuk ukuran Regular. Upgrade Large ada tambahan biaya.</p>
 
             <span className="text-[#DB0007]">•</span>
-            <p><b>Pembayaran</b> Via admin WhatsApp.</p>
+            <p><b>Metode:</b> Pickup ambil di lokasi.</p>
 
             <span className="text-[#DB0007]">•</span>
-            <p><b>Harga</b> Bisa beda tergantung outlet.</p>
-          </div>
+            <p><b>Pembayaran:</b> Transaksi dilakukan via Admin WhatsApp setelah kamu checkout.</p>
 
-          <div className="bg-[#fff0f0] rounded-2xl px-4 py-3 flex items-center justify-between text-[14px]">
-            <span>Gratis Fee Admin</span>
-            <b className="text-[#DB0007]">Rp 0</b>
+            <span className="text-[#DB0007]">•</span>
+            <p><b>Harga & Ketersediaan:</b> Dapat berubah tergantung outlet yang dituju. Harap Konfirmasi ke Admin.</p>
           </div>
 
           <button

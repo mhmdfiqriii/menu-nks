@@ -6,7 +6,7 @@ function TutorialModal({ open, onClose }) {
   return (
     <div className="fixed inset-0 z-50 bg-black/45 backdrop-blur-sm flex items-center justify-center px-4">
 
-      <div className="w-full max-w-md bg-white rounded-3xl p-5 shadow-xl">
+      <div className="w-auto max-w-md bg-white rounded-3xl p-5 shadow-xl">
 
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -14,8 +14,8 @@ function TutorialModal({ open, onClose }) {
               Tutorial Pemesanan
             </p>
 
-            <p className="text-sm text-gray-400 mt-1">
-              Biar user gak spam admin. Langka sekali.
+            <p className="text-[12px] text-gray-400 mt-1">
+              Ikuti langkah berikut sebelum checkout.
             </p>
           </div>
 
@@ -27,13 +27,12 @@ function TutorialModal({ open, onClose }) {
           </button>
         </div>
 
-        <div className="mt-5 space-y-3 text-[15px] leading-7 text-gray-700">
-          <p>1. Pilih produk yang kamu mau.</p>
-          <p>2. Kalau minuman, isi varian wajib dulu.</p>
-          <p>3. Tekan tombol Tambah ke keranjang.</p>
-          <p>4. Buka keranjang untuk review pesanan.</p>
-          <p>5. Isi nama, outlet pickup, dan waktu.</p>
-          <p>6. Checkout lalu lanjut ke WhatsApp admin.</p>
+        <div className="text-[13px] leading-7 text-gray-700">
+          <p>1. <b>Pilih Produk:</b> Klik "Tambah" pada katalog untuk memasukan ke keranjang.</p>
+          <p>2. <b>Cek Keranjang:</b> Klik "Lihat Keranjang" dibawah untuk review pesanan.</p>
+          <p>3. <b>Isi Data:</b> Masukan nama, Lokasi outlet pickup, Jam pengambilan.</p>
+          <p>4. <b>Proses Order:</b> Klik "Pesan Sekarang", data tersimpan dan kamu diarahkan ke WhatsApp Admin NKS.</p>
+          <p>5. <b>Pickup / Delivery:</b> Ikuti instruksi admin untuk pembayaran & pengambilan pesanan.</p>
         </div>
 
         <button
