@@ -5,62 +5,46 @@ export const brands = [
       {
         id: 1,
         name: "Kopi Kenangan Mantan",
-        price: 19000,
+        price: 13000,
+        originalPrice: 19000,
+        image:
+          "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/kopi-kenangan-mantan.png",
+        badge: "Promo",
         options: {
           Temperature: ["Ice", "Hot"],
           Size: ["Regular", "Large", "Jumbo"],
-          "Sugar Level": ["Normal Sugar", "Less Sugar", "No Sugar"],
-          "Ice Level": ["Normal Ice", "Less Ice", "No Ice"]
+          "Sugar Level": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ],
+          "Ice Level": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ]
         }
       },
       {
         id: 2,
         name: "Friend Chip Cookies",
-        price: 17000
+        price: 12000,
+        originalPrice: 17000,
+        image:
+          "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/friend-chip-cookies.png",
+        badge: "Promo"
       }
     ]
   },
+
   {
     name: "Janji Jiwa",
-    menu: [
-      {
-        id: 3,
-        name: "Signature Kopi Susu",
-        price: 20000,
-        options: {
-          Temperature: ["Ice", "Hot"],
-          Size: ["Regular", "Large", "Ultimate"],
-          "Ice Level": ["Normal Ice", "Less Ice"],
-          "Sugar Level": ["Normal Sugar", "Less Sugar"]
-        }
-      },
-      {
-        id: 4,
-        name: "Plain Toast",
-        price: 19000
-      }
-    ]
+    menu: []
   },
+
   {
     name: "Fore",
-    menu: [
-      {
-        id: 5,
-        name: "Kopi Dari Tani",
-        price: 25000,
-        options: {
-          Temperature: ["Ice"],
-          Size: ["Regular Ice", "Large Ice"],
-          "Ice Level": ["Normal Ice", "Less Ice", "More Ice"],
-          "Sweetness Level": ["Normal Sweet", "Less Sweet"]
-        }
-      },
-      {
-        id: 6,
-        name: "Butter Croissant",
-        price: 24000
-      }
-    ]
+    menu: []
   }
 ]
 

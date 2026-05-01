@@ -1,43 +1,73 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { ChevronLeft, ShoppingBag, Coffee } from "lucide-react"
+import {
+  ChevronLeft,
+  ShoppingBag,
+  Coffee
+} from "lucide-react"
+
 import { brands } from "../data/menu"
 import MenuCard from "../components/MenuCard"
 import ModalOptions from "../components/ModalOptions"
 
 function Kopken() {
   const navigate = useNavigate()
-  const brand = brands.find((b) => b.name === "Kopi Kenangan")
+
+  const brand = brands.find(
+    (b) => b.name === "Kopi Kenangan"
+  )
 
   const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("cart_kopken")
+    const saved =
+      localStorage.getItem("cart_kopken")
     return saved ? JSON.parse(saved) : []
   })
 
-  const [selectedItem, setSelectedItem] = useState(null)
-  const [selectedOptions, setSelectedOptions] = useState({})
+  const [selectedItem, setSelectedItem] =
+    useState(null)
+
+  const [selectedOptions, setSelectedOptions] =
+    useState({})
 
   useEffect(() => {
-    localStorage.setItem("cart_kopken", JSON.stringify(cart))
+    localStorage.setItem(
+      "cart_kopken",
+      JSON.stringify(cart)
+    )
   }, [cart])
 
-  const addToCart = (item, optionsText = "", finalPrice = item.price) => {
+  const addToCart = (
+    item,
+    optionsText = "",
+    finalPrice = item.price
+  ) => {
     setCart((prev) => {
-      const existing = prev.find(
-        (i) => i.id === item.id && i.options === optionsText
+      const exist = prev.find(
+        (i) =>
+          i.id === item.id &&
+          i.options === optionsText
       )
 
-      if (existing) {
+      if (exist) {
         return prev.map((i) =>
-          i.id === item.id && i.options === optionsText
-            ? { ...i, qty: i.qty + 1 }
+          i.id === item.id &&
+          i.options === optionsText
+            ? {
+                ...i,
+                qty: i.qty + 1
+              }
             : i
         )
       }
 
       return [
         ...prev,
-        { ...item, price: finalPrice, qty: 1, options: optionsText }
+        {
+          ...item,
+          price: finalPrice,
+          qty: 1,
+          options: optionsText
+        }
       ]
     })
 
@@ -54,10 +84,14 @@ function Kopken() {
     if (!selectedItem) return 0
 
     let price = selectedItem.price
-    const size = selectedOptions["Size"]
+    const size =
+      selectedOptions["Size"]
 
-    if (size?.includes("Large")) price += 6000
-    if (size?.includes("Jumbo")) price += 16000
+    if (size?.includes("Large"))
+      price += 6000
+
+    if (size?.includes("Jumbo"))
+      price += 16000
 
     return price
   }
@@ -65,36 +99,46 @@ function Kopken() {
   const handleConfirmAdd = () => {
     addToCart(
       selectedItem,
-      Object.values(selectedOptions).join(", "),
+      Object.values(
+        selectedOptions
+      ).join(", "),
       calculatePrice()
     )
   }
 
   const total = cart.reduce(
-    (acc, item) => acc + item.price * item.qty,
+    (a, b) => a + b.price * b.qty,
     0
   )
+
+  const qty = cart.reduce(
+    (a, b) => a + b.qty,
+    0
+  )
+
+  const format = (n) =>
+    new Intl.NumberFormat("id-ID").format(n)
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
 
-      {/* FIXED HEADER */}
-      <div className="sticky top-0 z-30 bg-[#DB0007]/90 backdrop-blur-md text-white border-b border-white/10">
+      {/* HEADER */}
+      <div className="sticky top-0 z-30 bg-[#DB0007]/95 backdrop-blur text-white">
         <div className="px-4 h-[64px] flex items-center justify-between">
 
           <button
             onClick={() => navigate("/")}
-            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center active:scale-95"
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
           >
             <ChevronLeft size={22} />
           </button>
 
-          <div className="flex-1 px-3 leading-tight">
+          <div className="flex-1 px-3">
             <h1 className="font-bold text-[15px]">
               Kopi Kenangan
             </h1>
             <p className="text-[11px] text-white/75">
-              Menu Order
+              Promo Menu Hari Ini
             </p>
           </div>
 
@@ -109,11 +153,12 @@ function Kopken() {
 
         <div className="rounded-3xl bg-white p-5 border shadow-sm">
           <h2 className="text-xl font-bold text-[#DB0007]">
-            {brand.name}
+            Promo Kopi Kenangan
           </h2>
 
-          <p className="text-sm text-gray-500 mt-2 leading-relaxed">
-            Mengenang mantan sambil minum kopi. Industri move on belum stabil.
+          <p className="text-sm text-gray-500 mt-2">
+            Harga promo asli.
+            Bukan diskon bohongan khas toko putus asa.
           </p>
         </div>
 
@@ -122,42 +167,62 @@ function Kopken() {
             <MenuCard
               key={item.id}
               item={item}
-              onClick={() => handleOpenOptions(item)}
+              onClick={() =>
+                handleOpenOptions(item)
+              }
             />
           ))}
         </div>
 
       </div>
 
-      {cart.length > 0 && (
-        <div
-          onClick={() => navigate("/kopken/cart")}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl active:scale-[0.98]"
-        >
-          <div className="flex items-center gap-3">
-            <ShoppingBag size={18} />
-            <div>
-              <p className="text-xs text-white/75">
-                {cart.reduce((a,b) => a + b.qty, 0)} item
-              </p>
-              <p className="font-semibold text-sm">
-                Lihat Keranjang
-              </p>
-            </div>
-          </div>
+      {/* CART BAR */}
+      <div
+        onClick={() =>
+          navigate("/kopken/cart")
+        }
+        className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl active:scale-[0.98] transition-all"
+      >
+        <div className="flex items-center gap-3">
+          <ShoppingBag
+            size={18}
+            className={
+              qty > 0
+                ? "animate-bounce"
+                : ""
+            }
+          />
 
-          <p className="font-bold text-sm">
-            Rp {new Intl.NumberFormat("id-ID").format(total)}
-          </p>
+          <div>
+            <p className="text-xs text-white/75">
+              {qty} item dalam keranjang
+            </p>
+
+            <p className="font-semibold text-sm">
+              {qty > 0
+                ? "Lihat Keranjang"
+                : "Pilih menu dulu"}
+            </p>
+          </div>
         </div>
-      )}
+
+        <p className="font-bold text-sm">
+          Rp {format(total)}
+        </p>
+      </div>
 
       {selectedItem && (
         <ModalOptions
           item={selectedItem}
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
-          onClose={() => setSelectedItem(null)}
+          selectedOptions={
+            selectedOptions
+          }
+          setSelectedOptions={
+            setSelectedOptions
+          }
+          onClose={() =>
+            setSelectedItem(null)
+          }
           onConfirm={handleConfirmAdd}
         />
       )}
