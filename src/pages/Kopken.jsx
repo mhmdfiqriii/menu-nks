@@ -1,21 +1,37 @@
+// src/pages/Kopken.jsx
 import { useState, useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ChevronLeft,
   ShoppingBag,
   Coffee,
-  Search
+  Search,
+  Eye,
+  ChevronDown
 } from "lucide-react"
 
 import { brands } from "../data/menu"
 import MenuCard from "../components/MenuCard"
 import ModalOptions from "../components/ModalOptions"
+import TutorialModal from "../components/TutorialModal"
 
 function Kopken() {
   const navigate = useNavigate()
 
   const brand = brands.find(
     (b) => b.name === "Kopi Kenangan"
+  )
+
+  const categories = useMemo(
+  () => [
+    "Semua",
+    "Coffee",
+    "Non Coffee",
+    "Oatside Series",
+    "Kenangan Frappe",
+    "Food"
+  ],
+   []
   )
 
   const [cart, setCart] = useState(() => {
@@ -33,6 +49,8 @@ function Kopken() {
 
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("Semua")
+  const [showTutorial, setShowTutorial] =
+    useState(false)
 
   useEffect(() => {
     localStorage.setItem(
@@ -40,15 +58,6 @@ function Kopken() {
       JSON.stringify(cart)
     )
   }, [cart])
-
-  const categories = [
-    "Semua",
-    "Coffee",
-    "Non Coffee",
-    "Oatside Series",
-    "Kenangan Frappe",
-    "Food"
-  ]
 
   const groupedMenu = useMemo(() => {
     let data = [...brand.menu]
@@ -82,7 +91,7 @@ function Kopken() {
       })
 
     return groups
-  }, [brand.menu, filter, search])
+  }, [brand.menu, filter, search, categories])
 
   const addToCart = (
     item,
@@ -170,7 +179,6 @@ function Kopken() {
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
 
-      {/* HEADER */}
       <div className="sticky top-0 z-30 bg-[#DB0007] text-white">
         <div className="px-4 h-[64px] flex items-center justify-between">
 
@@ -194,15 +202,51 @@ function Kopken() {
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
             <Coffee size={18} />
           </div>
+
         </div>
       </div>
 
       <div className="p-4">
 
+        {/* GUIDE */}
+        <div className="bg-white rounded-3xl border p-4 mb-4 space-y-3">
+
+          <div className="grid grid-cols-[18px_1fr] gap-3 text-[13px]">
+            <span className="text-[#DB0007]">•</span>
+            <p><b>Metode</b> Pickup ambil di lokasi.</p>
+
+            <span className="text-[#DB0007]">•</span>
+            <p><b>Pembayaran</b> Via admin WhatsApp.</p>
+
+            <span className="text-[#DB0007]">•</span>
+            <p><b>Harga</b> Bisa beda tergantung outlet.</p>
+          </div>
+
+          <div className="bg-[#fff0f0] rounded-2xl px-4 py-3 flex items-center justify-between text-[14px]">
+            <span>Gratis Fee Admin</span>
+            <b className="text-[#DB0007]">Rp 0</b>
+          </div>
+
+          <button
+            onClick={() =>
+              setShowTutorial(true)
+            }
+            className="w-full bg-[#fff0f0] rounded-2xl px-4 py-3 flex items-center justify-between text-[14px]"
+          >
+            <span className="flex items-center gap-2">
+              <Eye size={16} />
+              Lihat Tutorial Pemesanan
+            </span>
+
+            <ChevronDown size={16} />
+          </button>
+
+        </div>
+
         {/* SEARCH */}
         <div className="relative mb-4">
           <Search
-            size={18}
+            size={16}
             className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
           />
 
@@ -212,7 +256,7 @@ function Kopken() {
               setSearch(e.target.value)
             }
             placeholder="Search menu..."
-            className="w-full rounded-3xl border bg-white py-3 pl-11 pr-4"
+            className="w-full rounded-3xl border bg-white py-3 pl-10 pr-4 text-[14px]"
           />
         </div>
 
@@ -222,7 +266,7 @@ function Kopken() {
             <button
               key={item}
               onClick={() => setFilter(item)}
-              className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
+              className={`px-4 py-2 rounded-full text-[13px] whitespace-nowrap ${
                 filter === item
                   ? "bg-[#DB0007] text-white"
                   : "bg-white border"
@@ -233,13 +277,13 @@ function Kopken() {
           ))}
         </div>
 
-        {/* GROUP SECTION */}
-        <div className="space-y-7">
+        {/* LIST */}
+        <div className="space-y-6">
           {Object.entries(groupedMenu).map(
             ([title, items]) =>
               items.length > 0 && (
                 <div key={title}>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                  <h2 className="text-[16px] font-bold mb-3">
                     {title}
                   </h2>
 
@@ -261,7 +305,7 @@ function Kopken() {
 
       </div>
 
-      {/* BAR */}
+      {/* CART */}
       <div
         onClick={() =>
           navigate("/kopken/cart")
@@ -269,14 +313,7 @@ function Kopken() {
         className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl"
       >
         <div className="flex items-center gap-3">
-          <ShoppingBag
-            size={18}
-            className={
-              qty > 0
-                ? "animate-bounce"
-                : ""
-            }
-          />
+          <ShoppingBag size={18} />
 
           <div>
             <p className="text-xs text-white/75">
@@ -311,6 +348,14 @@ function Kopken() {
           onConfirm={handleConfirm}
         />
       )}
+
+      <TutorialModal
+        open={showTutorial}
+        onClose={() =>
+          setShowTutorial(false)
+        }
+      />
+
     </div>
   )
 }
