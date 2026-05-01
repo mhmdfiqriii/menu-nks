@@ -9,7 +9,7 @@ export const brands = [
     price: 13000,
     originalPrice: 19000,
     badge: "Promo",
-    image: "...",
+    image: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/kopi-kenangan-mantan.png",
     options: {
       Temperature: ["Ice", "Hot"],
       Size: ["Regular", "Large", "Jumbo"],
@@ -32,7 +32,7 @@ export const brands = [
     price: 12000,
     originalPrice: 17000,
     badge: "Promo",
-    image: "..."
+    image: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/friend-chip-cookies.png"
   }
 ]
   },
