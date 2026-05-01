@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"
+import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { ChevronLeft, ShoppingCart } from "lucide-react"
 import { supabase } from "../lib/supabase"
@@ -6,65 +6,104 @@ import { supabase } from "../lib/supabase"
 function KopkenCart() {
   const navigate = useNavigate()
 
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem("cart_kopken")
+    return saved ? JSON.parse(saved) : []
+  })
+
   const [name, setName] = useState("")
   const [outlet, setOutlet] = useState("")
   const [time, setTime] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const nameRef = useRef()
-  const outletRef = useRef()
-  const timeRef = useRef()
+  const nameRef = useRef(null)
+  const outletRef = useRef(null)
+  const timeRef = useRef(null)
 
-  useEffect(() => {
-    const saved = localStorage.getItem("cart_kopken")
-    if (saved) setCart(JSON.parse(saved))
-  }, [])
+  const total = cart.reduce((sum, item) => {
+    return sum + item.price * item.qty
+  }, 0)
 
-  const total = cart.reduce((a, b) => a + b.price * b.qty, 0)
+  const formatPrice = (value) => {
+    return new Intl.NumberFormat("id-ID").format(value)
+  }
+
+  // gak pake Math.random lagi biar eslint berhenti tantrum
+  const createOrderId = () => {
+    const stamp = crypto.randomUUID().slice(0, 6).toUpperCase()
+    return `KKM-${stamp}`
+  }
+
+  const buildItemsText = () => {
+    return cart.map((item, index) => {
+      const lines = []
+
+      lines.push(`${index + 1}. ${item.name} (${item.qty}x)`)
+
+      if (item.options?.trim()) {
+        lines.push(`   (${item.options})`)
+      }
+
+      lines.push(
+        `   Sub Total : Rp. ${formatPrice(item.price * item.qty)}`
+      )
+
+      return lines.join("\n")
+    }).join("\n")
+  }
 
   const handleCheckout = async () => {
-    if (!name.trim()) return nameRef.current.focus()
-    if (!outlet.trim()) return outletRef.current.focus()
-    if (!time.trim()) return timeRef.current.focus()
+    if (!name.trim()) return nameRef.current?.focus()
+    if (!outlet.trim()) return outletRef.current?.focus()
+    if (!time.trim()) return timeRef.current?.focus()
     if (!cart.length) return
 
-    setLoading(true)
+    try {
+      setLoading(true)
 
-    const orderId = `KKM-${Date.now().toString().slice(-6)}`
+      const orderId = createOrderId()
 
-    await supabase.from("orders").insert([
-      {
-        order_id: orderId,
-        status: "pending",
-        type: "fnb",
-        product: "Kopi Kenangan",
-        variant: JSON.stringify(cart),
-        price: total,
-        customer_name: name,
-        outlet,
-        pickup_time: time
-      }
-    ])
+      await supabase.from("orders").insert([
+        {
+          order_id: orderId,
+          status: "pending",
+          type: "fnb",
+          product: "Kopi Kenangan",
+          variant: JSON.stringify(cart),
+          price: total,
+          customer_name: name,
+          outlet,
+          pickup_time: time
+        }
+      ])
 
-    const text = `*FORM ORDER KOPI KENANGAN*
+      const text = `*FORM ORDER NKS*
 
-No. Pesanan : ${orderId}
-Nama : ${name}
+No. Order : ${orderId}
+Nama Pemesan : ${name}
 Outlet : ${outlet}
-Jam Ambil : ${time}
+Jam Pengambilan : ${time}
 
-Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
+Pesanan :
+${buildItemsText()}
 
-    localStorage.removeItem("cart_kopken")
-    setCart([])
+Total : Rp. ${formatPrice(total)}`
 
-    window.open(
-      "https://wa.me/6285704550839?text=" + encodeURIComponent(text),
-      "_blank"
-    )
+      localStorage.removeItem("cart_kopken")
+      setCart([])
 
-    navigate("/kopken")
+      window.open(
+        "https://wa.me/6285704550839?text=" +
+          encodeURIComponent(text),
+        "_blank"
+      )
+
+      navigate("/kopken")
+    } catch {
+      alert("Checkout gagal. Sistem kadang suka ngelawak.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -81,8 +120,13 @@ Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
           </button>
 
           <div>
-            <h1 className="font-bold text-[15px]">Keranjang</h1>
-            <p className="text-[11px] text-white/75">Checkout Order</p>
+            <h1 className="font-bold text-[15px]">
+              Keranjang
+            </h1>
+
+            <p className="text-[11px] text-white/75">
+              Checkout Order
+            </p>
           </div>
 
         </div>
@@ -90,17 +134,29 @@ Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
 
       <div className="p-4 space-y-4">
 
-        <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-3">
+        <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-4">
           {cart.map((item) => (
             <div
               key={item.id + item.options}
-              className="flex justify-between gap-3 text-sm"
+              className="border-b last:border-b-0 pb-3 last:pb-0"
             >
-              <span>{item.name} ({item.qty})</span>
+              <div className="flex justify-between gap-3">
+                <div className="flex-1">
+                  <p className="font-semibold text-sm">
+                    {item.name} ({item.qty}x)
+                  </p>
 
-              <span className="font-semibold">
-                Rp {new Intl.NumberFormat("id-ID").format(item.price * item.qty)}
-              </span>
+                  {item.options && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      {item.options}
+                    </p>
+                  )}
+                </div>
+
+                <p className="font-semibold text-sm whitespace-nowrap">
+                  Rp {formatPrice(item.price * item.qty)}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -111,7 +167,7 @@ Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
             ref={nameRef}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Nama"
+            placeholder="Nama Pemesan"
             className="w-full border rounded-2xl px-4 py-3"
           />
 
@@ -119,7 +175,7 @@ Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
             ref={outletRef}
             value={outlet}
             onChange={(e) => setOutlet(e.target.value)}
-            placeholder="Outlet"
+            placeholder="Lokasi Outlet"
             className="w-full border rounded-2xl px-4 py-3"
           />
 
@@ -127,7 +183,7 @@ Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
             ref={timeRef}
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            placeholder="Jam Ambil"
+            placeholder="Sekarang / Nanti / Jam 7.30"
             className="w-full border rounded-2xl px-4 py-3"
           />
 
@@ -139,15 +195,18 @@ Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
         <button
           onClick={handleCheckout}
           disabled={loading}
-          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl"
+          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl disabled:opacity-70"
         >
           <div className="flex items-center gap-2">
             <ShoppingCart size={18} />
-            <span>{loading ? "Memproses..." : "Checkout"}</span>
+
+            <span>
+              {loading ? "Memproses..." : "Checkout"}
+            </span>
           </div>
 
           <span>
-            Rp {new Intl.NumberFormat("id-ID").format(total)}
+            Rp {formatPrice(total)}
           </span>
         </button>
       </div>
