@@ -42,7 +42,7 @@ function DigitalModal({
 
     if (!isImei) {
       if (!target.trim()) {
-        alert("Isi nomor tujuan dulu. Mesin dukun sedang libur.")
+        alert("Isi nomor tujuan dulu.")
         return
       }
 
@@ -58,12 +58,10 @@ function DigitalModal({
   return (
     <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-sm flex items-end justify-center fade-in">
 
-      <div className="w-full max-w-md bg-white rounded-t-[38px] h-[85vh] overflow-hidden shadow-2xl slide-up">
+      <div className="w-full max-w-md bg-white rounded-t-[38px] h-[85vh] overflow-hidden shadow-2xl slide-up relative">
 
-        {/* CONTENT */}
         <div className="h-full overflow-y-auto p-5 pb-36">
 
-          {/* HEADER */}
           <div className="flex items-start justify-between gap-3">
 
             <div className="flex gap-3 min-w-0">
@@ -99,13 +97,12 @@ function DigitalModal({
 
           </div>
 
-          {/* COVER */}
           <div className="mt-5 rounded-3xl border border-indigo-100 bg-gradient-to-b from-indigo-50 to-white p-4">
 
             <img
               src={selected.cover}
               alt={selected.name}
-              className="w-full max-h-[220px] rounded-2xl object-cover"
+              className="w-full rounded-2xl object-contain bg-white"
             />
 
             <div className="mt-4 flex justify-between gap-4">
@@ -146,7 +143,6 @@ function DigitalModal({
 
           </div>
 
-          {/* VARIANT */}
           <div className="mt-5">
             <p className="font-semibold mb-2 text-gray-900">
               Pilih Paket
@@ -157,7 +153,7 @@ function DigitalModal({
                 <button
                   key={v.name}
                   onClick={() => setVariant(v.name)}
-                  className={`px-4 py-2 rounded-full text-sm border transition-all duration-200 active:scale-95 ${
+                  className={`px-4 py-2 rounded-full text-sm border transition-all active:scale-95 ${
                     variant === v.name
                       ? "bg-indigo-600 text-white border-indigo-600 shadow-md"
                       : "bg-white border-gray-300 text-gray-700"
@@ -169,21 +165,8 @@ function DigitalModal({
             </div>
           </div>
 
-          {/* IMEI */}
-          {isImei ? (
-            <div className="mt-5 rounded-2xl bg-amber-50 border border-amber-200 p-4">
-              <p className="font-semibold text-sm text-amber-800">
-                Catatan
-              </p>
-
-              <p className="text-sm text-amber-700 mt-2 leading-relaxed">
-                Kirim screenshot IMEI ke admin.
-                Ketik *#606# di menu telepon.
-              </p>
-            </div>
-          ) : (
+          {!isImei && (
             <>
-              {/* INFO */}
               <div className="mt-5 rounded-2xl bg-orange-50 border border-orange-200 p-4">
                 <p className="font-semibold text-sm text-orange-800">
                   ⚠️ Informasi Kuota
@@ -191,7 +174,6 @@ function DigitalModal({
 
                 <p className="text-sm text-orange-700 mt-2 leading-relaxed">
                   Kuota tergantung area masing-masing.
-                  Silahkan cek area kamu terlebih dahulu untuk mengetahui estimasi kouta yang masuk.
                 </p>
 
                 <a
@@ -205,7 +187,6 @@ function DigitalModal({
                 </a>
               </div>
 
-              {/* INPUT */}
               <div className="mt-5">
                 <p className="font-semibold mb-2 text-gray-900">
                   Nomor Tujuan *
@@ -215,15 +196,14 @@ function DigitalModal({
                   value={target}
                   onChange={(e) => setTarget(e.target.value)}
                   placeholder="Masukkan nomor tujuan"
-                  className="w-full border rounded-2xl px-4 py-4 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                  className="w-full border rounded-2xl px-4 py-4 outline-none focus:border-indigo-500"
                 />
               </div>
 
-              {/* PREMIUM CHECKBOX */}
               <button
                 type="button"
                 onClick={toggleCheck}
-                className={`mt-4 w-full rounded-2xl border p-4 flex items-start gap-3 text-left transition-all ${
+                className={`mt-4 w-full rounded-2xl border p-4 flex items-start gap-3 text-left ${
                   checked
                     ? "bg-indigo-50 border-indigo-300"
                     : "bg-white border-gray-200"
@@ -254,19 +234,21 @@ function DigitalModal({
 
         </div>
 
-        {/* BUTTON */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white/92 backdrop-blur border-t p-4">
+        <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t p-4">
 
-          <p className="text-xs text-green-600 font-semibold text-center mb-3">
-            🟢 Admin online
-          </p>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+            <p className="text-xs text-green-600 font-semibold">
+              Admin online
+            </p>
+          </div>
 
           <button
             onClick={handleCheckout}
             disabled={!canCheckout}
-            className={`w-full py-4 rounded-2xl text-lg font-bold transition-all flex items-center justify-center gap-2 ${
+            className={`w-full py-4 rounded-2xl text-lg font-bold flex items-center justify-center gap-2 ${
               canCheckout
-                ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg active:scale-[0.99]"
+                ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
                 : "bg-gray-200 text-gray-400"
             }`}
           >
@@ -276,7 +258,7 @@ function DigitalModal({
                   size={20}
                   className="animate-spin"
                 />
-                Menghubungkan ke WhatsApp...
+                Menghubungkan...
               </>
             ) : (
               "Checkout via WhatsApp"

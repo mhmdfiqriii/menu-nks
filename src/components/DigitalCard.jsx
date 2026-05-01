@@ -3,7 +3,7 @@ function DigitalCard({ item, onClick }) {
 
   return (
     <div
-      className={`rounded-3xl bg-gradient-to-br ${item.color} text-white p-4 relative overflow-hidden transition-all duration-200 active:scale-[0.98] active:shadow-[0_0_0_4px_rgba(255,255,255,.08)] shadow-[0_18px_40px_rgba(15,23,42,.18)]`}
+      className={`rounded-3xl bg-gradient-to-br ${item.color} text-white p-4 relative overflow-hidden transition-all duration-200 active:scale-[0.98] shadow-[0_18px_40px_rgba(15,23,42,.18)]`}
     >
       <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10"></div>
 

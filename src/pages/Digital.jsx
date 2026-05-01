@@ -25,6 +25,25 @@ function Digital() {
     }
 
     getOrders()
+
+    const channel = supabase
+      .channel("digital-orders-live")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "orders"
+        },
+        () => {
+          getOrders()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
   }, [])
 
   const products = useMemo(() => {
@@ -129,8 +148,8 @@ No. HP : ${target}
     <div className="max-w-md mx-auto min-h-screen bg-[#f8fafc] pb-10">
 
       {/* HEADER */}
-      <div className="sticky top-0 z-30 bg-indigo-700/88 backdrop-blur-md text-white border-b border-white/10">
-        <div className="px-4 h-[64px] flex items-center justify-between">
+      <div className="sticky top-0 z-30 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white shadow-md border-b border-white/10">
+        <div className="px-4 h-[64px] flex items-center justify-between backdrop-blur-sm">
 
           <button
             onClick={() => navigate("/")}
