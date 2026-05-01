@@ -174,6 +174,7 @@ function DigitalModal({
 
                 <p className="text-sm text-orange-700 mt-2 leading-relaxed">
                   Kuota tergantung area masing-masing.
+                  Silahkan cek area kamu terlebih dahulu untuk mengetahui estimasi kouta yang masuk.
                 </p>
 
                 <a
