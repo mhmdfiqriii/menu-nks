@@ -13,7 +13,7 @@ function WelcomeCard() {
 
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border text-[10px] font-medium text-gray-600 mb-3">
           <span className="w-2 h-2 rounded-full bg-emerald-500 soft-pulse"></span>
-          Fast Order Service
+          Simple Order Service
         </div>
 
         <h2 className="text-2xl font-bold text-gray-900 leading-tight">
@@ -43,8 +43,8 @@ function WelcomeCard() {
           </div>
 
           <div className="rounded-2xl bg-white/70 border px-3 py-2 text-center">
-            <p className="text-xs font-semibold text-gray-900">Fast</p>
-            <p className="text-[10px] text-gray-500">Respon</p>
+            <p className="text-xs font-semibold text-gray-900">Fair</p>
+            <p className="text-[10px] text-gray-500">Price</p>
           </div>
 
           <div className="rounded-2xl bg-white/70 border px-3 py-2 text-center">
