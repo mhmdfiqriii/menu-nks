@@ -27,7 +27,7 @@ function Digital() {
     getOrders()
 
     const channel = supabase
-      .channel("digital-orders-live")
+      .channel("orders-live")
       .on(
         "postgres_changes",
         {
@@ -35,15 +35,11 @@ function Digital() {
           schema: "public",
           table: "orders"
         },
-        () => {
-          getOrders()
-        }
+        getOrders
       )
       .subscribe()
 
-    return () => {
-      supabase.removeChannel(channel)
-    }
+    return () => supabase.removeChannel(channel)
   }, [])
 
   const products = useMemo(() => {
@@ -101,15 +97,27 @@ function Digital() {
     return `${selected.prefix}-${randomId}`
   }
 
-  const checkoutWhatsApp = () => {
+  const checkoutWhatsApp = async () => {
     if (!selected) return
 
     if (selected.type !== "imei" && !target.trim()) {
-      alert("Isi nomor dulu. Jangan nyuruh admin ngeramal.")
+      alert("Isi nomor dulu.")
       return
     }
 
     const orderId = createOrderId()
+
+    await supabase.from("orders").insert([
+      {
+        order_id: orderId,
+        status: "pending",
+        type: "digital",
+        product: selected.name,
+        variant,
+        phone: selected.type === "imei" ? null : target,
+        price: selectedPrice
+      }
+    ])
 
     let text = ""
 
@@ -135,37 +143,32 @@ No. HP : ${target}
     setLoading(true)
 
     setTimeout(() => {
-      const url =
-        "https://wa.me/6285704550839?text=" +
-        encodeURIComponent(text)
+      window.open(
+        "https://wa.me/6285704550839?text=" + encodeURIComponent(text),
+        "_blank"
+      )
 
-      window.open(url, "_blank")
       setLoading(false)
+      closeModal()
     }, 900)
   }
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#f8fafc] pb-10">
 
-      {/* HEADER */}
       <div className="sticky top-0 z-30 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white shadow-md border-b border-white/10">
-        <div className="px-4 h-[64px] flex items-center justify-between backdrop-blur-sm">
+        <div className="px-4 h-[64px] flex items-center justify-between">
 
           <button
             onClick={() => navigate("/")}
-            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center active:scale-95"
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
           >
             <ChevronLeft size={22} />
           </button>
 
-          <div className="flex-1 px-3 leading-tight">
-            <h1 className="text-[15px] font-bold">
-              NKS Digital
-            </h1>
-
-            <p className="text-[11px] text-white/75">
-              Layanan Digital
-            </p>
+          <div className="flex-1 px-3">
+            <h1 className="text-[15px] font-bold">NKS Digital</h1>
+            <p className="text-[11px] text-white/75">Layanan Digital</p>
           </div>
 
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
@@ -177,8 +180,7 @@ No. HP : ${target}
 
       <div className="p-4 space-y-4">
 
-        {/* HERO */}
-        <div className="rounded-3xl bg-gradient-to-r from-indigo-800 to-violet-700 text-white p-5 shadow-[0_18px_45px_rgba(79,70,229,.28)] overflow-hidden relative">
+        <div className="rounded-3xl bg-gradient-to-r from-indigo-800 to-violet-700 text-white p-5 shadow-xl relative overflow-hidden">
 
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10"></div>
 
@@ -208,7 +210,6 @@ No. HP : ${target}
 
         </div>
 
-        {/* LIST */}
         <div className="space-y-3">
           {products.map((item) => (
             <DigitalCard

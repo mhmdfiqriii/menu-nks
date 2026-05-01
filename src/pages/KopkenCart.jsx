@@ -27,48 +27,62 @@ function KopkenCart() {
     if (!name.trim()) return nameRef.current.focus()
     if (!outlet.trim()) return outletRef.current.focus()
     if (!time.trim()) return timeRef.current.focus()
+    if (!cart.length) return
 
     setLoading(true)
 
     const orderId = `KKM-${Date.now().toString().slice(-6)}`
 
-    await supabase.from("orders").insert([{
-      order_id: orderId,
-      status: "pending",
-      type: "fnb",
-      product: "Kopi Kenangan",
-      variant: JSON.stringify(cart),
-      price: total,
-      customer_name: name,
-      outlet,
-      pickup_time: time
-    }])
+    await supabase.from("orders").insert([
+      {
+        order_id: orderId,
+        status: "pending",
+        type: "fnb",
+        product: "Kopi Kenangan",
+        variant: JSON.stringify(cart),
+        price: total,
+        customer_name: name,
+        outlet,
+        pickup_time: time
+      }
+    ])
+
+    const text = `*FORM ORDER KOPI KENANGAN*
+
+No. Pesanan : ${orderId}
+Nama : ${name}
+Outlet : ${outlet}
+Jam Ambil : ${time}
+
+Total : Rp ${new Intl.NumberFormat("id-ID").format(total)}`
+
+    localStorage.removeItem("cart_kopken")
+    setCart([])
+
+    window.open(
+      "https://wa.me/6285704550839?text=" + encodeURIComponent(text),
+      "_blank"
+    )
 
     navigate("/kopken")
   }
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-32">
 
-      {/* HEADER */}
-      <div className="sticky top-0 z-30 bg-[#DB0007]/90 backdrop-blur-md text-white border-b border-white/10">
+      <div className="sticky top-0 z-30 bg-[#DB0007] text-white shadow-md">
         <div className="px-4 h-[64px] flex items-center gap-3">
 
           <button
             onClick={() => navigate("/kopken")}
-            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center active:scale-95 transition-all"
+            className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
           >
             <ChevronLeft size={22} />
           </button>
 
           <div>
-            <h1 className="font-bold text-[15px]">
-              Keranjang
-            </h1>
-
-            <p className="text-[11px] text-white/75">
-              Checkout Order
-            </p>
+            <h1 className="font-bold text-[15px]">Keranjang</h1>
+            <p className="text-[11px] text-white/75">Checkout Order</p>
           </div>
 
         </div>
@@ -76,15 +90,15 @@ function KopkenCart() {
 
       <div className="p-4 space-y-4">
 
-        <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-2">
+        <div className="rounded-3xl bg-white border p-4 shadow-sm space-y-3">
           {cart.map((item) => (
             <div
               key={item.id + item.options}
-              className="flex justify-between text-sm"
+              className="flex justify-between gap-3 text-sm"
             >
               <span>{item.name} ({item.qty})</span>
 
-              <span>
+              <span className="font-semibold">
                 Rp {new Intl.NumberFormat("id-ID").format(item.price * item.qty)}
               </span>
             </div>
@@ -95,40 +109,41 @@ function KopkenCart() {
 
           <input
             ref={nameRef}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Nama"
             className="w-full border rounded-2xl px-4 py-3"
-            onChange={(e) => setName(e.target.value)}
           />
 
           <input
             ref={outletRef}
+            value={outlet}
+            onChange={(e) => setOutlet(e.target.value)}
             placeholder="Outlet"
             className="w-full border rounded-2xl px-4 py-3"
-            onChange={(e) => setOutlet(e.target.value)}
           />
 
           <input
             ref={timeRef}
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
             placeholder="Jam Ambil"
             className="w-full border rounded-2xl px-4 py-3"
-            onChange={(e) => setTime(e.target.value)}
           />
 
         </div>
 
       </div>
 
-      {/* CTA */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md">
         <button
           onClick={handleCheckout}
-          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl active:scale-[0.98]"
+          disabled={loading}
+          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl"
         >
           <div className="flex items-center gap-2">
             <ShoppingCart size={18} />
-            <span>
-              {loading ? "Memproses..." : "Checkout"}
-            </span>
+            <span>{loading ? "Memproses..." : "Checkout"}</span>
           </div>
 
           <span>
