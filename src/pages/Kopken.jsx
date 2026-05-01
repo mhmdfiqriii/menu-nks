@@ -44,17 +44,14 @@ function Kopken() {
   const categories = [
     "Semua",
     "Coffee",
+    "Non Coffee",
+    "Oatside Series",
+    "Kenangan Frappe",
     "Food"
   ]
 
-  const menu = useMemo(() => {
+  const groupedMenu = useMemo(() => {
     let data = [...brand.menu]
-
-    if (filter !== "Semua") {
-      data = data.filter(
-        (item) => item.category === filter
-      )
-    }
 
     if (search.trim()) {
       data = data.filter((item) =>
@@ -64,7 +61,27 @@ function Kopken() {
       )
     }
 
-    return data
+    if (filter !== "Semua") {
+      return {
+        [filter]: data.filter(
+          (item) => item.category === filter
+        )
+      }
+    }
+
+    const groups = {}
+
+    categories
+      .filter((c) => c !== "Semua")
+      .forEach((cat) => {
+        const items = data.filter(
+          (item) => item.category === cat
+        )
+
+        if (items.length) groups[cat] = items
+      })
+
+    return groups
   }, [brand.menu, filter, search])
 
   const addToCart = (
@@ -83,7 +100,10 @@ function Kopken() {
         return prev.map((i) =>
           i.id === item.id &&
           i.options === optionsText
-            ? { ...i, qty: i.qty + 1 }
+            ? {
+                ...i,
+                qty: i.qty + 1
+              }
             : i
         )
       }
@@ -120,7 +140,6 @@ function Kopken() {
       selectedOptions["Size"]
 
     if (size === "Large") price += 6000
-    if (size === "Jumbo") price += 16000
 
     return price
   }
@@ -198,7 +217,7 @@ function Kopken() {
         </div>
 
         {/* FILTER */}
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-4">
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-5">
           {categories.map((item) => (
             <button
               key={item}
@@ -214,15 +233,30 @@ function Kopken() {
           ))}
         </div>
 
-        {/* LIST */}
-        <div className="space-y-3">
-          {menu.map((item) => (
-            <MenuCard
-              key={item.id}
-              item={item}
-              onClick={() => handleOpen(item)}
-            />
-          ))}
+        {/* GROUP SECTION */}
+        <div className="space-y-7">
+          {Object.entries(groupedMenu).map(
+            ([title, items]) =>
+              items.length > 0 && (
+                <div key={title}>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                    {title}
+                  </h2>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    {items.map((item) => (
+                      <MenuCard
+                        key={item.id}
+                        item={item}
+                        onClick={() =>
+                          handleOpen(item)
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+          )}
         </div>
 
       </div>
@@ -238,7 +272,9 @@ function Kopken() {
           <ShoppingBag
             size={18}
             className={
-              qty > 0 ? "animate-bounce" : ""
+              qty > 0
+                ? "animate-bounce"
+                : ""
             }
           />
 
@@ -249,7 +285,7 @@ function Kopken() {
 
             <p className="font-semibold text-sm">
               {qty > 0
-                ? "Lihat Keranjang"
+                ? "Lihat keranjang"
                 : "Pilih menu dulu"}
             </p>
           </div>
@@ -275,7 +311,6 @@ function Kopken() {
           onConfirm={handleConfirm}
         />
       )}
-
     </div>
   )
 }
