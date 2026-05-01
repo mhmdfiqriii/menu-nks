@@ -138,7 +138,7 @@ function Kopken() {
             <ShoppingBag size={18} />
             <div>
               <p className="text-xs text-white/75">
-                {cart.length} item
+                {cart.reduce((a,b) => a + b.qty, 0)} item
               </p>
               <p className="font-semibold text-sm">
                 Lihat Keranjang
