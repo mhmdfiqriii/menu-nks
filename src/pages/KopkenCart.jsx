@@ -2,7 +2,6 @@ import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ChevronLeft,
-  ShoppingCart,
   Plus,
   Minus,
   Trash2
@@ -38,6 +37,12 @@ function KopkenCart() {
     (sum, item) => sum + item.qty,
     0
   )
+
+  // 🔥 HITUNG HEMAT
+  const totalDiscount = cart.reduce((sum, item) => {
+    const ori = item.originalPrice || item.price
+    return sum + (ori - item.price) * item.qty
+  }, 0)
 
   const isFormValid =
     name.trim() && outlet.trim() && time.trim()
@@ -166,7 +171,7 @@ Total : Rp. ${formatPrice(total)}`
   }
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-44">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-10">
 
       {/* HEADER */}
       <div className="sticky top-0 z-30 bg-primary text-white">
@@ -193,7 +198,7 @@ Total : Rp. ${formatPrice(total)}`
 
       <div className="p-4 space-y-4">
 
-        {/* ITEM LIST */}
+        {/* ITEM */}
         <div className="rounded-card bg-white p-4 border border-border-soft shadow-card">
           <p className="text-xs font-semibold text-gray-400 mb-4">
             ITEM DALAM KERANJANG
@@ -241,7 +246,7 @@ Total : Rp. ${formatPrice(total)}`
 
                       <button
                         onClick={() => decreaseQty(item)}
-                        className="w-8 h-8 rounded-full border flex items-center justify-center active:scale-95"
+                        className="w-8 h-8 rounded-full border flex items-center justify-center"
                       >
                         <Minus size={14} />
                       </button>
@@ -252,7 +257,7 @@ Total : Rp. ${formatPrice(total)}`
 
                       <button
                         onClick={() => increaseQty(item)}
-                        className="w-8 h-8 rounded-full border flex items-center justify-center active:scale-95"
+                        className="w-8 h-8 rounded-full border flex items-center justify-center"
                       >
                         <Plus size={14} />
                       </button>
@@ -277,7 +282,7 @@ Total : Rp. ${formatPrice(total)}`
           </p>
         </div>
 
-        {/* TAMBAH MENU */}
+        {/* TAMBAH */}
         <button
           onClick={() => navigate("/kopken")}
           className="w-full rounded-card bg-white border border-border-soft p-4 flex justify-between"
@@ -296,7 +301,7 @@ Total : Rp. ${formatPrice(total)}`
           </p>
         </button>
 
-        {/* FORM */}
+        {/* FORM + SUMMARY */}
         <div className="rounded-card bg-white p-4 border border-border-soft space-y-3 shadow-card">
 
           <p className="font-semibold text-md">
@@ -312,6 +317,15 @@ Total : Rp. ${formatPrice(total)}`
             <span>Biaya admin</span>
             <span>Rp 0</span>
           </div>
+
+          {totalDiscount > 0 && (
+            <div className="bg-red-50 text-primary text-sm px-3 py-2 rounded-xl flex justify-between items-center animate-pulse">
+              <span>Kamu Hemat Sebesar</span>
+              <span className="font-semibold">
+                Rp {formatPrice(totalDiscount)}
+              </span>
+            </div>
+          )}
 
           <div className="border-t pt-3 flex justify-between font-semibold">
             <span>Total pembayaran</span>
@@ -342,43 +356,30 @@ Total : Rp. ${formatPrice(total)}`
             className="w-full border rounded-button px-4 py-3 text-sm"
           />
 
+          <p className="text-xs text-gray-400">
+            Setelah checkout, data akan tersimpan & kamu diarahkan ke WhatsApp admin untuk konfirmasi pesanan serta pembayaran.
+          </p>
+
+          {/* CTA */}
+          <button
+            onClick={handleCheckout}
+            disabled={!isReady || loading}
+            className={`w-full py-3 rounded-button font-semibold transition ${
+              isReady
+                ? "bg-primary text-white"
+                : "bg-gray-200 text-gray-400"
+            }`}
+          >
+            {loading
+              ? "Memproses..."
+              : isReady
+              ? "Pesan Sekarang"
+              : "Keranjang kosong"}
+          </button>
+
         </div>
 
       </div>
-
-      {/* CTA */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md">
-        <button
-          onClick={handleCheckout}
-          disabled={!isReady || loading}
-          className={`w-full rounded-card px-5 py-4 flex items-center justify-between shadow-float transition ${
-            isReady
-              ? "bg-primary text-white"
-              : "bg-gray-200 text-gray-400"
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <ShoppingCart size={18} />
-            <div className="text-left">
-              <p className="text-xs">
-                {totalQty} item dalam keranjang
-              </p>
-              <p className="font-semibold text-sm">
-                {loading
-                  ? "Memproses..."
-                  : isReady
-                  ? "Pesan Sekarang"
-                  : "Keranjang kosong"}
-              </p>
-            </div>
-          </div>
-
-          <p className="font-semibold">
-            Rp {formatPrice(total)}
-          </p>
-        </button>
-      </div>
-
     </div>
   )
 }
