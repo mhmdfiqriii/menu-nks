@@ -249,7 +249,7 @@ function Kopken() {
               setSearch(e.target.value)
             }
             placeholder="Cari menu favoritmu..."
-            className="input pl-10"
+            className="w-full rounded-3xl border bg-white py-3 pl-10 pr-4 text-[14px]"
           />
         </div>
 
