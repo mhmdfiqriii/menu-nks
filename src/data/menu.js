@@ -1,4 +1,3 @@
-// src/data/menu.js
 export const brands = [
   {
     name: "Kopi Kenangan",
@@ -10,7 +9,7 @@ export const brands = [
         price: 13000,
         originalPrice: 19000,
         badge: "Promo",
-        image: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/kopi-kenangan-mantan.png",
+        image: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/kopi_kenangan_mantan.webp",
         options: {
           Temperature: ["Ice", "Hot"],
           Size: ["Regular", "Large"],
@@ -33,20 +32,13 @@ export const brands = [
         price: 12000,
         originalPrice: 17000,
         badge: "Promo",
-        image: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/friend-chip-cookies.png"
+        image: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/friend_chip.webp"
       }
     ]
   },
 
-  {
-    name: "Janji Jiwa",
-    menu: []
-  },
-
-  {
-    name: "Fore",
-    menu: []
-  }
+  { name: "Janji Jiwa", menu: [] },
+  { name: "Fore", menu: [] }
 ]
 
 export const digitalProducts = [
@@ -73,7 +65,7 @@ export const digitalProducts = [
       { name: "XDA50 / Jumbo V2", price: 75000 },
       { name: "XDA63 / Super Big", price: 85000 },
       { name: "XDA76 / Super Jumbo", price: 93000 },
-      { name: "XDA88 / Mega Big", price: 105000 },
+      { name: "XDA88 / Mega Big", price: 105000 }
     ]
   }
 ]

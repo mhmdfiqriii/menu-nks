@@ -1,4 +1,5 @@
 import { X } from "lucide-react"
+import { useEffect } from "react"
 
 function ModalOptions({
   item,
@@ -10,15 +11,25 @@ function ModalOptions({
   const format = (n) =>
     new Intl.NumberFormat("id-ID").format(n)
 
+  const isHot =
+    selectedOptions["Temperature"] === "Hot"
+
+  // AUTO RESET ICE LEVEL
+  useEffect(() => {
+    if (isHot && selectedOptions["Ice Level"]) {
+      setSelectedOptions((prev) => {
+        const copy = { ...prev }
+        delete copy["Ice Level"]
+        return copy
+      })
+    }
+  }, [isHot])
+
   const getLivePrice = () => {
     let price = item.price
-
-    if (
-      selectedOptions["Size"] === "Large"
-    ) {
+    if (selectedOptions["Size"] === "Large") {
       price += 6000
     }
-
     return price
   }
 
@@ -26,116 +37,107 @@ function ModalOptions({
     Object.keys(item.options || {})
 
   const isComplete =
-    requiredKeys.every(
-      (key) => selectedOptions[key]
+    requiredKeys.every((key) =>
+      key === "Ice Level"
+        ? isHot || selectedOptions[key]
+        : selectedOptions[key]
     )
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end justify-center">
-      <div className="w-full max-w-md bg-white rounded-t-[34px] p-5 max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-end">
 
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xl font-bold">
-              Detail Produk
-            </p>
+      <div className="w-full max-w-md mx-auto bg-white rounded-t-3xl max-h-[88vh] flex flex-col">
 
-            <p className="text-sm text-gray-500 mt-1">
-              Pilih opsi dulu. Manusia
-              memang suka ribet.
-            </p>
-          </div>
+        {/* HEADER */}
+        <div className="p-4 border-b flex justify-between items-center">
+          <p className="text-[14px] font-semibold">
+            Detail Produk
+          </p>
 
-          <button
-            onClick={onClose}
-            className="w-11 h-11 rounded-2xl border flex items-center justify-center"
-          >
+          <button onClick={onClose}>
             <X size={20} />
           </button>
         </div>
 
-        <div className="mt-4 rounded-3xl border p-4 bg-[#fffafa]">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="w-full h-40 object-contain"
-          />
+        {/* BODY */}
+        <div className="p-4 overflow-y-auto space-y-4">
 
-          <p className="font-bold text-2xl mt-4">
-            {item.name}
-          </p>
+          <div className="text-center">
+            <img
+              src={item.image}
+              className="w-full h-28 object-contain"
+            />
 
-          <p className="text-3xl font-bold text-[#DB0007] mt-3">
-            Rp {format(getLivePrice())}
-          </p>
-        </div>
+            <p className="font-semibold mt-2 text-[13px]">
+              {item.name}
+            </p>
 
-        <div className="mt-5 space-y-5">
-          {Object.entries(
-            item.options
-          ).map(([key, values]) => (
-            <div key={key}>
-              <div className="flex justify-between mb-2">
-                <p className="font-semibold">
-                  {key}
-                </p>
+            <p className="text-[#DB0007] font-bold text-lg mt-1">
+              Rp {format(getLivePrice())}
+            </p>
+          </div>
 
-                <p className="text-xs text-gray-400">
-                  wajib pilih 1
-                </p>
-              </div>
+          {Object.entries(item.options).map(
+            ([key, values]) => (
+              <div key={key}>
+                <div className="flex justify-between mb-2">
+                  <p className="text-[13px] font-semibold">
+                    {key}
+                  </p>
+                  <span className="text-[11px] text-gray-400">
+                    Wajib pilih 1
+                  </span>
+                </div>
 
-              <div className="flex flex-wrap gap-2">
-                {values.map((value) => {
-                  const active =
-                    selectedOptions[
-                      key
-                    ] === value
+                <div className="flex flex-wrap gap-2">
+                  {values.map((value) => {
+                    const active =
+                      selectedOptions[key] === value
 
-                  return (
-                    <button
-                      key={value}
-                      onClick={() =>
-                        setSelectedOptions(
-                          (
-                            prev
-                          ) => ({
+                    const disabled =
+                      key === "Ice Level" && isHot
+
+                    return (
+                      <button
+                        key={value}
+                        disabled={disabled}
+                        onClick={() =>
+                          setSelectedOptions((prev) => ({
                             ...prev,
-                            [key]:
-                              value
-                          })
-                        )
-                      }
-                      className={`px-4 py-2 rounded-2xl text-sm border ${
-                        active
-                          ? "bg-[#DB0007] text-white border-[#DB0007]"
-                          : "bg-white border-gray-300"
-                      }`}
-                    >
-                      {value}
-                    </button>
-                  )
-                })}
+                            [key]: value
+                          }))
+                        }
+                        className={`px-3 py-1.5 rounded-full text-[12px] border transition ${
+                          active
+                            ? "bg-[#DB0007] text-white border-[#DB0007]"
+                            : "bg-white text-gray-700"
+                        } ${
+                          disabled
+                            ? "opacity-30 pointer-events-none"
+                            : ""
+                        }`}
+                      >
+                        {value}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
+
         </div>
 
-        <button
-          disabled={!isComplete}
-          onClick={() =>
-            isComplete &&
-            onConfirm()
-          }
-          className={`mt-6 w-full py-4 rounded-2xl text-lg font-bold ${
-            isComplete
-              ? "bg-[#DB0007] text-white"
-              : "bg-gray-200 text-gray-400"
-          }`}
-        >
-          Tambah • Rp{" "}
-          {format(getLivePrice())}
-        </button>
+        {/* CTA */}
+        <div className="p-4 border-t bg-white">
+          <button
+            disabled={!isComplete}
+            onClick={onConfirm}
+            className="w-full bg-[#DB0007] text-white py-3 rounded-xl font-semibold disabled:opacity-50 active:scale-95"
+          >
+            Tambah • Rp {format(getLivePrice())}
+          </button>
+        </div>
 
       </div>
     </div>

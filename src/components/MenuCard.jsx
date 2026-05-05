@@ -7,37 +7,41 @@ function MenuCard({ item, onClick }) {
     item.price
 
   return (
-    <div className="bg-white rounded-2xl border border-[#f3dede] p-2.5 shadow-sm">
+    <div className="bg-white rounded-card border border-border-soft p-2.5 shadow-card">
 
-      <div className="w-full h-24 rounded-xl bg-[#fff8f8] overflow-hidden mb-2 flex items-center justify-center">
+      {/* IMAGE */}
+      <div className="h-20 bg-primary-soft rounded-button flex items-center justify-center overflow-hidden">
         <img
           src={item.image}
           alt={item.name}
-          className="w-full h-full object-contain"
+          className="h-full object-contain"
         />
       </div>
 
-      <p className="font-semibold text-[13px] leading-[1.25] min-h-[34px] text-gray-900">
+      {/* TITLE */}
+      <p className="text-sm font-semibold mt-2 leading-tight min-h-[32px] line-clamp-2">
         {item.name}
       </p>
 
-      <p className="text-[11px] text-gray-400 line-through mt-1">
+      {/* PRICE */}
+      <p className="text-xs text-gray-400 line-through mt-1">
         Rp {format(item.originalPrice || item.price)}
       </p>
 
-      <p className="text-[15px] font-bold text-[#DB0007] leading-none mt-1">
+      <p className="text-md font-bold text-primary leading-tight">
         Rp {format(item.price)}
       </p>
 
       {discount > 0 && (
-        <p className="text-[10px] text-green-600 mt-1">
+        <p className="text-xs text-green-600 leading-none">
           Hemat Rp {format(discount)}
         </p>
       )}
 
+      {/* BUTTON */}
       <button
         onClick={onClick}
-        className="mt-2 w-full bg-[#DB0007] text-white py-2 rounded-xl text-[13px] font-semibold active:scale-95 transition-all"
+        className="mt-2 w-full bg-primary text-white py-2 rounded-button text-xs font-semibold active:scale-95 transition"
       >
         Tambah
       </button>

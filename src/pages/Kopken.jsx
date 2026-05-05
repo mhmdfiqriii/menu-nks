@@ -1,5 +1,4 @@
-// src/pages/Kopken.jsx
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ChevronLeft,
@@ -17,27 +16,27 @@ import TutorialModal from "../components/TutorialModal"
 
 function Kopken() {
   const navigate = useNavigate()
+  const listRef = useRef(null)
 
   const brand = brands.find(
     (b) => b.name === "Kopi Kenangan"
   )
 
   const categories = useMemo(
-  () => [
-    "Semua",
-    "Coffee",
-    "Non Coffee",
-    "Oatside Series",
-    "Kenangan Frappe",
-    "Food"
-  ],
-   []
+    () => [
+      "Semua",
+      "Coffee",
+      "Non Coffee",
+      "Oatside Series",
+      "Kenangan Frappe",
+      "Food"
+    ],
+    []
   )
 
   const [cart, setCart] = useState(() => {
     const saved =
       localStorage.getItem("cart_kopken")
-
     return saved ? JSON.parse(saved) : []
   })
 
@@ -59,15 +58,27 @@ function Kopken() {
     )
   }, [cart])
 
+  // AUTO SCROLL (hanya saat user interaksi)
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      })
+    }
+  }, [filter, search])
+
   const groupedMenu = useMemo(() => {
     let data = [...brand.menu]
 
     if (search.trim()) {
+      const keyword = search.toLowerCase().trim()
       data = data.filter((item) =>
-        item.name
-          .toLowerCase()
-          .includes(search.toLowerCase())
+        item.name.toLowerCase().includes(keyword)
       )
+
+      // SEARCH MODE → NO GROUP
+      return { Hasil: data }
     }
 
     if (filter !== "Semua") {
@@ -86,7 +97,6 @@ function Kopken() {
         const items = data.filter(
           (item) => item.category === cat
         )
-
         if (items.length) groups[cat] = items
       })
 
@@ -109,10 +119,7 @@ function Kopken() {
         return prev.map((i) =>
           i.id === item.id &&
           i.options === optionsText
-            ? {
-                ...i,
-                qty: i.qty + 1
-              }
+            ? { ...i, qty: i.qty + 1 }
             : i
         )
       }
@@ -133,41 +140,32 @@ function Kopken() {
   }
 
   const handleOpen = (item) => {
+    setSelectedOptions({}) // reset clean
     if (item.options) {
       setSelectedItem(item)
       return
     }
-
     addToCart(item)
   }
 
   const calculatePrice = () => {
     if (!selectedItem) return 0
-
     let price = selectedItem.price
-    const size =
-      selectedOptions["Size"]
-
-    if (size === "Large") price += 6000
-
+    if (selectedOptions["Size"] === "Large") {
+      price += 6000
+    }
     return price
   }
 
   const handleConfirm = () => {
     addToCart(
       selectedItem,
-      Object.values(
-        selectedOptions
-      ).join(", "),
+      Object.values(selectedOptions).join(", "),
       calculatePrice()
     )
   }
 
-  const qty = cart.reduce(
-    (a, b) => a + b.qty,
-    0
-  )
-
+  const qty = cart.reduce((a, b) => a + b.qty, 0)
   const total = cart.reduce(
     (a, b) => a + b.qty * b.price,
     0
@@ -179,6 +177,7 @@ function Kopken() {
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-28">
 
+      {/* HEADER */}
       <div className="sticky top-0 z-30 bg-[#DB0007] text-white">
         <div className="px-4 h-[64px] flex items-center justify-between">
 
@@ -193,7 +192,6 @@ function Kopken() {
             <h1 className="font-bold text-[15px]">
               Kopi Kenangan Mantan
             </h1>
-
             <p className="text-[11px] text-white/75">
               Menu Order
             </p>
@@ -202,7 +200,6 @@ function Kopken() {
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
             <Coffee size={18} />
           </div>
-
         </div>
       </div>
 
@@ -210,13 +207,12 @@ function Kopken() {
 
         {/* GUIDE */}
         <div className="bg-white rounded-3xl border p-4 mb-4 space-y-3">
-
           <div className="grid grid-cols-[18px_1fr] gap-3 text-[13px]">
             <span className="text-[#DB0007]">•</span>
             <p><b>Ukuran & Promo:</b> Promo berlaku untuk ukuran Regular. Upgrade Large ada tambahan biaya.</p>
 
             <span className="text-[#DB0007]">•</span>
-            <p><b>Metode:</b> Pickup ambil di lokasi.</p>
+            <p><b>Metode:</b> Pickup di outlet tujuan.</p>
 
             <span className="text-[#DB0007]">•</span>
             <p><b>Pembayaran:</b> Transaksi dilakukan via Admin WhatsApp setelah kamu checkout.</p>
@@ -226,19 +222,15 @@ function Kopken() {
           </div>
 
           <button
-            onClick={() =>
-              setShowTutorial(true)
-            }
+            onClick={() => setShowTutorial(true)}
             className="w-full bg-[#fff0f0] rounded-2xl px-4 py-3 flex items-center justify-between text-[14px]"
           >
             <span className="flex items-center gap-2">
               <Eye size={16} />
               Lihat Tutorial Pemesanan
             </span>
-
             <ChevronDown size={16} />
           </button>
-
         </div>
 
         {/* SEARCH */}
@@ -247,7 +239,6 @@ function Kopken() {
             size={16}
             className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
           />
-
           <input
             value={search}
             onChange={(e) =>
@@ -276,12 +267,12 @@ function Kopken() {
         </div>
 
         {/* LIST */}
-        <div className="space-y-6">
+        <div ref={listRef} className="space-y-6">
           {Object.entries(groupedMenu).map(
             ([title, items]) =>
               items.length > 0 && (
                 <div key={title}>
-                  <h2 className="text-[16px] font-bold mb-3">
+                  <h2 className="text-[15px] font-semibold mb-3">
                     {title}
                   </h2>
 
@@ -312,16 +303,14 @@ function Kopken() {
       >
         <div className="flex items-center gap-3">
           <ShoppingBag size={18} />
-
           <div>
             <p className="text-xs text-white/75">
-              {qty} item dalam keranjang
+              {qty} item
             </p>
-
             <p className="font-semibold text-sm">
               {qty > 0
                 ? "Lihat keranjang"
-                : "Pilih menu dulu"}
+                : "Pilih menu"}
             </p>
           </div>
         </div>
@@ -334,15 +323,9 @@ function Kopken() {
       {selectedItem && (
         <ModalOptions
           item={selectedItem}
-          selectedOptions={
-            selectedOptions
-          }
-          setSelectedOptions={
-            setSelectedOptions
-          }
-          onClose={() =>
-            setSelectedItem(null)
-          }
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+          onClose={() => setSelectedItem(null)}
           onConfirm={handleConfirm}
         />
       )}
@@ -353,7 +336,6 @@ function Kopken() {
           setShowTutorial(false)
         }
       />
-
     </div>
   )
 }

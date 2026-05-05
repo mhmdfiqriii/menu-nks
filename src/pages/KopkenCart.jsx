@@ -39,12 +39,15 @@ function KopkenCart() {
     0
   )
 
+  const isFormValid =
+    name.trim() && outlet.trim() && time.trim()
+
+  const isReady =
+    cart.length > 0 && isFormValid
+
   const syncCart = (next) => {
     setCart(next)
-    localStorage.setItem(
-      "cart_kopken",
-      JSON.stringify(next)
-    )
+    localStorage.setItem("cart_kopken", JSON.stringify(next))
   }
 
   const increaseQty = (target) => {
@@ -54,7 +57,6 @@ function KopkenCart() {
         ? { ...item, qty: item.qty + 1 }
         : item
     )
-
     syncCart(next)
   }
 
@@ -79,7 +81,6 @@ function KopkenCart() {
           item.options === target.options
         )
     )
-
     syncCart(next)
   }
 
@@ -158,7 +159,7 @@ Total : Rp. ${formatPrice(total)}`
 
       navigate("/kopken")
     } catch {
-      alert("Checkout gagal. Sistem sedang malu.")
+      alert("Checkout gagal. Sistem lagi ngambek.")
     } finally {
       setLoading(false)
     }
@@ -168,7 +169,7 @@ Total : Rp. ${formatPrice(total)}`
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-44">
 
       {/* HEADER */}
-      <div className="sticky top-0 z-30 bg-[#DB0007] text-white shadow-md">
+      <div className="sticky top-0 z-30 bg-primary text-white">
         <div className="px-4 h-[64px] flex items-center gap-3">
 
           <button
@@ -179,11 +180,11 @@ Total : Rp. ${formatPrice(total)}`
           </button>
 
           <div>
-            <h1 className="font-bold text-[16px]">
+            <h1 className="font-semibold text-md">
               Keranjang
             </h1>
             <p className="text-xs text-white/75">
-              Review pesananmu
+              Review pesananmu sebelum checkout
             </p>
           </div>
 
@@ -192,9 +193,9 @@ Total : Rp. ${formatPrice(total)}`
 
       <div className="p-4 space-y-4">
 
-        {/* LIST ITEM */}
-        <div className="rounded-3xl bg-white p-4 border shadow-sm">
-          <p className="text-xs font-bold text-gray-400 mb-4 tracking-wide">
+        {/* ITEM LIST */}
+        <div className="rounded-card bg-white p-4 border border-border-soft shadow-card">
+          <p className="text-xs font-semibold text-gray-400 mb-4">
             ITEM DALAM KERANJANG
           </p>
 
@@ -202,12 +203,12 @@ Total : Rp. ${formatPrice(total)}`
             {cart.map((item) => (
               <div
                 key={item.id + item.options}
-                className="border-b last:border-b-0 pb-4 last:pb-0"
+                className="border-b last:border-none pb-4"
               >
                 <div className="flex justify-between gap-3">
 
                   <div className="flex-1">
-                    <p className="font-bold text-[15px]">
+                    <p className="font-semibold text-sm">
                       {item.name}
                     </p>
 
@@ -218,7 +219,7 @@ Total : Rp. ${formatPrice(total)}`
                           .map((opt, idx) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 rounded-full text-[10px] bg-gray-100"
+                              className="px-2 py-1 rounded-pill text-[11px] bg-gray-100"
                             >
                               {opt.trim()}
                             </span>
@@ -227,52 +228,41 @@ Total : Rp. ${formatPrice(total)}`
                     )}
 
                     <p className="text-xs text-gray-400 mt-2">
-                      Qty {item.qty} • Rp{" "}
-                      {formatPrice(item.price)} / item
+                      Qty {item.qty} • Rp {formatPrice(item.price)}
                     </p>
                   </div>
 
                   <div className="text-right">
-                    <p className="font-bold">
-                      Rp{" "}
-                      {formatPrice(
-                        item.price * item.qty
-                      )}
+                    <p className="font-semibold text-sm">
+                      Rp {formatPrice(item.price * item.qty)}
                     </p>
 
-                    <div className="flex items-center justify-end gap-2 mt-3">
+                    <div className="flex items-center justify-end gap-2 mt-2">
 
                       <button
-                        onClick={() =>
-                          decreaseQty(item)
-                        }
-                        className="w-8 h-8 rounded-full border flex items-center justify-center"
+                        onClick={() => decreaseQty(item)}
+                        className="w-8 h-8 rounded-full border flex items-center justify-center active:scale-95"
                       >
-                        <Minus size={15} />
+                        <Minus size={14} />
                       </button>
 
-                      <span className="w-5 text-center text-sm font-bold">
+                      <span className="w-5 text-center text-sm font-semibold">
                         {item.qty}
                       </span>
 
                       <button
-                        onClick={() =>
-                          increaseQty(item)
-                        }
-                        className="w-8 h-8 rounded-full border flex items-center justify-center"
+                        onClick={() => increaseQty(item)}
+                        className="w-8 h-8 rounded-full border flex items-center justify-center active:scale-95"
                       >
-                        <Plus size={15} />
+                        <Plus size={14} />
                       </button>
 
                     </div>
 
                     <button
-                      onClick={() =>
-                        removeItem(item)
-                      }
-                      className="text-xs text-red-500 mt-2 inline-flex items-center gap-1"
+                      onClick={() => removeItem(item)}
+                      className="text-[11px] text-red-500 mt-2"
                     >
-                      <Trash2 size={13} />
                       Hapus
                     </button>
                   </div>
@@ -282,7 +272,7 @@ Total : Rp. ${formatPrice(total)}`
             ))}
           </div>
 
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="mt-4 text-xs text-gray-500">
             Total Produk: {totalQty} pcs
           </p>
         </div>
@@ -290,34 +280,32 @@ Total : Rp. ${formatPrice(total)}`
         {/* TAMBAH MENU */}
         <button
           onClick={() => navigate("/kopken")}
-          className="w-full rounded-3xl bg-white border p-4 flex items-center justify-between shadow-sm"
+          className="w-full rounded-card bg-white border border-border-soft p-4 flex justify-between"
         >
-          <div className="text-left">
-            <p className="font-bold">
+          <div>
+            <p className="font-semibold text-sm">
               TAMBAH MENU
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-xs text-gray-400">
               Tambah menu lain?
             </p>
           </div>
 
-          <p className="text-[#DB0007] font-bold">
+          <p className="text-primary font-semibold text-sm">
             + Tambah
           </p>
         </button>
 
         {/* FORM */}
-        <div className="rounded-3xl bg-white p-4 border shadow-sm space-y-3">
+        <div className="rounded-card bg-white p-4 border border-border-soft space-y-3 shadow-card">
 
-          <p className="font-bold text-lg">
+          <p className="font-semibold text-md">
             Ringkasan pembayaran
           </p>
 
           <div className="flex justify-between text-sm">
             <span>Harga</span>
-            <span>
-              Rp {formatPrice(total)}
-            </span>
+            <span>Rp {formatPrice(total)}</span>
           </div>
 
           <div className="flex justify-between text-sm">
@@ -325,69 +313,67 @@ Total : Rp. ${formatPrice(total)}`
             <span>Rp 0</span>
           </div>
 
-          <div className="border-t pt-3 flex justify-between font-bold">
+          <div className="border-t pt-3 flex justify-between font-semibold">
             <span>Total pembayaran</span>
-            <span>
-              Rp {formatPrice(total)}
-            </span>
+            <span>Rp {formatPrice(total)}</span>
           </div>
 
           <input
             ref={nameRef}
             value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
+            onChange={(e) => setName(e.target.value)}
             placeholder="Nama pemesan"
-            className="w-full border rounded-2xl px-4 py-3"
+            className="w-full border rounded-button px-4 py-3 text-sm"
           />
 
           <input
             ref={outletRef}
             value={outlet}
-            onChange={(e) =>
-              setOutlet(e.target.value)
-            }
+            onChange={(e) => setOutlet(e.target.value)}
             placeholder="Lokasi outlet pickup"
-            className="w-full border rounded-2xl px-4 py-3"
+            className="w-full border rounded-button px-4 py-3 text-sm"
           />
 
           <input
             ref={timeRef}
             value={time}
-            onChange={(e) =>
-              setTime(e.target.value)
-            }
+            onChange={(e) => setTime(e.target.value)}
             placeholder="Sekarang / Jam 19.30"
-            className="w-full border rounded-2xl px-4 py-3"
+            className="w-full border rounded-button px-4 py-3 text-sm"
           />
 
         </div>
 
       </div>
 
-      {/* STICKY CTA */}
+      {/* CTA */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md">
         <button
           onClick={handleCheckout}
-          disabled={loading || !cart.length}
-          className="w-full bg-[#DB0007] text-white rounded-3xl px-5 py-4 flex items-center justify-between shadow-xl disabled:opacity-70"
+          disabled={!isReady || loading}
+          className={`w-full rounded-card px-5 py-4 flex items-center justify-between shadow-float transition ${
+            isReady
+              ? "bg-primary text-white"
+              : "bg-gray-200 text-gray-400"
+          }`}
         >
           <div className="flex items-center gap-3">
             <ShoppingCart size={18} />
             <div className="text-left">
-              <p className="text-xs text-white/75">
+              <p className="text-xs">
                 {totalQty} item dalam keranjang
               </p>
-              <p className="font-semibold">
+              <p className="font-semibold text-sm">
                 {loading
                   ? "Memproses..."
-                  : "Checkout"}
+                  : isReady
+                  ? "Pesan Sekarang"
+                  : "Keranjang kosong"}
               </p>
             </div>
           </div>
 
-          <p className="font-bold">
+          <p className="font-semibold">
             Rp {formatPrice(total)}
           </p>
         </button>

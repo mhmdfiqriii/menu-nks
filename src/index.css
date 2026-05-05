@@ -240,3 +240,139 @@ button {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
+
+/* INPUT GLOBAL */
+.input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #DB0007;
+}
+
+/* ===============================
+   DESIGN SYSTEM EXTENSION
+================================= */
+:root {
+  --color-primary: #DB0007;
+  --color-bg: #fff7f7;
+  --color-text: #111827;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-pill: 999px;
+}
+
+/* ===============================
+   TYPOGRAPHY SYSTEM
+================================= */
+.text-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.text-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.text-body {
+  font-size: 13px;
+}
+
+.text-caption {
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+/* ===============================
+   CARD SYSTEM
+================================= */
+.card {
+  background: white;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+/* ===============================
+   BUTTON SYSTEM
+================================= */
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-button);
+  font-size: 13px;
+  font-weight: 600;
+  transition: .2s ease;
+}
+
+.btn-primary:active {
+  transform: scale(.96);
+}
+
+.btn-secondary {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+}
+
+/* ===============================
+   INPUT UPGRADE (INI PENTING)
+================================= */
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  padding: 12px 14px;
+  font-size: 13px;
+  outline: none;
+  transition: .2s ease;
+  background: white;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(219, 0, 7, 0.08);
+}
+
+/* ===============================
+   CHIP / BADGE
+================================= */
+.chip {
+  padding: 6px 10px;
+  font-size: 11px;
+  border-radius: var(--radius-pill);
+  background: #f3f4f6;
+}
+
+.chip-active {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ===============================
+   FLOATING BAR (CART STYLE GLOBAL)
+================================= */
+.floating-bar {
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* ===============================
+   CLEAN SCROLL FIX
+================================= */
+body {
+  overscroll-behavior: none;
+}
