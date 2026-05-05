@@ -7,41 +7,43 @@ function MenuCard({ item, onClick }) {
     item.price
 
   return (
-    <div className="bg-white rounded-card border border-border-soft p-3 shadow-card">
+    <div className="bg-white rounded-card border border-border-soft p-2.5 shadow-card">
 
       {/* IMAGE */}
-      <div className="h-[96px] bg-primary-soft rounded-button flex items-center justify-center overflow-hidden">
+      <div className="aspect-square bg-primary-soft rounded-button overflow-hidden flex items-center justify-center">
         <img
           src={item.image}
           alt={item.name}
-          className="max-h-full w-auto object-contain"
+          className="w-full h-full object-cover"
         />
       </div>
 
       {/* TITLE */}
-      <p className="text-sm font-semibold mt-2 leading-tight min-h-[34px] line-clamp-2">
+      <p className="text-sm font-semibold mt-2 leading-tight line-clamp-2">
         {item.name}
       </p>
 
       {/* PRICE */}
-      <p className="text-xs text-gray-400 line-through mt-1">
-        Rp {format(item.originalPrice || item.price)}
-      </p>
-
-      <p className="text-md font-bold text-primary leading-tight">
-        Rp {format(item.price)}
-      </p>
-
-      {discount > 0 && (
-        <p className="text-xs text-green-600 leading-none">
-          Hemat Rp {format(discount)}
+      <div className="mt-1 space-y-[2px]">
+        <p className="text-xs text-gray-400 line-through">
+          Rp {format(item.originalPrice || item.price)}
         </p>
-      )}
+
+        <p className="text-[15px] font-bold text-primary leading-tight">
+          Rp {format(item.price)}
+        </p>
+
+        {discount > 0 && (
+          <p className="text-[11px] text-green-600 leading-none">
+            Hemat Rp {format(discount)}
+          </p>
+        )}
+      </div>
 
       {/* BUTTON */}
       <button
         onClick={onClick}
-        className="mt-3 w-full bg-primary text-white py-2 rounded-button text-xs font-semibold active:scale-95 transition"
+        className="mt-3 w-full bg-primary text-white py-2.5 rounded-button text-xs font-semibold active:scale-95 transition"
       >
         Tambah
       </button>
