@@ -52,20 +52,24 @@ function Kopken() {
     useState(false)
 
   useEffect(() => {
+  window.scrollTo(0, 0)
+  }, [])  
+
+  useEffect(() => {
     localStorage.setItem(
       "cart_kopken",
       JSON.stringify(cart)
     )
   }, [cart])
 
-  // AUTO SCROLL (hanya saat user interaksi)
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      })
-    }
+  if (!listRef.current) return
+  if (filter !== "Semua" || search.trim() !== "") {
+    listRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    })
+  }
   }, [filter, search])
 
   const groupedMenu = useMemo(() => {
@@ -244,8 +248,8 @@ function Kopken() {
             onChange={(e) =>
               setSearch(e.target.value)
             }
-            placeholder="Search menu..."
-            className="w-full rounded-3xl border bg-white py-3 pl-10 pr-4 text-[14px]"
+            placeholder="Cari menu favoritmu..."
+            className="input pl-10"
           />
         </div>
 
@@ -267,12 +271,12 @@ function Kopken() {
         </div>
 
         {/* LIST */}
-        <div ref={listRef} className="space-y-6">
+        <div ref={listRef} className="space-y-7">
           {Object.entries(groupedMenu).map(
             ([title, items]) =>
               items.length > 0 && (
                 <div key={title}>
-                  <h2 className="text-[15px] font-semibold mb-3">
+                  <h2 className="text-[16px] font-semibold mb-3">
                     {title}
                   </h2>
 
