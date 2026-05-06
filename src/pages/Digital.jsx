@@ -249,6 +249,13 @@ No. HP : ${target}
         </div>
 
       </div>
+      
+       {/* FOOTER */}
+          <div className="pt-3 pb-6">
+            <p className="text-center text-xs text-gray-400">
+              © 2026 Web Developed by mhmdfiqriii_
+            </p>
+          </div>
 
       <DigitalModal
         selected={selected}

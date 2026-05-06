@@ -31,7 +31,7 @@ function TutorialModal({ open, onClose }) {
           <p>1. <b>Pilih Produk:</b> Klik "Tambah" pada katalog untuk memasukan ke keranjang.</p>
           <p>2. <b>Cek Keranjang:</b> Klik "Lihat Keranjang" dibawah untuk review pesanan.</p>
           <p>3. <b>Isi Data:</b> Masukan nama, Lokasi outlet pickup, Jam pengambilan.</p>
-          <p>4. <b>Proses Order:</b> Klik "Pesan Sekarang", data tersimpan dan kamu diarahkan ke WhatsApp Admin NKS.</p>
+          <p>4. <b>Proses Order:</b> Klik "Pesan Sekarang", data tersimpan dan kamu diarahkan ke WhatsApp Admin.</p>
           <p>5. <b>Pickup / Delivery:</b> Ikuti instruksi admin untuk pembayaran & pengambilan pesanan.</p>
         </div>
 
