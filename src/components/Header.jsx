@@ -10,13 +10,13 @@ function Header({ status }) {
         <div className="flex items-center gap-3 min-w-0">
 
           <img
-            src="https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/nika-store/logo.png"
+            src="https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/woffel-store/logo.png"
             className="w-11 h-11 rounded-2xl object-cover shrink-0 shadow-sm"
           />
 
           <div className="min-w-0 leading-tight">
             <p className="font-bold text-[13px] tracking-wide text-gray-900 truncate">
-              NIKA STORE
+              WOFFEL STORE
             </p>
 
             <div

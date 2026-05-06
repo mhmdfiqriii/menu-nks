@@ -21,7 +21,7 @@ function WelcomeCard() {
         </h2>
 
         <h3 className="text-2xl font-extrabold leading-tight bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
-          di Nika Store!
+          di Woffel Store!
         </h3>
 
         <p className="text-sm text-gray-600 mt-3 leading-relaxed">
