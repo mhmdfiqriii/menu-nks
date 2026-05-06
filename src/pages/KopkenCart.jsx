@@ -301,83 +301,96 @@ Total : Rp. ${formatPrice(total)}`
           </p>
         </button>
 
-        {/* FORM + SUMMARY */}
-        <div className="rounded-card bg-white p-4 border border-border-soft space-y-3 shadow-card">
+        {/* RINGKASAN */}
+<div className="rounded-card bg-white p-4 border border-border-soft space-y-3 shadow-card">
 
-          <p className="font-semibold text-md">
-            Ringkasan pembayaran
-          </p>
+  <p className="font-semibold text-md">
+    Ringkasan pembayaran
+  </p>
 
-          <div className="flex justify-between text-sm">
-            <span>Harga</span>
-            <span>Rp {formatPrice(total)}</span>
-          </div>
+  <div className="flex justify-between text-sm">
+    <span>Harga</span>
+    <span>Rp {formatPrice(total)}</span>
+  </div>
 
-          <div className="flex justify-between text-sm">
-            <span>Biaya admin</span>
-            <span>Rp 0</span>
-          </div>
+  <div className="flex justify-between text-sm">
+    <span>Biaya admin</span>
+    <span>Rp 0</span>
+  </div>
 
-          {totalDiscount > 0 && (
-            <div className="bg-red-50 text-primary text-sm px-3 py-2 rounded-xl flex justify-between items-center animate-pulse">
-              <span>Kamu Hemat Sebesar</span>
-              <span className="font-semibold">
-                Rp {formatPrice(totalDiscount)}
-              </span>
-            </div>
-          )}
+  {totalDiscount > 0 && (
+    <div className="bg-[#fff5f5] rounded-2xl px-4 py-3 flex items-center justify-between animate-pulse">
 
-          <div className="border-t pt-3 flex justify-between font-semibold">
-            <span>Total pembayaran</span>
-            <span>Rp {formatPrice(total)}</span>
-          </div>
+      <p className="text-[#DB0007] text-sm font-medium">
+        Kamu Hemat Sebesar
+      </p>
 
-          <input
-            ref={nameRef}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Nama pemesan"
-            className="w-full border rounded-button px-4 py-3 text-sm"
-          />
+      <p className="text-[#DB0007] font-bold">
+        Rp {formatPrice(totalDiscount)}
+      </p>
 
-          <input
-            ref={outletRef}
-            value={outlet}
-            onChange={(e) => setOutlet(e.target.value)}
-            placeholder="Lokasi outlet pickup"
-            className="w-full border rounded-button px-4 py-3 text-sm"
-          />
+    </div>
+  )}
 
-          <input
-            ref={timeRef}
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            placeholder="Sekarang / Jam 19.30"
-            className="w-full border rounded-button px-4 py-3 text-sm"
-          />
+  <div className="border-t pt-3 flex justify-between font-semibold">
+    <span>Total pembayaran</span>
+    <span>Rp {formatPrice(total)}</span>
+  </div>
 
-          <p className="text-xs text-gray-400">
-            Setelah checkout, data akan tersimpan & kamu diarahkan ke WhatsApp admin untuk konfirmasi pesanan serta pembayaran.
-          </p>
+</div>
 
-          {/* CTA */}
-          <button
-            onClick={handleCheckout}
-            disabled={!isReady || loading}
-            className={`w-full py-3 rounded-button font-semibold transition ${
-              isReady
-                ? "bg-primary text-white"
-                : "bg-gray-200 text-gray-400"
-            }`}
-          >
-            {loading
-              ? "Memproses..."
-              : isReady
-              ? "Pesan Sekarang"
-              : "Keranjang kosong"}
-          </button>
+{/* FORMAT ORDER */}
+<div className="rounded-card bg-white p-4 border border-border-soft shadow-card space-y-3">
 
-        </div>
+  <p className="font-semibold text-md">
+    Format Order
+  </p>
+
+  <input
+    ref={nameRef}
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    placeholder="Nama pemesan"
+    className="w-full border rounded-button px-4 py-3 text-sm"
+  />
+
+  <input
+    ref={outletRef}
+    value={outlet}
+    onChange={(e) => setOutlet(e.target.value)}
+    placeholder="Lokasi outlet pickup"
+    className="w-full border rounded-button px-4 py-3 text-sm"
+  />
+
+  <input
+    ref={timeRef}
+    value={time}
+    onChange={(e) => setTime(e.target.value)}
+    placeholder="Sekarang / Jam 19.30"
+    className="w-full border rounded-button px-4 py-3 text-sm"
+  />
+
+  <p className="text-xs leading-relaxed text-gray-400">
+    Setelah checkout, data akan tersimpan & kamu diarahkan ke WhatsApp admin untuk konfirmasi pesanan serta pembayaran.
+  </p>
+
+  <button
+    onClick={handleCheckout}
+    disabled={!isReady || loading}
+    className={`w-full rounded-button py-3.5 font-semibold transition ${
+      isReady
+        ? "bg-primary text-white"
+        : "bg-gray-200 text-gray-400"
+    }`}
+  >
+    {loading
+      ? "Memproses..."
+      : isReady
+      ? "Checkout"
+      : "Keranjang kosong"}
+  </button>
+
+</div>
 
       </div>
     </div>
