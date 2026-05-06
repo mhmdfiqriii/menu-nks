@@ -284,22 +284,23 @@ Total : Rp. ${formatPrice(total)}`
 
         {/* TAMBAH */}
         <button
-          onClick={() => navigate("/kopken")}
-          className="w-full rounded-card bg-white border border-border-soft p-4 flex justify-between"
-        >
-          <div>
-            <p className="font-semibold text-sm">
-              TAMBAH MENU
-            </p>
-            <p className="text-xs text-gray-400">
-              Tambah menu lain?
-            </p>
-          </div>
+  onClick={() => navigate("/kopken")}
+  className="w-full rounded-card bg-white border border-border-soft p-4 flex items-center justify-between shadow-card"
+>
+  <div className="flex-1 text-left">
+    <p className="font-semibold text-sm">
+      TAMBAH MENU
+    </p>
 
-          <p className="text-primary font-semibold text-sm">
-            + Tambah
-          </p>
-        </button>
+    <p className="text-xs text-gray-400 mt-0.5">
+      Tambah menu lain?
+    </p>
+  </div>
+
+  <p className="text-primary font-semibold text-sm shrink-0">
+    + Tambah
+  </p>
+</button>
 
         {/* RINGKASAN */}
 <div className="rounded-card bg-white p-4 border border-border-soft space-y-3 shadow-card">
