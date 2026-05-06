@@ -76,18 +76,7 @@ function DigitalCard({ item, onClick }) {
           >
             Checkout
           </button>
-
         </div>
-
-        {/* BOTTOM BADGE */}
-        <div className="mt-3">
-
-          <span className="text-[10px] px-3 py-1 rounded-full bg-white/12">
-            {item.badge}
-          </span>
-
-        </div>
-
       </div>
 
     </div>

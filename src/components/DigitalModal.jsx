@@ -115,11 +115,11 @@ function DigitalModal({
           {/* COVER */}
           <div className="mt-4 rounded-[26px] border border-[#edf0ff] bg-gradient-to-b from-[#f7f8ff] to-white p-3">
 
-            <div className="rounded-[22px] bg-white overflow-hidden">
+            <div className="rounded-[22px] bg-white overflow-hidden p-2 min-h-[190px] flex items-center justify-center">
               <img
                 src={selected.cover}
                 alt={selected.name}
-                className="w-full h-[170px] object-cover"
+                className="w-full object-contain bg-white"
               />
             </div>
 
