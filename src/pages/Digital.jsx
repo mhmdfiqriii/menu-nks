@@ -47,7 +47,7 @@ function Digital() {
       if (item.id === "imei") {
         return {
           ...item,
-          brand: "NKS DIGITAL",
+          brand: "WOFFEL DIGITAL",
           desc: "Aktifkan kembali sinyal perangkatmu.",
           type: "imei",
           color: "from-violet-700 to-indigo-700",
@@ -62,7 +62,7 @@ function Digital() {
 
       return {
         ...item,
-        brand: "NKS DIGITAL",
+        brand: "WOFFEL DIGITAL",
         desc: "Paket XL / Axis hemat untuk harianmu.",
         type: "kuota",
         color: "from-sky-600 to-blue-700",
@@ -133,7 +133,7 @@ function Digital() {
     let text = ""
 
     if (selected.type === "imei") {
-      text = `*FORM ORDER NKS DIGITAL*
+      text = `*FORM ORDER WOFFEL DIGITAL*
 
 No. Pesanan : ${orderId}
 Produk : ${selected.name}
@@ -143,7 +143,7 @@ Durasi : ${variant}
         "id-ID"
       ).format(selectedPrice)}*`
     } else {
-      text = `*FORM ORDER NKS DIGITAL*
+      text = `*FORM ORDER WOFFEL DIGITAL*
 
 No. Pesanan : ${orderId}
 Produk : ${selected.name}
@@ -186,7 +186,7 @@ No. HP : ${target}
 
           <div className="flex-1 px-3">
             <h1 className="text-[15px] font-bold">
-              NKS Digital
+              WOFFEL Digital
             </h1>
 
             <p className="text-[11px] text-white/75">
@@ -249,7 +249,7 @@ No. HP : ${target}
         </div>
 
       </div>
-      
+
        {/* FOOTER */}
           <div className="pt-3 pb-6">
             <p className="text-center text-xs text-gray-400">
