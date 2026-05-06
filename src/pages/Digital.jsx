@@ -90,17 +90,25 @@ function Digital() {
   }
 
   const selectedPrice =
-    selected?.variants?.find((v) => v.name === variant)?.price || 0
+    selected?.variants?.find(
+      (v) => v.name === variant
+    )?.price || 0
 
   const createOrderId = () => {
-    const randomId = Math.floor(100000 + Math.random() * 900000)
+    const randomId = Math.floor(
+      100000 + Math.random() * 900000
+    )
+
     return `${selected.prefix}-${randomId}`
   }
 
   const checkoutWhatsApp = async () => {
     if (!selected) return
 
-    if (selected.type !== "imei" && !target.trim()) {
+    if (
+      selected.type !== "imei" &&
+      !target.trim()
+    ) {
       alert("Isi nomor dulu.")
       return
     }
@@ -114,7 +122,10 @@ function Digital() {
         type: "digital",
         product: selected.name,
         variant,
-        phone: selected.type === "imei" ? null : target,
+        phone:
+          selected.type === "imei"
+            ? null
+            : target,
         price: selectedPrice
       }
     ])
@@ -128,7 +139,9 @@ No. Pesanan : ${orderId}
 Produk : ${selected.name}
 Durasi : ${variant}
 
-*Total : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
+*Total : Rp ${new Intl.NumberFormat(
+        "id-ID"
+      ).format(selectedPrice)}*`
     } else {
       text = `*FORM ORDER NKS DIGITAL*
 
@@ -137,14 +150,17 @@ Produk : ${selected.name}
 Paket : ${variant}
 No. HP : ${target}
 
-*Total : Rp ${new Intl.NumberFormat("id-ID").format(selectedPrice)}*`
+*Total : Rp ${new Intl.NumberFormat(
+        "id-ID"
+      ).format(selectedPrice)}*`
     }
 
     setLoading(true)
 
     setTimeout(() => {
       window.open(
-        "https://wa.me/6285704550839?text=" + encodeURIComponent(text),
+        "https://wa.me/6285704550839?text=" +
+          encodeURIComponent(text),
         "_blank"
       )
 
@@ -154,9 +170,11 @@ No. HP : ${target}
   }
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#f8fafc] pb-10">
+    <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7] pb-8">
 
-      <div className="sticky top-0 z-30 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white shadow-md border-b border-white/10">
+      {/* HEADER */}
+      <div className="sticky top-0 z-30 bg-gradient-to-r from-indigo-800 to-indigo-700 text-white border-b border-white/10">
+
         <div className="px-4 h-[64px] flex items-center justify-between">
 
           <button
@@ -167,12 +185,17 @@ No. HP : ${target}
           </button>
 
           <div className="flex-1 px-3">
-            <h1 className="text-[15px] font-bold">NKS Digital</h1>
-            <p className="text-[11px] text-white/75">Layanan Digital</p>
+            <h1 className="text-[15px] font-bold">
+              NKS Digital
+            </h1>
+
+            <p className="text-[11px] text-white/75">
+              Layanan Digital
+            </p>
           </div>
 
           <div className="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center">
-            <Monitor size={19} />
+            <Monitor size={18} />
           </div>
 
         </div>
@@ -180,37 +203,42 @@ No. HP : ${target}
 
       <div className="p-4 space-y-4">
 
-        <div className="rounded-3xl bg-gradient-to-r from-indigo-800 to-violet-700 text-white p-5 shadow-xl relative overflow-hidden">
+        {/* HERO */}
+        <div className="rounded-[28px] bg-gradient-to-r from-indigo-800 to-violet-700 text-white p-4 relative overflow-hidden shadow-[0_12px_30px_rgba(79,70,229,.18)]">
 
-          <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10"></div>
+          <div className="absolute -right-10 -top-10 w-28 h-28 rounded-full bg-white/10"></div>
 
           <div className="relative">
-            <p className="text-[11px] tracking-[4px] uppercase text-white/70">
+
+            <p className="text-[10px] tracking-[3px] uppercase text-white/60 font-medium">
               BELI VIA WHATSAPP
             </p>
 
-            <p className="text-[28px] font-bold mt-3 leading-tight">
+            <h2 className="text-[22px] leading-[1.2] font-bold mt-2 max-w-[260px]">
               Pilih produk, checkout, chat admin.
-            </p>
+            </h2>
 
-            <div className="grid grid-cols-2 gap-2 mt-4 text-[11px]">
-              <span className="px-3 py-2 rounded-full bg-white/15">
+            <div className="flex flex-wrap gap-2 mt-4">
+
+              <span className="px-3 py-2 rounded-full bg-white/15 text-[11px]">
                 ⚡ Fast Respon
               </span>
 
-              <span className="px-3 py-2 rounded-full bg-white/15">
+              <span className="px-3 py-2 rounded-full bg-white/15 text-[11px]">
                 🛡 Aman & Bergaransi
               </span>
 
-              <span className="px-3 py-2 rounded-full bg-white/15 col-span-2 text-center">
+              <span className="px-3 py-2 rounded-full bg-white/15 text-[11px]">
                 📦 Order Masuk : {orderCount}
               </span>
-            </div>
-          </div>
 
+            </div>
+
+          </div>
         </div>
 
-        <div className="space-y-3">
+        {/* PRODUCT LIST */}
+        <div className="space-y-2.5">
           {products.map((item) => (
             <DigitalCard
               key={item.id}

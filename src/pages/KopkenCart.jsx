@@ -383,5 +383,5 @@ Total : Rp. ${formatPrice(total)}`
     </div>
   )
 }
-
+ 
 export default KopkenCart
