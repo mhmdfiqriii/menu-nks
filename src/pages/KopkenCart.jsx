@@ -196,7 +196,7 @@ Total : Rp. ${formatPrice(total)}`
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4 flex flex-col gap-4">
 
         {/* ITEM */}
         <div className="rounded-card bg-white p-4 border border-border-soft shadow-card">
