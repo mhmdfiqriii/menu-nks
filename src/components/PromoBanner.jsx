@@ -20,10 +20,10 @@ function PromoBanner() {
       cta: "Pesan Sekarang"
     },
     {
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-jjw.jpg",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-tomoro.png",
       path: "/janji",
-      title: "Janji Jiwa",
-      sub: "Promo hemat buat teman sejiwa",
+      title: "Tomoro",
+      sub: "Promo hemat buat teman tomoro",
       cta: "Cek Menu"
     }
   ]
