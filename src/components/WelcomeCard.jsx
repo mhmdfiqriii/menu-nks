@@ -29,10 +29,10 @@ function WelcomeCard() {
             Jasdor Hemat & Cepat ⚡
           </span>
           <br />
-          Dari kopi, makanan, hingga produk digital.
-          Pilih kebutuhanmu,
+          Promo Murah Kopi Kenangan, Fore dan Tomoro.
+          Pesan Menu Favoritmu,
           <span className="font-medium text-gray-900">
-            {" "}kami urus sisanya.
+            {" "}Kami Urus Sisanya.
           </span>
         </p>
 

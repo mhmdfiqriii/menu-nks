@@ -82,10 +82,10 @@ function Home() {
       path: "/fore"
     },
     {
-      name: "Janji Jiwa",
-      color: "#ff5052",
-      desc: "Kopi dari hati untuk Teman Sejiwa.",
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/janji-jiwa/logo.webp",
+      name: "Tomoro Coffee",
+      color: "#FFA688",
+      desc: "Kopi Yang Menemanimu Menuju Hari Esok.",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/tomoro/logo.webp",
       path: "/janji"
     },
     {
