@@ -9,21 +9,21 @@ function PromoBanner() {
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-kopken.png",
       path: "/kopken",
       title: "Kopi Kenangan",
-      sub: "Diskon menu pilihan sampai 50%",
+      sub: "Diskon Semua Menu Sampai 50%",
       cta: "Lihat Promo"
     },
     {
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-fore.png",
       path: "/fore",
       title: "Fore Coffee",
-      sub: "Coffee modern favorit anak kota",
+      sub: "Promo Buy 1 Get 1",
       cta: "Pesan Sekarang"
     },
     {
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-tomoro.png",
       path: "/janji",
-      title: "Tomoro",
-      sub: "Promo hemat buat teman tomoro",
+      title: "Tomoro Coffee",
+      sub: "Diskon Semua Menu Sampai 50%",
       cta: "Cek Menu"
     }
   ]
