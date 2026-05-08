@@ -6,14 +6,14 @@ function PromoBanner() {
 
   const banners = [
     {
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-kopken.jpg",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-kopken.png",
       path: "/kopken",
       title: "Kopi Kenangan",
       sub: "Diskon menu pilihan sampai 50%",
       cta: "Lihat Promo"
     },
     {
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-fore.jpg",
+      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-fore.png",
       path: "/fore",
       title: "Fore Coffee",
       sub: "Coffee modern favorit anak kota",
