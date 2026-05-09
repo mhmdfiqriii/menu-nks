@@ -48,7 +48,7 @@ function OrderSuccess() {
         </p>
 
         <h1 className="mt-2 text-2xl font-bold text-gray-900">
-          Pesananmu Sudah Masukk
+          Pesananmu Sudah Masuk
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mt-3">
@@ -71,7 +71,7 @@ function OrderSuccess() {
 
           <div className="flex justify-between text-sm">
             <span className="text-gray-500">
-              Pemesan
+              Nama Pemesan
             </span>
 
             <span className="font-semibold">

@@ -54,7 +54,7 @@ function Header({ status }) {
 
           <MessageCircle size={15} />
 
-          WhatsApp Admin
+          Admin
 
         </button>
 

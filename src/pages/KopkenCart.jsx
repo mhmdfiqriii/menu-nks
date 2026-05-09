@@ -195,7 +195,7 @@ function KopkenCart() {
         }
       ])
 
-      const text = `*FORM ORDER WOFFEL STORE *
+      const text = `*FORM ORDER WOFFEL STORE*
 
 No. Order : ${orderId}
 Nama Pemesan : ${name}
