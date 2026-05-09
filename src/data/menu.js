@@ -1,4 +1,5 @@
 const drinkCategories = [
+  "Baru",
   "Coffee",
   "Non Coffee",
   "Little Kenangan",
@@ -137,7 +138,7 @@ const kopkenMenu = [
   "Nama Produk": "Dubai Pistachio Latte",
   "Harga Asli": 26000,
   "Harga Promo": 16000,
-  "Kategori Produk": "Coffee",
+  "Kategori Produk": "Pistachio",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/dubai_pistachio_latte.png"
  },
  {
@@ -145,7 +146,7 @@ const kopkenMenu = [
   "Nama Produk": "Pistachio Latte",
   "Harga Asli": 22000,
   "Harga Promo": 14000,
-  "Kategori Produk": "Coffee",
+  "Kategori Produk": "Pistachio",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/pistachio_latte.png"
  },
  {
@@ -153,7 +154,7 @@ const kopkenMenu = [
   "Nama Produk": "Pistachio Aren Latte",
   "Harga Asli": 19000,
   "Harga Promo": 13000,
-  "Kategori Produk": "Coffee",
+  "Kategori Produk": "Pistachio",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/pistachio_aren_latte.webp"
  },
  {
@@ -458,7 +459,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/7ba226ae_3d05dece9480be2.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/raspberry_hibiscus.webp"
  },
  {
   "No.": 55,
@@ -481,8 +482,8 @@ const kopkenMenu = [
   "Nama Produk": "Pistachio Frappe",
   "Harga Asli": 32000,
   "Harga Promo": 19000,
-  "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/pistachio_frappe.png"
+  "Kategori Produk": "Pistachio",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/pistachio.png"
  },
  {
   "No.": 58,
