@@ -22,17 +22,20 @@ function Kopken() {
     (b) => b.name === "Kopi Kenangan"
   )
 
-  const categories = useMemo(
-    () => [
-      "Semua",
-      "Coffee",
-      "Non Coffee",
-      "Oatside Series",
-      "Kenangan Frappe",
-      "Food"
-    ],
-    []
-  )
+  const categories = useMemo(() => {
+  const uniqueCategories = [
+    ...new Set(
+      brand.menu.map(
+        (item) => item.category
+      )
+    )
+  ]
+
+  return [
+    "Semua",
+    ...uniqueCategories
+  ]
+}, [brand.menu])
 
   const [cart, setCart] = useState(() => {
     const saved =
