@@ -93,7 +93,7 @@ function OrderSuccess() {
 
         <button
           onClick={openWhatsApp}
-          className="mt-6 w-full rounded-button bg-green-600 text-white py-3.5 font-semibold flex items-center justify-center gap-2 active:scale-[0.99]"
+          className="mt-6 w-full rounded-button bg-emerald-600 text-white py-3.5 font-semibold flex items-center justify-center gap-2 active:scale-[0.99]"
         >
           <MessageCircle size={18} />
           Lanjut ke WhatsApp
