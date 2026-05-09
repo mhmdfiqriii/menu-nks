@@ -482,7 +482,7 @@ const kopkenMenu = [
   "Nama Produk": "Pistachio Frappe",
   "Harga Asli": 32000,
   "Harga Promo": 19000,
-  "Kategori Produk": "Pistachio",
+  "Kategori Produk": "Frappe",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/pistachio.png"
  },
  {
@@ -642,7 +642,7 @@ const kopkenMenu = [
   "Nama Produk": "Cheese Donut",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_cheese.webp"
  },
  {
@@ -650,7 +650,7 @@ const kopkenMenu = [
   "Nama Produk": "Sugar Donut",
   "Harga Asli": 10000,
   "Harga Promo": 8000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_sugar.webp"
  },
  {
@@ -923,6 +923,28 @@ const kopkenMenu = [
 // AUTO NORMALIZE MENU
 // =========================
 
+const onlyIce = {
+  Temperature: ["Ice"]
+}
+
+const onlyLarge = {
+  Size: ["Large"]
+}
+
+const onlyRegular = {
+  Size: ["Regular"]
+}
+
+const onlyIceLarge = {
+  Temperature: ["Ice"],
+  Size: ["Large"]
+}
+
+const onlyIceRegular = {
+  Temperature: ["Ice"],
+  Size: ["Regular"]
+}
+
 const normalizedKopkenMenu =
   kopkenMenu.map((item) => {
 
@@ -940,6 +962,8 @@ const normalizedKopkenMenu =
 
     const image =
       item["SUPABASE URL PUBLIC"] || ""
+
+    const productName = name.toLowerCase()
 
     const normalized = {
       id: name
@@ -965,11 +989,115 @@ const normalizedKopkenMenu =
 
     // AUTO OPTIONS ONLY DRINK
     if (
-      drinkCategories.includes(category)
-    ) {
-      normalized.options =
-        drinkOptions
+  drinkCategories.includes(category)
+) {
+
+  normalized.options = {
+    ...drinkOptions
+  }
+
+  // ======================
+  // THAI TEA
+  // ======================
+
+  if (
+    productName.includes("Thai Tea Loaded")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyIceLarge
     }
+  }
+
+  if (
+    productName.includes("Thai Tea Aren")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyLarge
+    }
+  }
+
+  if (
+    productName.includes("Thai Tea Coffee")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyLarge
+    }
+  }
+
+  // ======================
+  // FRAPPE
+  // ======================
+
+  if (
+    category === "Frappe"
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyIce
+    }
+  }
+
+  // ======================
+  // LITTLE KENANGAN
+  // ======================
+
+  if (
+    productName.includes("Milk Oreo Crumble")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyIceRegular
+    }
+  }
+
+  if (
+    productName.includes("Babyccino") ||
+    productName.includes("Toffee Nut Choco Macchiato") ||
+    productName.includes("Butterscoth Sea Salt Crumble")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyRegular
+    }
+  }
+
+  // ======================
+  // NON COFFEE ONLY ICE
+  // ======================
+
+  if (
+    productName.includes("Fresh Lemonade") ||
+    productName.includes("Avocado Coffe") ||
+    productName.includes("Avocado Caramel") ||
+    productName.includes("Avocado Milk") ||
+    productName.includes("Lemon Black Tea") ||
+    productName.includes("Oreo Shaken") ||
+    productName.includes("Raspberry Hibiscus") ||
+    productName.includes("Susu Grass Jelly")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyIce
+    }
+  }
+
+  // ======================
+  // ONLY LARGE
+  // ======================
+
+  if (
+    productName.includes("lemonade")
+  ) {
+    normalized.options = {
+      ...drinkOptions,
+      ...onlyIceLarge
+    }
+  }
+  
+}
 
     return normalized
   })
