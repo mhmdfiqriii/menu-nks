@@ -180,7 +180,7 @@ function Kopken() {
     if (!selectedItem) return 0
     let price = selectedItem.price
     if (selectedOptions["Size"] === "Large") {
-      price += 6000
+      price += 5000
     }
     return price
   }
