@@ -20,6 +20,10 @@ function SplashScreen() {
           WOFFEL STORE
         </p>
 
+        <p className="mt-5 text-[11px] tracking-[4px] font-semibold text-gray-500">
+          SPESIALIS JASDOR
+        </p>
+
       </div>
 
     </div>
