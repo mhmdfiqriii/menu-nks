@@ -924,6 +924,7 @@ const kopkenMenu = [
 
 const normalizedKopkenMenu =
   kopkenMenu.map((item) => {
+
     const name =
       item["Nama Produk"] || ""
 
@@ -943,22 +944,22 @@ const normalizedKopkenMenu =
       id: name
         .toLowerCase()
         .replace(/[^\w\s]/g, "")
-        .replace(/\s+/g, "-")
+        .replace(/\s+/g, "-"),
 
-      name,
+      name: name,
 
-      category,
+      category: category,
 
-      price,
+      price: price,
 
-      originalPrice,
+      originalPrice: originalPrice,
 
       badge:
         originalPrice > price
           ? "Promo"
           : "",
 
-      image
+      image: image
     }
 
     // AUTO OPTIONS ONLY DRINK
