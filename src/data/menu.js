@@ -924,37 +924,46 @@ const kopkenMenu = [
 
 const normalizedKopkenMenu =
   kopkenMenu.map((item) => {
+    const name =
+      item["Nama Produk"] || ""
+
+    const price =
+      Number(item["Harga Promo"]) || 0
+
+    const originalPrice =
+      Number(item["Harga Asli"]) || price
+
+    const category =
+      item["Kategori Produk"] || "Food"
+
+    const image =
+      item["SUPABASE URL PUBLIC"] || ""
+
     const normalized = {
-      id: item.name
+      id: name
         .toLowerCase()
-        .replace(/[^ws]/g, "")
-        .replace(/s+/g, "-"),
+        .replace(/[^\w\s]/g, "")
+        .replace(/\s+/g, "-")
 
-      name: item.name,
+      name,
 
-      category: item.category,
+      category,
 
-      price: Number(item.price) || 0,
+      price,
 
-      originalPrice:
-        Number(item.originalPrice) ||
-        Number(item.price) ||
-        0,
+      originalPrice,
 
       badge:
-        Number(item.originalPrice) >
-        Number(item.price)
+        originalPrice > price
           ? "Promo"
           : "",
 
-      image: item.image
+      image
     }
 
     // AUTO OPTIONS ONLY DRINK
     if (
-      drinkCategories.includes(
-        item.category
-      )
+      drinkCategories.includes(category)
     ) {
       normalized.options =
         drinkOptions
