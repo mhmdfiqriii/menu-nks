@@ -3,8 +3,7 @@ import Home from "./pages/Home"
 import Kopken from "./pages/Kopken"
 import KopkenCart from "./pages/KopkenCart"
 import Fore from "./pages/Fore"
-import JanjiJiwa from "./pages/JanjiJiwa"
-import Digital from "./pages/Digital"
+import Tomoro from "./pages/Tomoro"
 import Admin from "./pages/Admin"
 import AdminLogin from "./pages/AdminLogin"
 
@@ -21,8 +20,7 @@ function RouteShell() {
         <Route path="/kopken" element={<Kopken />} />
         <Route path="/kopken/cart" element={<KopkenCart />} />
         <Route path="/fore" element={<Fore />} />
-        <Route path="/janji" element={<JanjiJiwa />} />
-        <Route path="/digital" element={<Digital />} />
+        <Route path="/tomoro" element={<Tomoro />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>

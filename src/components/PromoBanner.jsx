@@ -21,7 +21,7 @@ function PromoBanner() {
     },
     {
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/banners/home/promo-tomoro.png",
-      path: "/janji",
+      path: "/tomoro",
       title: "Tomoro Coffee",
       sub: "Diskon Semua Menu Sampai 50%",
       cta: "Cek Menu"

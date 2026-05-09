@@ -1,9 +1,57 @@
+import { useEffect, useState } from "react"
+import { supabase } from "../lib/supabase"
+
 function WelcomeCard() {
+
+  const [orderCount, setOrderCount] =
+    useState(0)
+
+  useEffect(() => {
+
+    const fetchOrders = async () => {
+
+      const { count } = await supabase
+        .from("orders")
+        .select("*", {
+          count: "exact",
+          head: true
+        })
+        .eq("type", "fnb")
+
+      setOrderCount(count || 0)
+    }
+
+    fetchOrders()
+
+    const channel = supabase
+      .channel("orders-realtime")
+
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "orders"
+        },
+        () => {
+          fetchOrders()
+        }
+      )
+
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+
+  }, [])
+
   return (
     <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-gradient-to-br from-white via-emerald-50 to-cyan-50 p-5 shadow-sm card-shadow">
 
       {/* glow blur */}
       <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-emerald-300/30 blur-3xl"></div>
+
       <div className="absolute -bottom-10 -left-10 h-28 w-28 rounded-full bg-sky-300/30 blur-3xl"></div>
 
       {/* top line */}
@@ -12,8 +60,11 @@ function WelcomeCard() {
       <div className="relative z-10">
 
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border text-[10px] font-medium text-gray-600 mb-3">
+
           <span className="w-2 h-2 rounded-full bg-emerald-500 soft-pulse"></span>
+
           Fast Order Service
+
         </div>
 
         <h2 className="text-2xl font-bold text-gray-900 leading-tight">
@@ -25,32 +76,61 @@ function WelcomeCard() {
         </h3>
 
         <p className="text-sm text-gray-600 mt-3 leading-relaxed">
+
           <span className="font-semibold text-gray-900">
             Jasdor Hemat & Cepat ⚡
           </span>
+
           <br />
-          Promo Murah Kopi Kenangan, Fore dan Tomoro.
+
+          Nikmati Promo Hemat Dari
+          Kopi Kenangan, Fore dan Tomoro.
           Pesan Menu Favoritmu,
+
           <span className="font-medium text-gray-900">
             {" "}Kami Urus Sisanya.
           </span>
+
         </p>
 
         <div className="grid grid-cols-3 gap-2 mt-4">
+
           <div className="rounded-2xl bg-white/70 border px-3 py-2 text-center">
-            <p className="text-xs font-semibold text-gray-900">50%</p>
-            <p className="text-[10px] text-gray-500">Promo</p>
+
+            <p className="text-xs font-semibold text-gray-900">
+              50%
+            </p>
+
+            <p className="text-[10px] text-gray-500">
+              Promo
+            </p>
+
           </div>
 
           <div className="rounded-2xl bg-white/70 border px-3 py-2 text-center">
-            <p className="text-xs font-semibold text-gray-900">Best</p>
-            <p className="text-[10px] text-gray-500">Price</p>
+
+            <p className="text-xs font-semibold text-gray-900">
+              Fast
+            </p>
+
+            <p className="text-[10px] text-gray-500">
+              Service
+            </p>
+
           </div>
 
           <div className="rounded-2xl bg-white/70 border px-3 py-2 text-center">
-            <p className="text-xs font-semibold text-gray-900">Fast</p>
-            <p className="text-[10px] text-gray-500">Respon</p>
+
+            <p className="text-xs font-semibold text-gray-900">
+              {orderCount}
+            </p>
+
+            <p className="text-[10px] text-gray-500">
+              Order Masuk
+            </p>
+
           </div>
+
         </div>
 
       </div>

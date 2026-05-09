@@ -86,14 +86,7 @@ function Home() {
       color: "#FFA688",
       desc: "Kopi Yang Menemanimu Menuju Hari Esok.",
       img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/tomoro/logo.webp",
-      path: "/janji"
-    },
-    {
-      name: "Produk Digital",
-      color: "#4f46e5",
-      desc: "Unblock IMEI & Paket Kuota Termurah.",
-      img: "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/brands/digital/logo.png",
-      path: "/digital"
+      path: "/tomoro"
     }
   ]
 
@@ -121,8 +114,8 @@ function Home() {
 
           {/* COFFEE */}
           <SectionHeader
-            title="🔥 COFFEE DEALS"
-            tags={["50% OFF", "Special Promo"]}
+            title="🌟 FEATURED BRANDS"
+            tags={["Fast Order", "Best Deals"]}
           />
 
           <div className="space-y-3">
@@ -133,32 +126,13 @@ function Home() {
                     className="w-full h-[82px]"
                   />
                 ))
-              : brands.slice(0, 3).map((b, i) => (
+              : brands.map((b, i) => (
                   <BrandCard
                     key={i}
                     data={b}
                     onClick={() => handleClick(b.path)}
                   />
                 ))}
-          </div>
-
-          {/* DIGITAL */}
-          <SectionHeader
-            title="🌐 DIGITAL DEALS"
-            tags={["Best Price", "50% OFF"]}
-          />
-
-          <div className="space-y-3">
-            {loading ? (
-              <Skeleton className="w-full h-[82px]" />
-            ) : (
-              <BrandCard
-                data={brands[3]}
-                onClick={() =>
-                  handleClick(brands[3].path)
-                }
-              />
-            )}
           </div>
 
           {/* FOOTER */}

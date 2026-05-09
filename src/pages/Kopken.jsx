@@ -221,7 +221,7 @@ function Kopken() {
               Kopi Kenangan Mantan
             </h1>
             <p className="text-[11px] text-white/75">
-              Menu Order Woffle Store
+              Menu Order by Woffle Store
             </p>
           </div>
 

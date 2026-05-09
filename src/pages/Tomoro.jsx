@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import { ChevronLeft, Coffee } from "lucide-react"
 
-function JanjiJiwa() {
+function Tomoro() {
   const navigate = useNavigate()
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#fff7f7]">
 
-      <div className="sticky top-0 z-30 bg-[#ff5052]/90 backdrop-blur-md text-white border-b border-white/10">
+      <div className="sticky top-0 z-30 bg-[#FFA688] text-white border-b border-white/10">
         <div className="px-4 h-[64px] flex items-center justify-between">
 
           <button
@@ -19,8 +19,9 @@ function JanjiJiwa() {
 
           <div className="flex-1 px-3 leading-tight">
             <h1 className="font-bold text-[15px]">
-              Janji Jiwa
+              Tomoro Coffee
             </h1>
+
             <p className="text-[11px] text-white/75">
               Coming Soon
             </p>
@@ -34,15 +35,20 @@ function JanjiJiwa() {
       </div>
 
       <div className="p-4">
-        <div className="rounded-3xl bg-white p-5 border shadow-sm">
-          <p className="text-sm text-gray-500 leading-relaxed">
-            Menu Janji Jiwa sedang diproses. Janji mudah, deploy sulit.
-          </p>
-        </div>
-      </div>
 
+        <div className="rounded-3xl bg-white p-5 border shadow-sm">
+
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Menu Tomoro Coffee sedang diproses.
+            Kadang hidup butuh kopi,
+            kadang butuh deploy tanpa error.
+          </p>
+
+        </div>
+
+      </div>
     </div>
   )
 }
 
-export default JanjiJiwa
+export default Tomoro
