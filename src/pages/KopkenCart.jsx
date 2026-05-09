@@ -20,6 +20,7 @@ function KopkenCart() {
   const [outlet, setOutlet] = useState("")
   const [time, setTime] = useState("")
   const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState({})
 
   const nameRef = useRef(null)
   const outletRef = useRef(null)
@@ -115,11 +116,64 @@ function KopkenCart() {
       })
       .join("\n")
   }
+  
+  const validateForm = () => {
+
+  const nextErrors = {}
+
+  const cleanName =
+    name.trim()
+
+  const cleanOutlet =
+    outlet.trim()
+
+  const cleanTime =
+    time.trim()
+
+  if (cleanName.length < 3) {
+    nextErrors.name =
+      "Nama minimal 3 karakter"
+  }
+
+  if (
+    cleanName.length <= 2 ||
+    /^([a-zA-Z])\1+$/.test(cleanName)
+  ) {
+    nextErrors.name =
+      "Nama tidak valid"
+  }
+
+  if (cleanOutlet.length < 4) {
+    nextErrors.outlet =
+      "Outlet terlalu pendek"
+  }
+
+  if (cleanTime.length < 3) {
+    nextErrors.time =
+      "Jam pickup belum valid"
+  }
+
+  setErrors(nextErrors)
+
+  return (
+    Object.keys(nextErrors).length === 0
+  )
+}
 
   const handleCheckout = async () => {
-    if (!name.trim()) return nameRef.current?.focus()
-    if (!outlet.trim()) return outletRef.current?.focus()
-    if (!time.trim()) return timeRef.current?.focus()
+    if (!validateForm()) {
+
+    if (errors.name)
+    return nameRef.current?.focus()
+
+    if (errors.outlet)
+    return outletRef.current?.focus()
+
+    if (errors.time)
+    return timeRef.current?.focus()
+
+    return
+    }
     if (!cart.length) return
 
     try {
@@ -156,13 +210,14 @@ Total : Rp. ${formatPrice(total)}`
       localStorage.removeItem("cart_kopken")
       setCart([])
 
-      window.open(
-        "https://wa.me/62895601988558?text=" +
-          encodeURIComponent(text),
-        "_blank"
-      )
-
-      navigate("/kopken")
+      navigate("/order-success", {
+      state: {
+      orderId,
+      total,
+      customerName: name,
+      whatsappText: text
+    }
+  })
     } catch {
       alert("Checkout gagal. Sistem lagi ngambek.")
     } finally {
@@ -352,24 +407,54 @@ Total : Rp. ${formatPrice(total)}`
     value={name}
     onChange={(e) => setName(e.target.value)}
     placeholder="Nama pemesan"
-    className="w-full border rounded-button px-4 py-3 text-sm"
+    className={`w-full border rounded-button px-4 py-3 text-sm ${
+    errors.name
+    ? "border-red-500"
+    : "border-gray-200"
+    }`}
   />
+  
+  {errors.name && (
+  <p className="text-xs text-red-500 mt-1">
+    {errors.name}
+  </p>
+  )}
 
   <input
     ref={outletRef}
     value={outlet}
     onChange={(e) => setOutlet(e.target.value)}
     placeholder="Lokasi outlet pickup"
-    className="w-full border rounded-button px-4 py-3 text-sm"
+    className={`w-full border rounded-button px-4 py-3 text-sm ${
+    errors.outlet
+    ? "border-red-500"
+    : "border-gray-200"
+    }`}
   />
+
+  {errors.outlet && (
+  <p className="text-xs text-red-500 mt-1">
+    {errors.outlet}
+  </p>
+  )}
 
   <input
     ref={timeRef}
     value={time}
     onChange={(e) => setTime(e.target.value)}
     placeholder="Sekarang / Jam 19.30"
-    className="w-full border rounded-button px-4 py-3 text-sm"
+    className={`w-full border rounded-button px-4 py-3 text-sm ${
+    errors.time
+    ? "border-red-500"
+    : "border-gray-200"
+    }`}
   />
+
+  {errors.time && (
+  <p className="text-xs text-red-500 mt-1">
+    {errors.time}
+  </p>
+  )}
 
   <p className="text-xs leading-relaxed text-gray-400">
     Setelah checkout, data akan tersimpan & kamu diarahkan ke WhatsApp admin untuk konfirmasi pesanan serta pembayaran.
