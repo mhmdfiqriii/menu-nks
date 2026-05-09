@@ -7,10 +7,10 @@ function MenuCard({ item, onClick }) {
     item.price
 
   return (
-    <div className="bg-white rounded-card border border-border-soft p-2.5 shadow-card">
+    <div className="bg-white rounded-card border border-black/[0.04] p-3 card-shadow transition-all duration-300 active:scale-[0.985]">
 
       {/* IMAGE */}
-      <div className="aspect-square bg-primary-soft rounded-button overflow-hidden flex items-center justify-center">
+      <div className="aspect-square bg-primary-soft rounded-[16px] overflow-hidden flex items-center justify-center">
         <img
           src={item.image}
           alt={item.name}
@@ -43,7 +43,7 @@ function MenuCard({ item, onClick }) {
       {/* BUTTON */}
       <button
         onClick={onClick}
-        className="mt-3 w-full bg-primary text-white py-2.5 rounded-button text-xs font-semibold active:scale-95 transition"
+        className="mt-3 w-full bg-primary text-white py-2.5 rounded-button text-xs font-semibold transition-all duration-200 active:scale-[0.97] active:opacity-90"
       >
         Tambah
       </button>

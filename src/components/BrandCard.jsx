@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react"
 function BrandCard({ data, onClick }) {
   return (
     <div
-      className="group rounded-3xl p-4 flex items-center justify-between border bg-white active:scale-[0.99] transition-all shadow-sm"
+      className="group rounded-[26px] p-4 flex items-center justify-between border border-black/[0.04] bg-white card-shadow transition-all duration-300 active:scale-[0.985]"
       style={{
         borderColor: `${data.color}22`
       }}
@@ -27,7 +27,7 @@ function BrandCard({ data, onClick }) {
             {data.name}
           </p>
 
-          <p className="text-xs leading-relaxed line-clamp-2 mt-1 text-gray-500">
+          <p className="text-[11px] leading-relaxed line-clamp-2 mt-1 text-gray-500">
             {data.desc}
           </p>
         </div>
@@ -36,7 +36,7 @@ function BrandCard({ data, onClick }) {
 
       <button
         onClick={onClick}
-        className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 active:scale-95 text-white"
+        className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 text-white transition-all duration-200 active:scale-[0.94]"
         style={{
           background: data.color
         }}

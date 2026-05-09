@@ -1,11 +1,23 @@
-function InputField({ placeholder, value, onChange, refInput }) {
+function InputField({
+  placeholder,
+  value,
+  onChange,
+  refInput,
+  type = "text"
+}) {
   return (
     <input
+      type={type}
       ref={refInput}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="w-full border border-gray-300 focus:border-black outline-none p-3 rounded-xl text-sm"
+      className="
+        input
+        text-sm
+        text-gray-800
+        placeholder:text-gray-400
+      "
     />
   )
 }

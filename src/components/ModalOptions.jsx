@@ -44,12 +44,12 @@ function ModalOptions({
     )
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-end">
+    <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-[2px] flex items-end">
 
-      <div className="w-full max-w-md mx-auto bg-white rounded-t-3xl max-h-[88vh] flex flex-col">
+      <div className="w-full max-w-md mx-auto bg-white rounded-t-[32px] max-h-[88vh] flex flex-col premium-shadow-lg">
 
         {/* HEADER */}
-        <div className="p-4 border-b flex justify-between items-center">
+        <div className="px-5 py-4 border-b border-black/[0.05] flex justify-between items-center">
           <p className="text-[14px] font-semibold">
             Detail Produk
           </p>
@@ -107,7 +107,7 @@ function ModalOptions({
                             [key]: value
                           }))
                         }
-                        className={`px-3 py-1.5 rounded-full text-[12px] border transition ${
+                        className={`px-3 py-2 rounded-full text-[12px] border transition-all duration-200 ${
                           active
                             ? "bg-[#DB0007] text-white border-[#DB0007]"
                             : "bg-white text-gray-700"
