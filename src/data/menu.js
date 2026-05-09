@@ -34,7 +34,7 @@ const kopkenMenu = [
   "Harga Asli": 23000,
   "Harga Promo": 15000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/og_aren_milky_speculoos.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/og_aren_milky_speculoos.png"
  },
  {
   "No.": 2,
@@ -42,7 +42,7 @@ const kopkenMenu = [
   "Harga Asli": 21000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/og_aren_speculoos_latte.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/og_aren_speculoos_latte.png"
  },
  {
   "No.": 3,
@@ -50,7 +50,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/dua_shot_og_aren.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/dua_shot_og_aren.png"
  },
  {
   "No.": 4,
@@ -58,7 +58,7 @@ const kopkenMenu = [
   "Harga Asli": 16000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/canele_aren.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/canele_aren.webp"
  },
  {
   "No.": 5,
@@ -66,7 +66,7 @@ const kopkenMenu = [
   "Harga Asli": 18000,
   "Harga Promo": 12000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/aren_apple_pie.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/aren_apple_pie.webp"
  },
  {
   "No.": 6,
@@ -74,7 +74,7 @@ const kopkenMenu = [
   "Harga Asli": 16000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/muffin_choco.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/muffin_choco.webp"
  },
  {
   "No.": 7,
@@ -82,7 +82,7 @@ const kopkenMenu = [
   "Harga Asli": 16000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/muffin_bluberry.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/muffin_bluberry.webp"
  },
  {
   "No.": 8,
@@ -90,7 +90,7 @@ const kopkenMenu = [
   "Harga Asli": 18000,
   "Harga Promo": 12000,
   "Kategori Produk": "Toast",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/toast\/swirl.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/toast/swirl.webp"
  },
  {
   "No.": 9,
@@ -98,7 +98,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/tiramisu_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/tiramisu_latte.webp"
  },
  {
   "No.": 10,
@@ -106,7 +106,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/tiramisu_mocha.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/tiramisu_mocha.webp"
  },
  {
   "No.": 11,
@@ -114,7 +114,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/toffee_nut_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/toffee_nut_latte.webp"
  },
  {
   "No.": 12,
@@ -122,7 +122,7 @@ const kopkenMenu = [
   "Harga Asli": 21000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/toffee_nut_aren.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/toffee_nut_aren.webp"
  },
  {
   "No.": 13,
@@ -130,7 +130,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/toffee_nut_oat.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/toffee_nut_oat.webp"
  },
  {
   "No.": 14,
@@ -138,7 +138,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/dubai_pistachio_latte.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/dubai_pistachio_latte.png"
  },
  {
   "No.": 15,
@@ -146,7 +146,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/pistachio_latte.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/pistachio_latte.png"
  },
  {
   "No.": 16,
@@ -154,7 +154,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/pistachio_aren_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/pistachio_aren_latte.webp"
  },
  {
   "No.": 17,
@@ -162,7 +162,7 @@ const kopkenMenu = [
   "Harga Asli": 23000,
   "Harga Promo": 15000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/cafe_malt.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/cafe_malt.webp"
  },
  {
   "No.": 18,
@@ -170,7 +170,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/kopi_kenangan_mantan.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/kopi_kenangan_mantan.webp"
  },
  {
   "No.": 19,
@@ -178,7 +178,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/mocha_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/mocha_latte.webp"
  },
  {
   "No.": 20,
@@ -186,7 +186,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/vanilla_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/vanilla_latte.webp"
  },
  {
   "No.": 21,
@@ -194,7 +194,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/caramel_machiatto.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/caramel_machiatto.webp"
  },
  {
   "No.": 22,
@@ -202,7 +202,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/hazelnut_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/hazelnut_latte.webp"
  },
  {
   "No.": 23,
@@ -210,7 +210,7 @@ const kopkenMenu = [
   "Harga Asli": 21000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/kopi_susu_aren.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/kopi_susu_aren.webp"
  },
  {
   "No.": 24,
@@ -218,7 +218,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/matcha_espresso.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/matcha_espresso.webp"
  },
  {
   "No.": 25,
@@ -226,7 +226,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/creamy_aren_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/creamy_aren_latte.webp"
  },
  {
   "No.": 26,
@@ -234,7 +234,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/butterscoth_aren.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/butterscoth_aren.webp"
  },
  {
   "No.": 27,
@@ -242,7 +242,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/caramel_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/caramel_latte.webp"
  },
  {
   "No.": 28,
@@ -250,7 +250,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/dua_shot_shaken.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/dua_shot_shaken.webp"
  },
  {
   "No.": 29,
@@ -258,7 +258,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/avocado_coffee.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/avocado_coffee.webp"
  },
  {
   "No.": 30,
@@ -266,7 +266,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/spanish_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/spanish_latte.webp"
  },
  {
   "No.": 31,
@@ -274,7 +274,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/butterscoth_sea_salt.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/butterscoth_sea_salt.webp"
  },
  {
   "No.": 32,
@@ -282,7 +282,7 @@ const kopkenMenu = [
   "Harga Asli": 17000,
   "Harga Promo": 12000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/americano.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/americano.webp"
  },
  {
   "No.": 33,
@@ -290,7 +290,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/capuccino.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/capuccino.webp"
  },
  {
   "No.": 34,
@@ -298,7 +298,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/latte.webp"
  },
  {
   "No.": 35,
@@ -306,7 +306,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Little Kenangan",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/little_kenangan\/toffee_nut_choco_matchiato.jpg"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/little_kenangan/toffee_nut_choco_matchiato.jpg"
  },
  {
   "No.": 36,
@@ -314,7 +314,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Little Kenangan",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/little_kenangan\/butterscoth_sea_salt_crumble.jpg"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/little_kenangan/butterscoth_sea_salt_crumble.jpg"
  },
  {
   "No.": 37,
@@ -322,7 +322,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Little Kenangan",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/little_kenangan\/milk_oreo_crumble.jpg"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/little_kenangan/milk_oreo_crumble.jpg"
  },
  {
   "No.": 38,
@@ -330,7 +330,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Little Kenangan",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/little_kenangan\/babyccino.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/little_kenangan/babyccino.png"
  },
  {
   "No.": 39,
@@ -338,7 +338,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/hazelnut_choco_milk.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/hazelnut_choco_milk.webp"
  },
  {
   "No.": 40,
@@ -346,7 +346,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/avocado_caramel.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/avocado_caramel.webp"
  },
  {
   "No.": 41,
@@ -354,7 +354,7 @@ const kopkenMenu = [
   "Harga Asli": 24000,
   "Harga Promo": 15000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/avocado_milk.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/avocado_milk.webp"
  },
  {
   "No.": 42,
@@ -362,7 +362,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/caramel_dutch_choco.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/caramel_dutch_choco.webp"
  },
  {
   "No.": 43,
@@ -370,7 +370,7 @@ const kopkenMenu = [
   "Harga Asli": 27000,
   "Harga Promo": 17000,
   "Kategori Produk": "Pistachio",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/dubai-pistachio-chocolate.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/dubai-pistachio-chocolate.png"
  },
  {
   "No.": 44,
@@ -378,7 +378,7 @@ const kopkenMenu = [
   "Harga Asli": 17000,
   "Harga Promo": 12000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/lemonade.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/lemonade.webp"
  },
  {
   "No.": 45,
@@ -386,7 +386,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/dutch_choco.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/dutch_choco.webp"
  },
  {
   "No.": 46,
@@ -394,7 +394,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/hazelnut_dutch_choco.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/hazelnut_dutch_choco.webp"
  },
  {
   "No.": 47,
@@ -402,7 +402,7 @@ const kopkenMenu = [
   "Harga Asli": 17000,
   "Harga Promo": 12000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/lemon_black_tea.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/lemon_black_tea.webp"
  },
  {
   "No.": 48,
@@ -410,7 +410,7 @@ const kopkenMenu = [
   "Harga Asli": 21000,
   "Harga Promo": 14000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/kenangan_milk_tea.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/kenangan_milk_tea.webp"
  },
  {
   "No.": 49,
@@ -418,7 +418,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/thai_tea.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/thai_tea.webp"
  },
  {
   "No.": 50,
@@ -426,7 +426,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/matcha_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/matcha_latte.webp"
  },
  {
   "No.": 51,
@@ -434,7 +434,7 @@ const kopkenMenu = [
   "Harga Asli": 23000,
   "Harga Promo": 15000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/milo_dinosaurus.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/milo_dinosaurus.png"
  },
  {
   "No.": 52,
@@ -442,7 +442,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/oreo_shaken.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/oreo_shaken.webp"
  },
  {
   "No.": 53,
@@ -450,7 +450,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Oatside Series",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/oatside\/oatside_matcha_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/oatside/oatside_matcha_latte.webp"
  },
  {
   "No.": 54,
@@ -458,7 +458,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/7ba226ae_3d05dece9480be2.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/7ba226ae_3d05dece9480be2.webp"
  },
  {
   "No.": 55,
@@ -466,7 +466,7 @@ const kopkenMenu = [
   "Harga Asli": 24000,
   "Harga Promo": 15000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/susu_grass_jelly.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/susu_grass_jelly.webp"
  },
  {
   "No.": 56,
@@ -474,7 +474,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 17000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/tiramisu.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/tiramisu.webp"
  },
  {
   "No.": 57,
@@ -482,7 +482,7 @@ const kopkenMenu = [
   "Harga Asli": 32000,
   "Harga Promo": 19000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/pistachio_frappe.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/pistachio_frappe.png"
  },
  {
   "No.": 58,
@@ -490,7 +490,7 @@ const kopkenMenu = [
   "Harga Asli": 30000,
   "Harga Promo": 18000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/butterscoth.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/butterscoth.webp"
  },
  {
   "No.": 59,
@@ -498,7 +498,7 @@ const kopkenMenu = [
   "Harga Asli": 32000,
   "Harga Promo": 19000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/matcha.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/matcha.webp"
  },
  {
   "No.": 60,
@@ -506,7 +506,7 @@ const kopkenMenu = [
   "Harga Asli": 29000,
   "Harga Promo": 18000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/dutch_choco.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/dutch_choco.webp"
  },
  {
   "No.": 61,
@@ -514,7 +514,7 @@ const kopkenMenu = [
   "Harga Asli": 27000,
   "Harga Promo": 17000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/kenangan_mantan.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/kenangan_mantan.webp"
  },
  {
   "No.": 62,
@@ -522,7 +522,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/vanilla.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/vanilla.webp"
  },
  {
   "No.": 63,
@@ -530,7 +530,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/non_coffee\/choco_caramel.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/choco_caramel.webp"
  },
  {
   "No.": 64,
@@ -538,7 +538,7 @@ const kopkenMenu = [
   "Harga Asli": 26000,
   "Harga Promo": 16000,
   "Kategori Produk": "Coffee",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/coffee\/mocha_caramel.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/coffee/mocha_caramel.webp"
  },
  {
   "No.": 65,
@@ -546,7 +546,7 @@ const kopkenMenu = [
   "Harga Asli": 28000,
   "Harga Promo": 17000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/frappe\/choco_caramel.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/choco_caramel.webp"
  },
  {
   "No.": 66,
@@ -554,7 +554,7 @@ const kopkenMenu = [
   "Harga Asli": 13000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/puff_vanilla.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/puff_vanilla.webp"
  },
  {
   "No.": 67,
@@ -562,7 +562,7 @@ const kopkenMenu = [
   "Harga Asli": 13000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/puff_strawberry.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/puff_strawberry.webp"
  },
  {
   "No.": 68,
@@ -570,7 +570,7 @@ const kopkenMenu = [
   "Harga Asli": 13000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/puff_chocolate.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/puff_chocolate.webp"
  },
  {
   "No.": 69,
@@ -578,7 +578,7 @@ const kopkenMenu = [
   "Harga Asli": 14000,
   "Harga Promo": 10000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/choco_chip.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/choco_chip.webp"
  },
  {
   "No.": 70,
@@ -586,7 +586,7 @@ const kopkenMenu = [
   "Harga Asli": 21000,
   "Harga Promo": 14000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/dark_side.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/dark_side.webp"
  },
  {
   "No.": 71,
@@ -594,7 +594,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/butter_croissant.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/butter_croissant.webp"
  },
  {
   "No.": 72,
@@ -602,7 +602,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/choco_croissant.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/choco_croissant.webp"
  },
  {
   "No.": 73,
@@ -610,7 +610,7 @@ const kopkenMenu = [
   "Harga Asli": 14000,
   "Harga Promo": 10000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_abon.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_abon.webp"
  },
  {
   "No.": 74,
@@ -618,7 +618,7 @@ const kopkenMenu = [
   "Harga Asli": 14000,
   "Harga Promo": 10000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_almond.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_almond.png"
  },
  {
   "No.": 75,
@@ -626,7 +626,7 @@ const kopkenMenu = [
   "Harga Asli": 14000,
   "Harga Promo": 10000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_matcha.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_matcha.png"
  },
  {
   "No.": 76,
@@ -634,7 +634,7 @@ const kopkenMenu = [
   "Harga Asli": 12000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_pink_confetti.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_pink_confetti.png"
  },
  {
   "No.": 77,
@@ -642,7 +642,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_cheese.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_cheese.webp"
  },
  {
   "No.": 78,
@@ -650,7 +650,7 @@ const kopkenMenu = [
   "Harga Asli": 10000,
   "Harga Promo": 8000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_sugar.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_sugar.webp"
  },
  {
   "No.": 79,
@@ -658,7 +658,7 @@ const kopkenMenu = [
   "Harga Asli": 18000,
   "Harga Promo": 12000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/gulung_abon.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/gulung_abon.webp"
  },
  {
   "No.": 80,
@@ -666,7 +666,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/gulung_aren.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/gulung_aren.webp"
  },
  {
   "No.": 81,
@@ -674,7 +674,7 @@ const kopkenMenu = [
   "Harga Asli": 14000,
   "Harga Promo": 10000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/donut_tiramisu.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_tiramisu.webp"
  },
  {
   "No.": 82,
@@ -682,7 +682,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/danish_tiramisu.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/danish_tiramisu.webp"
  },
  {
   "No.": 83,
@@ -690,7 +690,7 @@ const kopkenMenu = [
   "Harga Asli": 12000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/sisir_original.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sisir_original.webp"
  },
  {
   "No.": 84,
@@ -698,7 +698,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/sisir_keju.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sisir_keju.webp"
  },
  {
   "No.": 85,
@@ -706,7 +706,7 @@ const kopkenMenu = [
   "Harga Asli": 12000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/salt_original.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/salt_original.webp"
  },
  {
   "No.": 86,
@@ -714,7 +714,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/salt_beef.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/salt_beef.webp"
  },
  {
   "No.": 87,
@@ -722,7 +722,7 @@ const kopkenMenu = [
   "Harga Asli": 14000,
   "Harga Promo": 10000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/sisir_coklat.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sisir_coklat.webp"
  },
  {
   "No.": 88,
@@ -730,7 +730,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/dirty_chocolate.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/dirty_chocolate.webp"
  },
  {
   "No.": 89,
@@ -738,7 +738,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/bolu_marble_chocolate.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_chocolate.png"
  },
  {
   "No.": 90,
@@ -746,7 +746,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/bolu_marble_ube.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_ube.png"
  },
  {
   "No.": 91,
@@ -754,7 +754,7 @@ const kopkenMenu = [
   "Harga Asli": 12000,
   "Harga Promo": 9000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/roti_keju.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/roti_keju.webp"
  },
  {
   "No.": 92,
@@ -762,7 +762,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/roti_srikaya.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/roti_srikaya.webp"
  },
  {
   "No.": 93,
@@ -770,7 +770,7 @@ const kopkenMenu = [
   "Harga Asli": 15000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/bolu_marble_ube.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_ube.png"
  },
  {
   "No.": 94,
@@ -778,7 +778,7 @@ const kopkenMenu = [
   "Harga Asli": 18000,
   "Harga Promo": 12000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/croissant_abon.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/croissant_abon.webp"
  },
  {
   "No.": 95,
@@ -786,7 +786,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/sandwich_beef.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sandwich_beef.webp"
  },
  {
   "No.": 96,
@@ -794,7 +794,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/sandwich_chicken.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sandwich_chicken.webp"
  },
  {
   "No.": 97,
@@ -802,7 +802,7 @@ const kopkenMenu = [
   "Harga Asli": 17000,
   "Harga Promo": 12000,
   "Kategori Produk": "Toast",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/toast\/bambang.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/toast/bambang.webp"
  },
  {
   "No.": 98,
@@ -810,7 +810,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Toast",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/toast\/adam.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/toast/adam.webp"
  },
  {
   "No.": 99,
@@ -818,7 +818,7 @@ const kopkenMenu = [
   "Harga Asli": 9000,
   "Harga Promo": 8000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/roti_coklat.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/roti_coklat.webp"
  },
  {
   "No.": 100,
@@ -826,7 +826,7 @@ const kopkenMenu = [
   "Harga Asli": 9000,
   "Harga Promo": 8000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/roti_susu.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/roti_susu.webp"
  },
  {
   "No.": 101,
@@ -834,7 +834,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Toast",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/toast\/wahyu.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/toast/wahyu.webp"
  },
  {
   "No.": 102,
@@ -842,7 +842,7 @@ const kopkenMenu = [
   "Harga Asli": 17000,
   "Harga Promo": 12000,
   "Kategori Produk": "Food",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/food\/friend_chip.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/food/friend_chip.webp"
  },
  {
   "No.": 103,
@@ -850,7 +850,7 @@ const kopkenMenu = [
   "Harga Asli": 13000,
   "Harga Promo": 9000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/canele.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/canele.webp"
  },
  {
   "No.": 104,
@@ -858,7 +858,7 @@ const kopkenMenu = [
   "Harga Asli": 18000,
   "Harga Promo": 11000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/canele_toffee_nut.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/canele_toffee_nut.webp"
  },
  {
   "No.": 105,
@@ -866,7 +866,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Oatside Series",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/oatside\/oatside_latte.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/oatside/oatside_latte.webp"
  },
  {
   "No.": 106,
@@ -874,7 +874,7 @@ const kopkenMenu = [
   "Harga Asli": 22000,
   "Harga Promo": 14000,
   "Kategori Produk": "Oatside Series",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/oatside\/oatside_kkm.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/oatside/oatside_kkm.webp"
  },
  {
   "No.": 107,
@@ -882,7 +882,7 @@ const kopkenMenu = [
   "Harga Asli": 19000,
   "Harga Promo": 13000,
   "Kategori Produk": "Baru",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/baru\/og_thai_tea.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/og_thai_tea.webp"
  },
  {
   "No.": 108,
@@ -890,7 +890,7 @@ const kopkenMenu = [
   "Harga Asli": 27000,
   "Harga Promo": 17000,
   "Kategori Produk": "Baru",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/baru\/thai_tea_loaded.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/thai_tea_loaded.webp"
  },
  {
   "No.": 109,
@@ -898,7 +898,7 @@ const kopkenMenu = [
   "Harga Asli": 24000,
   "Harga Promo": 15000,
   "Kategori Produk": "Baru",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/baru\/thai_tea_aren.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/thai_tea_aren.webp"
  },
  {
   "No.": 110,
@@ -906,7 +906,7 @@ const kopkenMenu = [
   "Harga Asli": 25000,
   "Harga Promo": 16000,
   "Kategori Produk": "Baru",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/baru\/thai_tea_coffee.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/thai_tea_coffee.webp"
  },
  {
   "No.": 111,
@@ -914,7 +914,7 @@ const kopkenMenu = [
   "Harga Asli": 20000,
   "Harga Promo": 13000,
   "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https:\/\/hreulbsrxakoxwshzmgj.supabase.co\/storage\/v1\/object\/public\/assets\/products\/kopken\/signaturebake\/dirty_matcha.png"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/dirty_matcha.png"
  }
 ]
 
@@ -927,8 +927,8 @@ const normalizedKopkenMenu =
     const normalized = {
       id: item.name
         .toLowerCase()
-        .replace(/[^\w\s]/g, "")
-        .replace(/\s+/g, "-"),
+        .replace(/[^ws]/g, "")
+        .replace(/s+/g, "-"),
 
       name: item.name,
 
