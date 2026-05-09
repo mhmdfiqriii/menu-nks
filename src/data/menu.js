@@ -963,7 +963,7 @@ const normalizedKopkenMenu =
     const image =
       item["SUPABASE URL PUBLIC"] || ""
 
-    const productName = name.toLowerCase()
+    const productName = name
 
     const normalized = {
       id: name
