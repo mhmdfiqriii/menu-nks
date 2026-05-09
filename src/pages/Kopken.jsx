@@ -23,6 +23,21 @@ function Kopken() {
   )
 
   const categories = useMemo(() => {
+
+  const categoryOrder = [
+    "Baru",
+    "Coffee",
+    "Non Coffee",
+    "Little Kenangan",
+    "Frappe",
+    "Pistachio",
+    "Oatside Series",
+    "Signature Bake",
+    "Toast",
+    "Food",
+    "Promo Bundling"
+  ]
+
   const uniqueCategories = [
     ...new Set(
       brand.menu.map(
@@ -31,17 +46,17 @@ function Kopken() {
     )
   ]
 
+  const sortedCategories =
+    categoryOrder.filter((cat) =>
+      uniqueCategories.includes(cat)
+    )
+
   return [
     "Semua",
-    ...uniqueCategories
+    ...sortedCategories
   ]
-}, [brand.menu])
 
-  const [cart, setCart] = useState(() => {
-    const saved =
-      localStorage.getItem("cart_kopken")
-    return saved ? JSON.parse(saved) : []
-  })
+}, [brand.menu])
 
   const [selectedItem, setSelectedItem] =
     useState(null)
