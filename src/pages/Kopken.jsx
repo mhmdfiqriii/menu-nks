@@ -58,6 +58,12 @@ function Kopken() {
 
 }, [brand.menu])
 
+  const [cart, setCart] = useState(() => {
+    const saved =
+      localStorage.getItem("cart_kopken")
+    return saved ? JSON.parse(saved) : []
+  })
+
   const [selectedItem, setSelectedItem] =
     useState(null)
 
