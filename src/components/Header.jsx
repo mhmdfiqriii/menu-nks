@@ -34,7 +34,7 @@ function Header({ status }) {
         </div>
 
         <button
-          onClick={() => window.open("https://wa.me/6285704550839")}
+          onClick={() => window.open("https://wa.me/62895601988558")}
           className="h-10 px-4 rounded-2xl bg-green-600 text-white text-xs font-semibold flex items-center gap-2 active:scale-95 transition-all shadow-md"
         >
           <MessageCircle size={15} />
