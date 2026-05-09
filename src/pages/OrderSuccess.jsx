@@ -48,7 +48,7 @@ function OrderSuccess() {
         </p>
 
         <h1 className="mt-2 text-2xl font-bold text-gray-900">
-          Pesananmu Sudah Masuk
+          Pesananmu Sudah Masukk
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mt-3">
