@@ -1,10 +1,12 @@
 import { Routes, Route, useLocation } from "react-router-dom"
+import { useEffect, useState } from "react"
 import Home from "./pages/Home"
 import Kopken from "./pages/Kopken"
 import KopkenCart from "./pages/KopkenCart"
 import Fore from "./pages/Fore"
 import Tomoro from "./pages/Tomoro"
 import OrderSuccess from "./pages/OrderSuccess"
+import SplashScreen from "./components/SplashScreen"
 import Admin from "./pages/Admin"
 import AdminLogin from "./pages/AdminLogin"
 
@@ -31,7 +33,26 @@ function RouteShell() {
 }
 
 function App() {
-  return <RouteShell />
+
+  const [showSplash, setShowSplash] =
+    useState(true)
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+      setShowSplash(false)
+    }, 1450)
+
+    return () => clearTimeout(timer)
+
+  }, [])
+
+  return (
+    <>
+      {showSplash && <SplashScreen />}
+      <RouteShell />
+    </>
+  )
 }
 
 export default App
