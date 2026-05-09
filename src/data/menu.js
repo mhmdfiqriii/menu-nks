@@ -1089,7 +1089,7 @@ const normalizedKopkenMenu =
   // ======================
 
   if (
-    productName.includes("lemonade")
+    productName.includes("Fresh Lemonade")
   ) {
     normalized.options = {
       ...drinkOptions,
