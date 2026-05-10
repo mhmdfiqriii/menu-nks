@@ -5,22 +5,31 @@ function SectionHeader({ title, tags = [] }) {
       {/* glow subtle */}
       <div className="absolute inset-0 opacity-20 blur-xl bg-gradient-to-r from-green-300 to-blue-300"></div>
 
-      <div className="relative flex items-center gap-3">
+      <div className="relative flex items-center justify-between gap-3">
 
         {/* LEFT */}
-        <div className="flex-1 text-[13px] font-semibold tracking-[0.2px] text-gray-800 whitespace-nowrap">
-          {title}
+        <div className="flex items-center min-w-0">
+          <h2 className="text-[13px] font-semibold tracking-[0.2px] text-gray-800 whitespace-nowrap">
+            {title}
+          </h2>
         </div>
 
         {/* RIGHT TAG */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {tags.map((tag, i) => (
             <span
               key={i}
               className={`
-                text-[10px] px-2 py-1 rounded-full font-medium shadow-sm
-                ${i === 0 
-                  ? "bg-yellow-400 text-white animate-pulse" 
+                whitespace-nowrap
+                text-[10px]
+                px-3 py-1.5
+                rounded-full
+                font-medium
+                shadow-sm
+                transition-all
+                duration-200
+                ${i === 0
+                  ? "bg-yellow-400 text-white animate-pulse"
                   : "bg-white/80 text-gray-700 backdrop-blur-md border border-white/70"
                 }
               `}
