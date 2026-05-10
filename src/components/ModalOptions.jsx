@@ -44,7 +44,7 @@ function ModalOptions({
     )
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-[2px] flex items-end">
+    <div className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px] flex items-end">
 
       <div className="w-full max-w-md mx-auto bg-white rounded-t-[32px] max-h-[88vh] flex flex-col premium-shadow-lg">
 

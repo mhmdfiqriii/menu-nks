@@ -1,6 +1,6 @@
 function CheckoutBar({ total, onClick, loading }) {
   return (
-    <div className="fixed bottom-0 left-0 w-full px-3 pb-3 z-40">
+    <div className="fixed bottom-4 left-0 w-full px-3 z-40">
       <div className="max-w-md mx-auto flex items-center justify-between gap-3 rounded-[24px] border border-white/60 bg-white/88 backdrop-blur-xl px-4 py-4 premium-shadow">
 
         <div>

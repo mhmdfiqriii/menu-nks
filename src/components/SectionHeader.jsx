@@ -5,15 +5,15 @@ function SectionHeader({ title, tags = [] }) {
       {/* glow subtle */}
       <div className="absolute inset-0 opacity-20 blur-xl bg-gradient-to-r from-green-300 to-blue-300"></div>
 
-      <div className="relative flex items-center justify-between">
+      <div className="relative flex items-center justify-between gap-3">
 
         {/* LEFT */}
-        <div className="text-[13px] font-semibold flex items-center gap-2 tracking-[0.2px] text-gray-800">
+        <div className="text-[13px] font-semibold flex items-center gap-2 tracking-[0.2px] text-gray-800 min-w-0 pr-3">
           {title}
         </div>
 
         {/* RIGHT TAG */}
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {tags.map((tag, i) => (
             <span
               key={i}
