@@ -115,7 +115,7 @@ function Home() {
           {/* COFFEE */}
           <SectionHeader
             title="🌟 FEATURED BRANDS"
-            tags={["Fast Order", "Best Deals"]}
+            tags={["Fast Order"]}
           />
 
           <div className="space-y-3">
