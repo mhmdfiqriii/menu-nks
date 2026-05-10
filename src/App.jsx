@@ -7,8 +7,6 @@ import Fore from "./pages/Fore"
 import Tomoro from "./pages/Tomoro"
 import OrderSuccess from "./pages/OrderSuccess"
 import SplashScreen from "./components/SplashScreen"
-import Admin from "./pages/Admin"
-import AdminLogin from "./pages/AdminLogin"
 
 function RouteShell() {
   const location = useLocation()
@@ -25,8 +23,6 @@ function RouteShell() {
         <Route path="/fore" element={<Fore />} />
         <Route path="/tomoro" element={<Tomoro />} />
         <Route path="/order-success" element={<OrderSuccess />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
     </div>
   )
