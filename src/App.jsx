@@ -16,7 +16,7 @@ function RouteShell() {
   return (
     <div
       key={location.pathname}
-      className="animate-page-enter"
+      className="page-transition"
     >
       <Routes location={location}>
         <Route path="/" element={<Home />} />

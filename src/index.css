@@ -162,10 +162,25 @@ body {
   }
 }
 
+@keyframes pageFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* ===============================
    UTILITIES
 ================================= */
 @layer utilities {
+  .page-transition {
+    animation: pageFade .34s cubic-bezier(.22,.61,.36,1);
+  }
+
   .fade-in {
     animation: fadeIn 0.4s ease forwards;
   }
