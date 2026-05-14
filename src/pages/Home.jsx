@@ -138,8 +138,25 @@ function Home() {
           {/* FOOTER */}
           <div className="pt-3 pb-6">
             <p className="text-center text-xs text-gray-400">
-              © 2026 Web Developed by mhmdfiqriii_
-            </p>
+  © 2026 Woffel Store. 
+  <br />
+  Designed & Developed by{" "}
+
+  <a
+  href="https://www.instagram.com/mhmdfiqriii_"
+  target="_blank"
+  rel="noreferrer"
+  className="
+    text-neutral-500
+    hover:text-neutral-300
+    transition-colors
+    font-medium
+  "
+>
+  @mhmdfiqriii_
+</a>
+
+</p>
           </div>
 
         </div>

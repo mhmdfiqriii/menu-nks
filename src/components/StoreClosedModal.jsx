@@ -5,7 +5,6 @@ function StoreClosedModal({
   isOpen = false,
   storeKey = "",
   onClose,
-  whatsappNumber = "62895601988558",
   allowClose = true
 }) {
 
@@ -24,36 +23,28 @@ function StoreClosedModal({
           emoji: "😔",
 
           color:
-            "#E11D48",
-
-          bg:
-            "linear-gradient(135deg,#881337,#be123c)"
+            "#DB0007"
         },
 
         fore: {
           name:
             "Fore Coffee",
 
-          emoji: "☕",
+
+          emoji: "😔",
 
           color:
-            "#2563EB",
-
-          bg:
-            "linear-gradient(135deg,#1e3a8a,#2563eb)"
+            "#006041"
         },
 
         tomoro: {
           name:
             "Tomoro Coffee",
 
-          emoji: "🧋",
+          emoji: "😔",
 
           color:
-            "#EA580C",
-
-          bg:
-            "linear-gradient(135deg,#9a3412,#ea580c)"
+            "#FFA688"
         }
 
       }
@@ -75,13 +66,8 @@ function StoreClosedModal({
   if (!isOpen)
     return null
 
-  const whatsappText =
-    encodeURIComponent(
-      `Halo admin, apakah store sedang tutup?`
-    )
-
   const whatsappLink =
-    `https://wa.me/${whatsappNumber}?text=${whatsappText}`
+  `https://wa.me/62895601988558`
 
   return (
 
@@ -180,42 +166,6 @@ function StoreClosedModal({
             menerima pesanan.
 
           </p>
-
-        </div>
-
-        <div
-          className="
-            store-modal-body
-          "
-        >
-
-          <div
-            className="
-              store-modal-info
-            "
-          >
-
-            <div
-              className="
-                store-modal-dot
-              "
-            ></div>
-
-            <div
-              className="
-                store-modal-info-text
-              "
-            >
-
-              Silakan hubungi
-              admin untuk
-              informasi lebih
-              lanjut atau tunggu
-              store dibuka kembali.
-
-            </div>
-
-          </div>
 
         </div>
 

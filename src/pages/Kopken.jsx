@@ -393,27 +393,31 @@ function Kopken() {
     }
 
   const calculatePrice =
-    () => {
+  () => {
 
-      if (!selectedItem)
-        return 0
+    if (!selectedItem)
+      return 0
 
-      let price =
-        selectedItem.price
+    let price =
+      selectedItem.price
 
-      if (
-        selectedOptions[
-          "Size"
-        ] === "Large"
-      ) {
+    if (
+      selectedOptions[
+        "Size"
+      ] === "Large"
 
-        price += 5000
+      &&
 
-      }
+      !selectedItem.disableLargeCharge
+    ) {
 
-      return price
+      price += 5000
 
     }
+
+    return price
+
+  }
 
   const handleConfirm =
     () => {
@@ -1226,6 +1230,30 @@ function Kopken() {
   "
 
 />
+
+{/* FOOTER */}
+          <div className="pt-3 pb-6">
+            <p className="text-center text-xs text-gray-400">
+  © 2026 Woffel Store. 
+  <br />
+  Designed & Developed by{" "}
+
+  <a
+  href="https://www.instagram.com/mhmdfiqriii_"
+  target="_blank"
+  rel="noreferrer"
+  className="
+    text-neutral-500
+    hover:text-neutral-300
+    transition-colors
+    font-medium
+  "
+>
+  @mhmdfiqriii_
+</a>
+
+</p>
+          </div>
 
     </div>
   )

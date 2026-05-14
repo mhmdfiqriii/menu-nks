@@ -100,7 +100,7 @@ function Tomoro() {
           sticky
           top-0
           z-30
-          bg-[#FFA688]
+          bg-[#ff8357]
           text-white
           border-b
           border-white/10
@@ -352,19 +352,10 @@ function Tomoro() {
               <br />
               <br />
 
-              Kadang hidup
-              butuh kopi,
-              kadang butuh
-              deploy tanpa error.
-
-              <br />
-              <br />
-
-              Tapi manusia
-              sering maunya
-              dua-duanya jalan
-              sambil ngoding
-              di WiFi kosan.
+              Silahkan pilih brand lain
+              selain Tomoro,
+              Kami akan update jika menu
+              sudah tersedia.
 
             </p>
 
@@ -377,7 +368,7 @@ function Tomoro() {
               items-center
               justify-between
               rounded-2xl
-              bg-[#FFA688]
+              bg-[#ff8357]
               text-white
               px-4
               py-3
@@ -474,6 +465,30 @@ function Tomoro() {
         "
 
       />
+
+      {/* FOOTER */}
+          <div className="pt-3 pb-6">
+            <p className="text-center text-xs text-gray-400">
+  © 2026 Woffel Store. 
+  <br />
+  This Page Still Under Development by{" "}
+
+  <a
+  href="https://www.instagram.com/mhmdfiqriii_"
+  target="_blank"
+  rel="noreferrer"
+  className="
+    text-neutral-500
+    hover:text-neutral-300
+    transition-colors
+    font-medium
+  "
+>
+  @mhmdfiqriii_
+</a>
+
+</p>
+          </div>
 
     </div>
 

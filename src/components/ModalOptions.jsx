@@ -25,13 +25,19 @@ function ModalOptions({
     }
   }, [isHot])
 
-  const getLivePrice = () => {
-    let price = item.price
-    if (selectedOptions["Size"] === "Large") {
-      price += 6000
-    }
-    return price
+const getLivePrice = () => {
+  let price = item.price
+
+  if (
+    selectedOptions["Size"] === "Large"
+    &&
+    !item.disableLargeCharge
+  ) {
+    price += 5000
   }
+
+  return price
+}
 
   const requiredKeys =
     Object.keys(item.options || {})

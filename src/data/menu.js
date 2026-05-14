@@ -993,31 +993,37 @@ const normalizedKopkenMenu =
   // ======================
 
   if (
-    productName.includes("Thai Tea Loaded")
-  ) {
-    normalized.options = {
-      ...drinkOptions,
-      ...onlyIceLarge
-    }
+  productName.includes("Thai Tea Loaded")
+) {
+  normalized.options = {
+    ...drinkOptions,
+    ...onlyIceLarge
   }
 
-  if (
-    productName.includes("Thai Tea Aren")
-  ) {
-    normalized.options = {
-      ...drinkOptions,
-      ...onlyLarge
-    }
+  normalized.disableLargeCharge = true
+}
+
+if (
+  productName.includes("Thai Tea Aren")
+) {
+  normalized.options = {
+    ...drinkOptions,
+    ...onlyLarge
   }
 
-  if (
-    productName.includes("Thai Tea Coffee")
-  ) {
-    normalized.options = {
-      ...drinkOptions,
-      ...onlyLarge
-    }
+  normalized.disableLargeCharge = true
+}
+
+if (
+  productName.includes("Thai Tea Coffee")
+) {
+  normalized.options = {
+    ...drinkOptions,
+    ...onlyLarge
   }
+
+  normalized.disableLargeCharge = true
+}
 
   // ======================
   // FRAPPE
@@ -1087,6 +1093,7 @@ const normalizedKopkenMenu =
       ...drinkOptions,
       ...onlyIceLarge
     }
+    normalized.disableLargeCharge = true
   }
   
 }
