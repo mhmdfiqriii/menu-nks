@@ -538,60 +538,18 @@ function Kopken() {
 
             </h1>
 
-            <div
-              className="
-                flex
-                items-center
-                gap-2
-                mt-1
-              "
-            >
+            <p
+  className="
+    text-[11px]
+    text-white/75
+    mt-1
+  "
+>
 
-              <p
-                className="
-                  text-[11px]
-                  text-white/75
-                "
-              >
+  Menu Order by
+  Woffle Store
 
-                Menu Order by
-                Woffle Store
-
-              </p>
-
-              <div
-                className={`
-                  px-2
-                  py-[2px]
-                  rounded-full
-                  text-[10px]
-                  font-semibold
-
-                  ${
-                    storeOpen
-
-                      ? `
-                        bg-green-400/20
-                        text-green-200
-                      `
-
-                      : `
-                        bg-red-400/20
-                        text-red-200
-                      `
-                  }
-                `}
-              >
-
-                {
-                  getStoreStateLabel(
-                    storeOpen
-                  )
-                }
-
-              </div>
-
-            </div>
+</p>
 
           </div>
 
@@ -784,6 +742,138 @@ function Kopken() {
             />
 
           </button>
+
+          <div
+  className={`
+    mt-1
+    rounded-2xl
+    px-4
+    py-3
+    flex
+    items-center
+    justify-between
+    transition-all
+    duration-300
+
+    ${
+      storeOpen
+
+        ? `
+          bg-[#DB0007]
+          text-white
+        `
+
+        : `
+          bg-gray-100
+          text-gray-700
+          border
+        `
+    }
+  `}
+>
+
+  <div
+    className="
+      flex
+      items-center
+      gap-3
+    "
+  >
+
+    <div
+      className={`
+        w-3
+        h-3
+        rounded-full
+
+        ${
+          storeOpen
+
+            ? `
+              bg-green-300
+              shadow-[0_0_12px_rgba(134,239,172,.9)]
+            `
+
+            : `
+              bg-red-400
+              shadow-[0_0_12px_rgba(248,113,113,.9)]
+            `
+        }
+      `}
+    ></div>
+
+    <div>
+
+      <p
+        className={`
+          text-[10px]
+          uppercase
+          tracking-wide
+
+          ${
+            storeOpen
+              ? "text-white/70"
+              : "text-gray-500"
+          }
+        `}
+      >
+
+        Status Store
+
+      </p>
+
+      <p
+        className="
+          text-sm
+          font-semibold
+        "
+      >
+
+        {
+          storeOpen
+            ? "Admin Online"
+            : "Admin Offline"
+        }
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <div
+    className={`
+      px-3
+      py-1.5
+      rounded-full
+      text-[11px]
+      font-bold
+
+      ${
+        storeOpen
+
+          ? `
+            bg-white/15
+            text-white
+          `
+
+          : `
+            bg-red-100
+            text-red-600
+          `
+      }
+    `}
+  >
+
+    {
+      getStoreStateLabel(
+        storeOpen
+      )
+    }
+
+  </div>
+
+</div>
 
         </div>
 
