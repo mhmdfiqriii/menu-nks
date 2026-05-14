@@ -1,58 +1,46 @@
 import { supabase } from "../lib/supabase"
 
-export const STORE_KEYS = [
-  "kopken",
-  "fore",
-  "tomoro"
-]
-
 export const DEFAULT_STORE_STATUS = {
-  kopken: true,
-  fore: true,
-  tomoro: true
+  admin_status: "online"
 }
 
-export const normalizeStoreData = (
-  data = []
-) => {
+export const normalizeStoreData =
+  (data) => {
 
-  const result = {
-    ...DEFAULT_STORE_STATUS
-  }
+    if (!data) {
 
-  data.forEach(store => {
-
-    if (
-      store?.store_key
-    ) {
-
-      result[
-        store.store_key
-      ] = store.is_open
+      return DEFAULT_STORE_STATUS
 
     }
 
-  })
+    return {
+      admin_status:
+        data.admin_status || "online"
+    }
 
-  return result
-}
+  }
 
 export const fetchStoreStatus =
   async () => {
 
     const { data, error } =
       await supabase
-        .from("store_status")
+
+        .from("settings")
+
         .select(`
-          store_key,
-          is_open,
+          admin_status,
           updated_at
         `)
+
+        .eq("id", 1)
+
+        .single()
 
     if (error) {
 
       console.log(
-        "Fetch store status error:",
+        "Fetch settings error:",
         error
       )
 
@@ -76,28 +64,33 @@ export const fetchStoreStatus =
 
 export const updateStoreStatus =
   async (
-    storeKey,
     isOpen
   ) => {
 
     const { error } =
       await supabase
-        .from("store_status")
+
+        .from("settings")
+
         .update({
-          is_open: isOpen,
+
+          admin_status:
+            isOpen
+              ? "online"
+              : "offline",
+
           updated_at:
             new Date()
               .toISOString()
+
         })
-        .eq(
-          "store_key",
-          storeKey
-        )
+
+        .eq("id", 1)
 
     if (error) {
 
       console.log(
-        "Update store error:",
+        "Update settings error:",
         error
       )
 
@@ -123,32 +116,42 @@ export const subscribeStoreStatus =
       supabase
 
         .channel(
-          "store-status-realtime"
+          "settings-realtime"
         )
 
         .on(
           "postgres_changes",
 
           {
-            event: "*",
+            event: "UPDATE",
             schema: "public",
             table:
-              "store_status"
+              "settings",
+            filter:
+              "id=eq.1"
           },
 
-          async () => {
-
-            const result =
-              await fetchStoreStatus()
+          (payload) => {
 
             callback(
-              result.data
+              normalizeStoreData(
+                payload.new
+              )
             )
 
           }
         )
 
-        .subscribe()
+        .subscribe(
+          (status) => {
+
+            console.log(
+              "Realtime status:",
+              status
+            )
+
+          }
+        )
 
     return channel
 
@@ -171,14 +174,13 @@ export const removeStoreSubscription =
 
 export const isStoreOpen =
   (
-    storeStatus,
-    storeKey
+    storeStatus
   ) => {
 
-    return Boolean(
-      storeStatus?.[
-        storeKey
-      ]
+    return (
+      storeStatus
+        ?.admin_status ===
+      "online"
     )
 
   }
@@ -210,7 +212,10 @@ export const getStoreClosedMessage =
     storeName
   ) => {
 
-    return `${storeName} sedang tutup sementara.`
+    return `
+      ${storeName}
+      sedang tutup sementara.
+    `
 
   }
 
@@ -230,19 +235,3 @@ export const getStoreWhatsappLink =
     `.replace(/\s/g, "")
 
   }
-
-export const createDefaultStoreRows =
-  () => {
-    return STORE_KEYS.map(
-      key => ({
-        store_key: key,
-        is_open: true,
-        updated_at:
-          new Date()
-            .toISOString()
-
-      })
-    )
-
-  }
-    

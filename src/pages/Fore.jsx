@@ -31,17 +31,16 @@ function Fore() {
   const realtimeChannelRef =
     useRef(null)
 
-  const [storeStatus,
-    setStoreStatus] =
-      useState({
-        fore: true
-      })
+ const [storeStatus,
+  setStoreStatus] =
+    useState({
+      admin_status: "online"
+    })
 
   const storeOpen =
-    isStoreOpen(
-      storeStatus,
-      "fore"
-    )
+  isStoreOpen(
+    storeStatus
+  )
 
   const showClosedModal =
     !storeOpen

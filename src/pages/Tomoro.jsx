@@ -32,16 +32,15 @@ function Tomoro() {
     useRef(null)
 
   const [storeStatus,
-    setStoreStatus] =
-      useState({
-        tomoro: true
-      })
+  setStoreStatus] =
+    useState({
+      admin_status: "online"
+    })
 
   const storeOpen =
-    isStoreOpen(
-      storeStatus,
-      "tomoro"
-    )
+  isStoreOpen(
+    storeStatus
+  )
 
   const showClosedModal =
     !storeOpen

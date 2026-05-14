@@ -414,14 +414,6 @@ const kopkenMenu = [
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/kenangan_milk_tea.webp"
  },
  {
-  "No.": 49,
-  "Nama Produk": "Thai Tea",
-  "Harga Asli": 22000,
-  "Harga Promo": 14000,
-  "Kategori Produk": "Non Coffee",
-  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/thai_tea.webp"
- },
- {
   "No.": 50,
   "Nama Produk": "Matcha Latte",
   "Harga Asli": 25000,

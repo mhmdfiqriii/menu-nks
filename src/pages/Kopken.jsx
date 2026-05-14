@@ -129,16 +129,15 @@ function Kopken() {
       useState(false)
 
   const [storeStatus,
-    setStoreStatus] =
-      useState({
-        kopken: true
-      })
+  setStoreStatus] =
+    useState({
+      admin_status: "online"
+    })
 
   const storeOpen =
-    isStoreOpen(
-      storeStatus,
-      "kopken"
-    )
+  isStoreOpen(
+    storeStatus
+  )
 
   useEffect(() => {
 
