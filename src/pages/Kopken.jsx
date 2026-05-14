@@ -33,7 +33,7 @@ import {
   removeStoreSubscription,
   isStoreOpen,
   getStoreStateLabel
-} from "../utils/storeutils.js"
+} from "../utils/storeUtils.js"
 
 function Kopken() {
 

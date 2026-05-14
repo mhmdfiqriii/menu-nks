@@ -21,7 +21,7 @@ import {
   removeStoreSubscription,
   isStoreOpen,
   getStoreStateLabel
-} from "../utils/storeutils.js"
+} from "../utils/storeUtils.js"
 
 function Fore() {
 
@@ -37,14 +37,14 @@ function Fore() {
         fore: true
       })
 
-  const showClosedModal =
-  !storeOpen
-
   const storeOpen =
     isStoreOpen(
       storeStatus,
       "fore"
     )
+
+  const showClosedModal =
+    !storeOpen
 
   useEffect(() => {
 
@@ -101,11 +101,11 @@ function Fore() {
           sticky
           top-0
           z-30
-          bg-[#006041]/90
-          backdrop-blur-md
+          bg-[#006041]
           text-white
           border-b
           border-white/10
+          backdrop-blur-md
         "
       >
 
@@ -197,12 +197,12 @@ function Fore() {
 
                       ? `
                         bg-green-400/20
-                        text-green-200
+                        text-green-100
                       `
 
                       : `
                         bg-red-400/20
-                        text-red-200
+                        text-red-100
                       `
                   }
                 `}
@@ -299,8 +299,8 @@ function Fore() {
                 "
               >
 
-                Sistem realtime
-                store monitoring
+                Realtime store
+                monitoring system
 
               </p>
 
@@ -348,18 +348,15 @@ function Fore() {
             >
 
               Menu Fore sedang
-              disiapkan.
+              diproses.
 
               <br />
               <br />
 
-              Kapitalisme butuh
-              waktu.
-              Developer juga
-              butuh tidur,
-              walau biasanya
-              manusia malah
-              ngide deploy jam 2 pagi.
+              Kadang developer
+              pengen deploy cepet,
+              terus lupa variable
+              dipanggil sebelum lahir.
 
             </p>
 
@@ -401,14 +398,8 @@ function Fore() {
 
                 {
                   storeOpen
-
-                    ? `
-                      Admin Online
-                    `
-
-                    : `
-                      Admin Offline
-                    `
+                    ? "Admin Online"
+                    : "Admin Offline"
                 }
 
               </p>
@@ -452,23 +443,21 @@ function Fore() {
 
       </div>
 
-      {/* STORE CLOSED MODAL */}
-
       <StoreClosedModal
 
-  isOpen={
-    showClosedModal
-  }
+        isOpen={
+          showClosedModal
+        }
 
-  storeKey="fore"
+        storeKey="fore"
 
-  onClose={() => {}}
+        onClose={() => {}}
 
-  whatsappNumber="
-    628123456789
-  "
+        whatsappNumber="
+          628123456789
+        "
 
-/>
+      />
 
     </div>
 
