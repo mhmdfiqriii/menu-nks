@@ -21,7 +21,7 @@ import {
   removeStoreSubscription,
   isStoreOpen,
   getStoreStateLabel
-} from "../utils/storeUtils"
+} from "../utils/storeUtils.js"
 
 function Fore() {
 
