@@ -21,7 +21,7 @@ import {
   removeStoreSubscription,
   isStoreOpen,
   getStoreStateLabel
-} from "../utils/storeUtils.js"
+} from "../utils/storeutils.js"
 
 function Tomoro() {
 
