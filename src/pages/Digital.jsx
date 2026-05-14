@@ -159,7 +159,7 @@ No. HP : ${target}
 
     setTimeout(() => {
       window.open(
-        "https://wa.me/6285704550839?text=" +
+        "https://wa.me/62895601988558?text=" +
           encodeURIComponent(text),
         "_blank"
       )
