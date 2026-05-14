@@ -9,7 +9,8 @@ function StoreClosedModal({
   allowClose = true
 }) {
 
-  const navigate = useNavigate()
+  const navigate =
+    useNavigate()
 
   const storeConfig =
     useMemo(() => {
@@ -84,21 +85,13 @@ function StoreClosedModal({
 
   return (
 
-    <div
-      className="
-        store-closed-overlay
-      "
-    >
+    <div className="
+      store-overlay
+    ">
 
       <div
         className="
-          store-closed-backdrop
-        "
-      ></div>
-
-      <div
-        className="
-          store-closed-modal
+          store-modal
         "
       >
 
@@ -109,7 +102,19 @@ function StoreClosedModal({
             onClick={onClose}
 
             className="
-              store-closed-close
+              absolute
+              top-4
+              right-4
+              z-20
+              w-9
+              h-9
+              rounded-full
+              bg-black/10
+              text-black
+              text-xl
+              flex
+              items-center
+              justify-center
             "
 
           >
@@ -123,7 +128,7 @@ function StoreClosedModal({
         <div
 
           className="
-            store-closed-header
+            store-modal-header
           "
 
           style={{
@@ -133,23 +138,29 @@ function StoreClosedModal({
 
         >
 
-          <div className="
-            store-closed-emoji
-          ">
+          <div
+            className="
+              store-modal-badge
+            "
+          >
 
-            {storeConfig.emoji}
+            <span
+              className="
+                text-[34px]
+              "
+            >
+
+              {storeConfig.emoji}
+
+            </span>
 
           </div>
 
-        </div>
-
-        <div className="
-          store-closed-body
-        ">
-
-          <h2 className="
-            store-closed-title
-          ">
+          <h2
+            className="
+              store-modal-title
+            "
+          >
 
             {storeConfig.name}
             {" "}
@@ -157,76 +168,98 @@ function StoreClosedModal({
 
           </h2>
 
-          <p className="
-            store-closed-subtitle
-          ">
+          <p
+            className="
+              store-modal-subtitle
+            "
+          >
 
-            Mohon maaf,
-            saat ini menu
-            {" "}
-            <strong>
-              {storeConfig.name}
-            </strong>
-            {" "}
-            sedang tutup
+            Saat ini store
+            sedang offline
             dan belum dapat
-            diakses sementara.
+            menerima pesanan.
 
           </p>
 
-          <p className="
-            store-closed-desc
-          ">
+        </div>
 
-            Silakan hubungi
-            admin untuk
-            informasi lebih
-            lanjut atau tunggu
-            store dibuka kembali.
+        <div
+          className="
+            store-modal-body
+          "
+        >
 
-          </p>
+          <div
+            className="
+              store-modal-info
+            "
+          >
 
-          <div className="
-            store-closed-actions
-          ">
-
-            <button
-
-              onClick={() =>
-                navigate("/")
-              }
-
+            <div
               className="
-                store-closed-btn
-                store-closed-btn-home
+                store-modal-dot
               "
+            ></div>
 
+            <div
+              className="
+                store-modal-info-text
+              "
             >
 
-              Kembali ke Home
+              Silakan hubungi
+              admin untuk
+              informasi lebih
+              lanjut atau tunggu
+              store dibuka kembali.
 
-            </button>
-
-            <a
-
-              href={whatsappLink}
-
-              target="_blank"
-
-              rel="noreferrer"
-
-              className="
-                store-closed-btn
-                store-closed-btn-wa
-              "
-
-            >
-
-              Chat Admin
-
-            </a>
+            </div>
 
           </div>
+
+        </div>
+
+        <div
+          className="
+            store-modal-actions
+          "
+        >
+
+          <button
+
+            onClick={() =>
+              navigate("/")
+            }
+
+            className="
+              store-btn
+              store-btn-primary
+            "
+
+          >
+
+            Kembali ke Home
+
+          </button>
+
+          <a
+
+            href={whatsappLink}
+
+            target="_blank"
+
+            rel="noreferrer"
+
+            className="
+              store-btn
+              store-btn-whatsapp
+            "
+
+          >
+
+            Chat Admin
+
+          </a>
 
         </div>
 
