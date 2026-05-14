@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabase"
 
 export const DEFAULT_STORE_STATUS = {
-  admin_status: "online"
+  admin_status: "offline"
 }
 
 export const normalizeStoreData =
@@ -9,13 +9,24 @@ export const normalizeStoreData =
 
     if (!data) {
 
-      return DEFAULT_STORE_STATUS
+      return {
+        admin_status:
+          "offline"
+      }
 
     }
 
     return {
+
       admin_status:
-        data.admin_status || "online"
+
+        data.admin_status ===
+        "online"
+
+          ? "online"
+
+          : "offline"
+
     }
 
   }
@@ -23,19 +34,21 @@ export const normalizeStoreData =
 export const fetchStoreStatus =
   async () => {
 
-    const { data, error } =
-      await supabase
+    const {
+      data,
+      error
+    } = await supabase
 
-        .from("settings")
+      .from("settings")
 
-        .select(`
-          admin_status,
-          updated_at
-        `)
+      .select(`
+        admin_status,
+        updated_at
+      `)
 
-        .eq("id", 1)
+      .eq("id", 1)
 
-        .single()
+      .single()
 
     if (error) {
 
@@ -67,25 +80,27 @@ export const updateStoreStatus =
     isOpen
   ) => {
 
-    const { error } =
-      await supabase
+    const {
+      error
+    } = await supabase
 
-        .from("settings")
+      .from("settings")
 
-        .update({
+      .update({
 
-          admin_status:
-            isOpen
-              ? "online"
-              : "offline",
+        admin_status:
 
-          updated_at:
-            new Date()
-              .toISOString()
+          isOpen
+            ? "online"
+            : "offline",
 
-        })
+        updated_at:
+          new Date()
+            .toISOString()
 
-        .eq("id", 1)
+      })
+
+      .eq("id", 1)
 
     if (error) {
 
@@ -113,6 +128,7 @@ export const subscribeStoreStatus =
   ) => {
 
     const channel =
+
       supabase
 
         .channel(
@@ -125,33 +141,27 @@ export const subscribeStoreStatus =
           {
             event: "UPDATE",
             schema: "public",
-            table:
-              "settings",
-            filter:
-              "id=eq.1"
+            table: "settings",
+            filter: "id=eq.1"
           },
 
-          (payload) => {
+          payload => {
+
+            if (!payload.new)
+              return
 
             callback(
+
               normalizeStoreData(
                 payload.new
               )
+
             )
 
           }
         )
 
-        .subscribe(
-          (status) => {
-
-            console.log(
-              "Realtime status:",
-              status
-            )
-
-          }
-        )
+        .subscribe()
 
     return channel
 
@@ -178,9 +188,11 @@ export const isStoreOpen =
   ) => {
 
     return (
+
       storeStatus
         ?.admin_status ===
       "online"
+
     )
 
   }
@@ -226,8 +238,11 @@ export const getStoreWhatsappLink =
   ) => {
 
     const text =
+
       encodeURIComponent(
+
         `Halo admin ${storeName}, apakah store sedang tutup?`
+
       )
 
     return `
