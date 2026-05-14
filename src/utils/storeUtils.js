@@ -233,15 +233,14 @@ export const getStoreClosedMessage =
 
 export const getStoreWhatsappLink =
   (
-    phone,
-    storeName
+    phone
   ) => {
 
     const text =
 
       encodeURIComponent(
 
-        `Halo admin ${storeName}, apakah store sedang tutup?`
+        `Halo admin, apakah store sedang tutup?`
 
       )
 

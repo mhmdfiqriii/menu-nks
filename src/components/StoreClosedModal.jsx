@@ -76,7 +76,7 @@ function StoreClosedModal({
 
   const whatsappText =
     encodeURIComponent(
-      `Halo admin ${storeConfig.name}, apakah store sedang tutup?`
+      `Halo admin, apakah store sedang tutup?`
     )
 
   const whatsappLink =
