@@ -57,14 +57,14 @@ function Kopken() {
     useMemo(() => {
 
       const categoryOrder = [
-        "Baru",
+        "Thai Tea Series",
         "Coffee",
         "Non Coffee",
         "Little Kenangan",
         "Frappe",
         "Pistachio",
         "Oatside Series",
-        "Signature Bake",
+        "Signature Food",
         "Toast",
         "Food",
         "Promo Bundling"

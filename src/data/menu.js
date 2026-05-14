@@ -38,6 +38,38 @@ const kopkenMenu = [
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/non_coffee/og_aren_milky_speculoos.png"
  },
  {
+  "No.": 112,
+  "Nama Produk": "Thai Chicken Spaghetti",
+  "Harga Asli": 22000,
+  "Harga Promo": 14000,
+  "Kategori Produk": "Signature Food",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/thai_chicken_spaghetti.png"
+ },
+  {
+  "No.": 113,
+  "Nama Produk": "Pasta Indoghetti",
+  "Harga Asli": 22000,
+  "Harga Promo": 14000,
+  "Kategori Produk": "Signature Food",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/indoghetti.png"
+ },
+  {
+  "No.": 114,
+  "Nama Produk": "Spaghetti Tuna Aglio Olio",
+  "Harga Asli": 22000,
+  "Harga Promo": 14000,
+  "Kategori Produk": "Signature Food",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/tuna_aglio.png"
+ },
+  {
+  "No.": 115,
+  "Nama Produk": "Pasta Mentai",
+  "Harga Asli": 24000,
+  "Harga Promo": 15000,
+  "Kategori Produk": "Signature Food",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/pasta_mentai.png"
+ },
+ {
   "No.": 2,
   "Nama Produk": "OG Aren Speculoos Latte",
   "Harga Asli": 21000,
@@ -58,7 +90,7 @@ const kopkenMenu = [
   "Nama Produk": "Canele Aren",
   "Harga Asli": 16000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/canele_aren.webp"
  },
  {
@@ -66,7 +98,7 @@ const kopkenMenu = [
   "Nama Produk": "Aren Apple Pie",
   "Harga Asli": 18000,
   "Harga Promo": 12000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/aren_apple_pie.webp"
  },
  {
@@ -74,7 +106,7 @@ const kopkenMenu = [
   "Nama Produk": "Choco Muffin",
   "Harga Asli": 16000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/muffin_choco.webp"
  },
  {
@@ -82,7 +114,7 @@ const kopkenMenu = [
   "Nama Produk": "Blueberry Muffin",
   "Harga Asli": 16000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/muffin_bluberry.webp"
  },
  {
@@ -507,7 +539,7 @@ const kopkenMenu = [
   "Harga Asli": 27000,
   "Harga Promo": 17000,
   "Kategori Produk": "Frappe",
-  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/kenangan_mantan.webp"
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/frappe/mantan.webp"
  },
  {
   "No.": 62,
@@ -546,7 +578,7 @@ const kopkenMenu = [
   "Nama Produk": "Vanilla Choux Puff",
   "Harga Asli": 13000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/puff_vanilla.webp"
  },
  {
@@ -554,7 +586,7 @@ const kopkenMenu = [
   "Nama Produk": "Strawberry Choux Puff",
   "Harga Asli": 13000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/puff_strawberry.webp"
  },
  {
@@ -562,7 +594,7 @@ const kopkenMenu = [
   "Nama Produk": "Chocolate Choux Puff",
   "Harga Asli": 13000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/puff_chocolate.webp"
  },
  {
@@ -602,7 +634,7 @@ const kopkenMenu = [
   "Nama Produk": "Donut Abon",
   "Harga Asli": 14000,
   "Harga Promo": 10000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_abon.webp"
  },
  {
@@ -610,7 +642,7 @@ const kopkenMenu = [
   "Nama Produk": "Donut Almond",
   "Harga Asli": 14000,
   "Harga Promo": 10000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_almond.png"
  },
  {
@@ -618,7 +650,7 @@ const kopkenMenu = [
   "Nama Produk": "Donut Matcha",
   "Harga Asli": 14000,
   "Harga Promo": 10000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_matcha.png"
  },
  {
@@ -626,7 +658,7 @@ const kopkenMenu = [
   "Nama Produk": "Donut Pink Confetti",
   "Harga Asli": 12000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_pink_confetti.png"
  },
  {
@@ -650,7 +682,7 @@ const kopkenMenu = [
   "Nama Produk": "Roti Gulung Abon",
   "Harga Asli": 18000,
   "Harga Promo": 12000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/gulung_abon.webp"
  },
  {
@@ -658,7 +690,7 @@ const kopkenMenu = [
   "Nama Produk": "Roto Gulung Aren",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/gulung_aren.webp"
  },
  {
@@ -666,7 +698,7 @@ const kopkenMenu = [
   "Nama Produk": "Donut Tiramisu",
   "Harga Asli": 14000,
   "Harga Promo": 10000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/donut_tiramisu.webp"
  },
  {
@@ -674,7 +706,7 @@ const kopkenMenu = [
   "Nama Produk": "Danish Tiramisu",
   "Harga Asli": 20000,
   "Harga Promo": 13000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/danish_tiramisu.webp"
  },
  {
@@ -682,7 +714,7 @@ const kopkenMenu = [
   "Nama Produk": "Roti Sisir Original",
   "Harga Asli": 12000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sisir_original.webp"
  },
  {
@@ -690,7 +722,7 @@ const kopkenMenu = [
   "Nama Produk": "Roti Sisir Keju",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sisir_keju.webp"
  },
  {
@@ -698,7 +730,7 @@ const kopkenMenu = [
   "Nama Produk": "Salt Bread Original",
   "Harga Asli": 12000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/salt_original.webp"
  },
  {
@@ -706,7 +738,7 @@ const kopkenMenu = [
   "Nama Produk": "Salt Bread Beef and Cheese",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/salt_beef.webp"
  },
  {
@@ -714,7 +746,7 @@ const kopkenMenu = [
   "Nama Produk": "Roti Sisir Coklat",
   "Harga Asli": 14000,
   "Harga Promo": 10000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sisir_coklat.webp"
  },
  {
@@ -722,15 +754,23 @@ const kopkenMenu = [
   "Nama Produk": "Dirty Croissant Milo",
   "Harga Asli": 20000,
   "Harga Promo": 13000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/dirty_chocolate.webp"
+ },
+  {
+  "No.": 111,
+  "Nama Produk": "Dirty Croissant Matcha",
+  "Harga Asli": 20000,
+  "Harga Promo": 13000,
+  "Kategori Produk": "Signature Food",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/dirty_matcha.png"
  },
  {
   "No.": 89,
   "Nama Produk": "Bolu Marble Chocolate",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_chocolate.png"
  },
  {
@@ -738,7 +778,7 @@ const kopkenMenu = [
   "Nama Produk": "Bolu Marble Ube",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_ube.png"
  },
  {
@@ -762,15 +802,15 @@ const kopkenMenu = [
   "Nama Produk": "Bolu Marble Mocha",
   "Harga Asli": 15000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_ube.png"
+  "Kategori Produk": "Signature Food",
+  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/bolu_marble_mocha.png"
  },
  {
   "No.": 94,
   "Nama Produk": "Croissant Abon",
   "Harga Asli": 18000,
   "Harga Promo": 12000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/croissant_abon.webp"
  },
  {
@@ -778,7 +818,7 @@ const kopkenMenu = [
   "Nama Produk": "Sandwich Smoked Beef and Cheese",
   "Harga Asli": 22000,
   "Harga Promo": 14000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sandwich_beef.webp"
  },
  {
@@ -786,7 +826,7 @@ const kopkenMenu = [
   "Nama Produk": "Sandwich Chicken Tartar",
   "Harga Asli": 22000,
   "Harga Promo": 14000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/sandwich_chicken.webp"
  },
  {
@@ -842,7 +882,7 @@ const kopkenMenu = [
   "Nama Produk": "Canele Original",
   "Harga Asli": 13000,
   "Harga Promo": 9000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/canele.webp"
  },
  {
@@ -850,7 +890,7 @@ const kopkenMenu = [
   "Nama Produk": "Canele Toffee Nut Crumble",
   "Harga Asli": 18000,
   "Harga Promo": 11000,
-  "Kategori Produk": "Signature Bake",
+  "Kategori Produk": "Signature Food",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/canele_toffee_nut.webp"
  },
  {
@@ -874,7 +914,7 @@ const kopkenMenu = [
   "Nama Produk": "OG Thai Tea",
   "Harga Asli": 19000,
   "Harga Promo": 13000,
-  "Kategori Produk": "Baru",
+  "Kategori Produk": "Thai Tea Series",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/og_thai_tea.webp"
  },
  {
@@ -882,7 +922,7 @@ const kopkenMenu = [
   "Nama Produk": "Thai Tea Loaded",
   "Harga Asli": 27000,
   "Harga Promo": 17000,
-  "Kategori Produk": "Baru",
+  "Kategori Produk": "Thai Tea Series",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/thai_tea_loaded.webp"
  },
  {
@@ -890,7 +930,7 @@ const kopkenMenu = [
   "Nama Produk": "Thai Tea Aren",
   "Harga Asli": 24000,
   "Harga Promo": 15000,
-  "Kategori Produk": "Baru",
+  "Kategori Produk": "Thai Tea Series",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/thai_tea_aren.webp"
  },
  {
@@ -898,16 +938,8 @@ const kopkenMenu = [
   "Nama Produk": "Thai Tea Coffee",
   "Harga Asli": 25000,
   "Harga Promo": 16000,
-  "Kategori Produk": "Baru",
+  "Kategori Produk": "Thai Tea Series",
   "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/baru/thai_tea_coffee.webp"
- },
- {
-  "No.": 111,
-  "Nama Produk": "Dirty Croissant Matcha",
-  "Harga Asli": 20000,
-  "Harga Promo": 13000,
-  "Kategori Produk": "Signature Bake",
-  "SUPABASE URL PUBLIC": "https://hreulbsrxakoxwshzmgj.supabase.co/storage/v1/object/public/assets/products/kopken/signaturebake/dirty_matcha.png"
  }
 ]
 
