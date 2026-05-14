@@ -470,7 +470,7 @@ function Tomoro() {
         onClose={() => {}}
 
         whatsappNumber="
-          628123456789
+          62895601988558
         "
 
       />

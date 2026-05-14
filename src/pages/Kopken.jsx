@@ -1222,7 +1222,7 @@ function Kopken() {
   storeKey="kopken"
 
   whatsappNumber="
-    628123456789
+    62895601988558
   "
 
 />

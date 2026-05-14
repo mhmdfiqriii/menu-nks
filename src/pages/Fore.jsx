@@ -453,7 +453,7 @@ function Fore() {
         onClose={() => {}}
 
         whatsappNumber="
-          628123456789
+          62895601988558
         "
 
       />

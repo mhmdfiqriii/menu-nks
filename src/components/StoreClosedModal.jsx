@@ -5,7 +5,7 @@ function StoreClosedModal({
   isOpen = false,
   storeKey = "",
   onClose,
-  whatsappNumber = "628123456789",
+  whatsappNumber = "62895601988558",
   allowClose = true
 }) {
 
