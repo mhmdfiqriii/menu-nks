@@ -234,14 +234,10 @@ export const getStoreWhatsappLink =
 
 export const createDefaultStoreRows =
   () => {
-
     return STORE_KEYS.map(
       key => ({
-
         store_key: key,
-
         is_open: true,
-
         updated_at:
           new Date()
             .toISOString()
