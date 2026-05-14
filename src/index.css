@@ -452,3 +452,516 @@ button {
 body {
   overscroll-behavior: none;
 }
+
+/* ===============================
+   STORE CONTROL UI
+================================= */
+
+@keyframes modalFadeIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+@keyframes modalFloatUp {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(22px)
+      scale(.96);
+
+    filter:
+      blur(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter:
+      blur(0);
+  }
+
+}
+
+@keyframes modalPulse {
+
+  0%,100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: .85;
+  }
+
+}
+
+@keyframes lockShake {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
+
+  75% {
+    transform: translateX(-1px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
+}
+
+.store-overlay {
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(15, 23, 42, .28);
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
+  animation:
+    modalFadeIn .28s ease;
+}
+
+.store-modal {
+
+  position: relative;
+
+  width: 100%;
+  max-width: 360px;
+
+  overflow: hidden;
+
+  border-radius: 30px;
+
+  background:
+    rgba(255,255,255,.92);
+
+  border:
+    1px solid rgba(255,255,255,.65);
+
+  box-shadow:
+    0 30px 80px rgba(15,23,42,.18),
+    0 10px 30px rgba(15,23,42,.08);
+
+  animation:
+    modalFloatUp .34s cubic-bezier(.22,.61,.36,1);
+
+  isolation: isolate;
+}
+
+.store-modal::before {
+
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.36),
+      transparent 45%
+    );
+
+  pointer-events: none;
+}
+
+.store-modal-header {
+
+  position: relative;
+
+  padding:
+    28px 24px 18px;
+
+  text-align: center;
+}
+
+.store-modal-badge {
+
+  width: 74px;
+  height: 74px;
+
+  margin: 0 auto 16px;
+
+  border-radius: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ef4444,
+      #dc2626
+    );
+
+  color: white;
+
+  box-shadow:
+    0 18px 40px rgba(239,68,68,.30);
+
+  animation:
+    modalPulse 2s infinite;
+}
+
+.store-modal-title {
+
+  font-size: 22px;
+  font-weight: 800;
+
+  color: #111827;
+
+  letter-spacing: -.4px;
+
+  margin-bottom: 8px;
+}
+
+.store-modal-subtitle {
+
+  font-size: 13px;
+  line-height: 1.7;
+
+  color: #6b7280;
+}
+
+.store-modal-body {
+
+  padding:
+    0 24px 22px;
+}
+
+.store-modal-info {
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(248,250,252,.95);
+
+  border:
+    1px solid rgba(226,232,240,.9);
+}
+
+.store-modal-dot {
+
+  width: 10px;
+  height: 10px;
+
+  margin-top: 5px;
+
+  border-radius: 999px;
+
+  background: #ef4444;
+
+  box-shadow:
+    0 0 12px rgba(239,68,68,.8);
+
+  flex-shrink: 0;
+}
+
+.store-modal-info-text {
+
+  font-size: 12px;
+  line-height: 1.7;
+
+  color: #64748b;
+}
+
+.store-modal-actions {
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding:
+    0 24px 24px;
+}
+
+.store-btn {
+
+  width: 100%;
+  height: 52px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 18px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+
+  cursor: pointer;
+}
+
+.store-btn:active {
+
+  transform:
+    scale(.97);
+}
+
+.store-btn-primary {
+
+  background:
+    linear-gradient(
+      145deg,
+      #111827,
+      #1f2937
+    );
+
+  color: white;
+
+  box-shadow:
+    0 12px 24px rgba(17,24,39,.16);
+}
+
+.store-btn-secondary {
+
+  background:
+    rgba(248,250,252,.95);
+
+  border:
+    1px solid rgba(226,232,240,.9);
+
+  color: #111827;
+}
+
+.store-btn-whatsapp {
+
+  background:
+    linear-gradient(
+      145deg,
+      #10b981,
+      #059669
+    );
+
+  color: white;
+
+  box-shadow:
+    0 12px 24px rgba(16,185,129,.22);
+}
+
+.store-disabled {
+
+  pointer-events: none;
+
+  user-select: none;
+
+  opacity: .58;
+
+  filter:
+    grayscale(.12)
+    blur(.2px);
+
+  transition:
+    opacity .28s ease,
+    filter .28s ease;
+}
+
+.store-disabled-button {
+
+  background:
+    #e5e7eb !important;
+
+  color:
+    #9ca3af !important;
+
+  pointer-events: none;
+
+  cursor: not-allowed;
+
+  box-shadow: none !important;
+
+  border:
+    1px solid #d1d5db !important;
+}
+
+.store-disabled-card {
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.store-disabled-card::after {
+
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    rgba(255,255,255,.22);
+
+  pointer-events: none;
+}
+
+.store-locked {
+
+  animation:
+    lockShake .28s ease;
+}
+
+.store-status-badge {
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding:
+    6px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+}
+
+.store-status-online {
+
+  background:
+    rgba(16,185,129,.12);
+
+  color:
+    #047857;
+
+  border:
+    1px solid rgba(16,185,129,.16);
+}
+
+.store-status-offline {
+
+  background:
+    rgba(239,68,68,.12);
+
+  color:
+    #b91c1c;
+
+  border:
+    1px solid rgba(239,68,68,.16);
+}
+
+.store-status-dot {
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 999px;
+
+  background: currentColor;
+}
+
+.store-fade-enter {
+
+  animation:
+    fadeIn .28s ease;
+}
+
+.store-float-enter {
+
+  animation:
+    modalFloatUp .34s cubic-bezier(.22,.61,.36,1);
+}
+
+/* ===============================
+   MOBILE POLISH
+================================= */
+
+@media (max-width: 480px) {
+
+  .store-overlay {
+
+    padding:
+      max(16px, env(safe-area-inset-top))
+      16px
+      max(20px, env(safe-area-inset-bottom));
+  }
+
+  .store-modal {
+
+    border-radius: 28px;
+  }
+
+  .store-modal-header {
+
+    padding:
+      24px 20px 16px;
+  }
+
+  .store-modal-body {
+
+    padding:
+      0 20px 20px;
+  }
+
+  .store-modal-actions {
+
+    padding:
+      0 20px 20px;
+  }
+
+  .store-modal-title {
+
+    font-size: 20px;
+  }
+
+}
