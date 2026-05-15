@@ -1,5 +1,5 @@
 const drinkCategories = [
-  "Baru",
+  "Thai Tea Series",
   "Coffee",
   "Non Coffee",
   "Little Kenangan",
