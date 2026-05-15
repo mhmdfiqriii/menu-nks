@@ -481,8 +481,10 @@ function Fore() {
           <div className="pt-3 pb-6">
             <p className="text-center text-xs text-gray-400">
   © 2026 Woffel Store. 
-  <br />
-  This Page Still Under Development by{" "}
+    <br />
+    ⚠️This Page Still 
+    <br />
+    Under Development by{" "}
 
   <a
   href="https://www.instagram.com/mhmdfiqriii_"
