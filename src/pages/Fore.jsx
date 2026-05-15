@@ -42,8 +42,9 @@ function Fore() {
     storeStatus
   )
 
-  const showClosedModal =
-    !storeOpen
+  const [hideClosedModal,
+  setHideClosedModal] =
+    useState(false)
 
   useEffect(() => {
 
@@ -80,6 +81,26 @@ function Fore() {
     }
 
   }, [])
+
+  useEffect(() => {
+
+  if (
+    storeOpen &&
+    hideClosedModal
+  ) {
+
+    setTimeout(() => {
+
+      setHideClosedModal(false)
+
+    }, 0)
+
+  }
+
+}, [
+  storeOpen,
+  hideClosedModal
+])
 
   return (
 
@@ -444,19 +465,18 @@ function Fore() {
 
       <StoreClosedModal
 
-        isOpen={
-          showClosedModal
-        }
+  isOpen={
+    !storeOpen &&
+    !hideClosedModal
+  }
 
-        storeKey="fore"
+  storeKey="fore"
 
-        onClose={() => {}}
+  onClose={() =>
+    setHideClosedModal(true)
+  }
 
-        whatsappNumber="
-          62895601988558
-        "
-
-      />
+/>
        {/* FOOTER */}
           <div className="pt-3 pb-6">
             <p className="text-center text-xs text-gray-400">

@@ -139,6 +139,10 @@ function Kopken() {
     storeStatus
   )
 
+  const [hideClosedModal,
+  setHideClosedModal] =
+    useState(false)
+
   useEffect(() => {
 
     window.scrollTo(0, 0)
@@ -180,6 +184,23 @@ function Kopken() {
     }
 
   }, [])
+
+  useEffect(() => {
+
+  if (storeOpen && hideClosedModal) {
+
+    setTimeout(() => {
+
+      setHideClosedModal(false)
+
+    }, 0)
+
+  }
+
+}, [
+  storeOpen,
+  hideClosedModal
+])
 
   useEffect(() => {
 
@@ -1221,13 +1242,16 @@ function Kopken() {
 
       <StoreClosedModal
 
-  isOpen={!storeOpen}
+  isOpen={
+    !storeOpen &&
+    !hideClosedModal
+  }
 
   storeKey="kopken"
 
-  whatsappNumber="
-    62895601988558
-  "
+  onClose={() =>
+    setHideClosedModal(true)
+  }
 
 />
 

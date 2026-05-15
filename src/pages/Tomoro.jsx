@@ -42,6 +42,10 @@ function Tomoro() {
     storeStatus
   )
 
+  const [hideClosedModal,
+  setHideClosedModal] =
+    useState(false)
+
   const showClosedModal =
     !storeOpen
 
@@ -80,6 +84,26 @@ function Tomoro() {
     }
 
   }, [])
+
+  useEffect(() => {
+
+  if (
+    storeOpen &&
+    hideClosedModal
+  ) {
+
+    setTimeout(() => {
+
+      setHideClosedModal(false)
+
+    }, 0)
+
+  }
+
+}, [
+  storeOpen,
+  hideClosedModal
+])
 
   return (
 
@@ -450,21 +474,20 @@ function Tomoro() {
 
       {/* STORE CLOSED MODAL */}
 
-      <StoreClosedModal
+     <StoreClosedModal
 
-        isOpen={
-          showClosedModal
-        }
+  isOpen={
+    !storeOpen &&
+    !hideClosedModal
+  }
 
-        storeKey="tomoro"
+  storeKey="fore"
 
-        onClose={() => {}}
+  onClose={() =>
+    setHideClosedModal(true)
+  }
 
-        whatsappNumber="
-          62895601988558
-        "
-
-      />
+/>
 
       {/* FOOTER */}
           <div className="pt-3 pb-6">
