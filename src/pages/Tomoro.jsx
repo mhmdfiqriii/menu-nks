@@ -492,7 +492,6 @@ function Tomoro() {
   © 2026 Woffel Store. 
   <br />
   ⚠️This Page Still 
-  <br />
   Under Development by{" "}
 
   <a

@@ -482,9 +482,8 @@ function Fore() {
             <p className="text-center text-xs text-gray-400">
   © 2026 Woffel Store. 
     <br />
-    ⚠️This Page Still 
-    <br />
-    Under Development by{" "}
+    ⚠️This Page Still Under
+    Development by{" "}
 
   <a
   href="https://www.instagram.com/mhmdfiqriii_"
