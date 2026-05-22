@@ -1,10 +1,21 @@
-import { supabase } from "../lib/supabase"
-import { brands } from "../data/menu"
+import { supabase }
+from "../lib/supabase"
+
+import { brands }
+from "../data/menu"
 
 const products =
+
   brands.flatMap((brand) =>
+
     brand.menu.map((item) => ({
-      slug: item.id,
+
+      brand: brand.name,
+
+      slug: `${brand.name
+        .toLowerCase()
+        .replaceAll(" ", "-")
+      }-${item.id}`,
 
       name: item.name,
 
@@ -28,55 +39,61 @@ const products =
         item.disableLargeCharge || false,
 
       is_available: true
+
     }))
+
   )
 
 async function seedProducts() {
+
   console.log(
     "START SEED PRODUCTS..."
   )
 
-  // =========================
-  // DUPLICATE FILTER
-  // =========================
-
   const uniqueProducts =
+
     Array.from(
+
       new Map(
+
         products.map((item) => [
           item.slug,
           item
         ])
+
       ).values()
+
     )
 
   console.log(
     `TOTAL UNIQUE PRODUCTS: ${uniqueProducts.length}`
   )
 
-  // =========================
-  // INSERT
-  // =========================
-
   const { error } =
+
     await supabase
+
       .from("products")
+
       .upsert(uniqueProducts, {
         onConflict: "slug"
       })
 
   if (error) {
+
     console.error(
       "SEED ERROR:",
       error
     )
 
     return
+
   }
 
   console.log(
     "SEED SUCCESS"
   )
+
 }
 
 seedProducts()
