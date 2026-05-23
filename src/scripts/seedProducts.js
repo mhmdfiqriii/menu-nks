@@ -55,65 +55,75 @@ async function seedProducts() {
   )
 
   // =====================
-  // REMOVE DUPLICATES
-  // =====================
+// DETECT DUPLICATES
+// =====================
 
-  const duplicateSlugs = []
+const duplicateSlugs = []
 
-  const uniqueProducts =
+const slugMap = new Map()
 
-    Array.from(
+products.forEach(product => {
 
-      new Map(
+  if (
+    slugMap.has(product.slug)
+  ) {
 
-        products.map(item => {
-
-          if (
-
-            products.filter(
-              product =>
-
-                product.slug ===
-                item.slug
-
-            ).length > 1
-
-          ) {
-
-            duplicateSlugs.push(
-              item.slug
-            )
-
-          }
-
-          return [
-            item.slug,
-            item
-          ]
-
-        })
-
-      ).values()
-
-    )
-
-  // =====================
-  // DUPLICATE LOG
-  // =====================
-
-  if (duplicateSlugs.length > 0) {
-
-    console.log(
-      "DUPLICATE SLUGS:"
-    )
-
-    console.table(
-      [...new Set(
-        duplicateSlugs
-      )]
+    duplicateSlugs.push(
+      product.slug
     )
 
   }
+
+  slugMap.set(
+    product.slug,
+    product
+  )
+
+})
+
+// =====================
+// UNIQUE PRODUCTS
+// =====================
+
+const uniqueProducts =
+
+  Array.from(
+    slugMap.values()
+  )
+
+  // =====================
+// DUPLICATE LOG
+// =====================
+
+const uniqueDuplicates =
+
+  [...new Set(
+    duplicateSlugs
+  )]
+
+if (
+  uniqueDuplicates.length > 0
+) {
+
+  console.warn(
+    "\nDUPLICATE DETECTED:"
+  )
+
+  uniqueDuplicates.forEach(
+    slug => {
+
+      console.warn(
+        `- ${slug}`
+      )
+
+    }
+  )
+
+  console.warn(
+    `TOTAL DUPLICATES: ${uniqueDuplicates.length}\n`
+  )
+
+}
 
   console.log(
     `TOTAL PRODUCTS: ${products.length}`
