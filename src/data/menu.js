@@ -990,24 +990,15 @@ const normalizedKopkenMenu =
     const productName = name
 
     const normalized = {
-      id: name
-        .toLowerCase()
-        .replace(/[^\w\s]/g, "")
-        .replace(/\s+/g, "-"),
-
+      id: item["No."],
       name: name,
-
       category: category,
-
       price: price,
-
       originalPrice: originalPrice,
-
       badge:
         originalPrice > price
           ? "Promo"
           : "",
-
       image: image
     }
 

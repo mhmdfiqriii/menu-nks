@@ -1,8 +1,11 @@
 import { supabase }
-from "../lib/supabase"
+from "../lib/supabase.js"
 
 import { brands }
-from "../data/menu"
+from "../data/menu.js"
+
+import normalizeBrandSlug
+from "../utils/normalizeBrandSlug.js"
 
 const products =
 
@@ -12,10 +15,9 @@ const products =
 
       brand: brand.name,
 
-      slug: `${brand.name
-        .toLowerCase()
-        .replaceAll(" ", "-")
-      }-${item.id}`,
+      slug: `${normalizeBrandSlug(
+  brand.name
+)}-${item.id}`,
 
       name: item.name,
 
@@ -27,7 +29,9 @@ const products =
         item.originalPrice,
 
       image_url:
-        item.image,
+        item.image ||
+
+        "/fallback-product.png",
 
       badge:
         item.badge || null,
@@ -50,24 +54,78 @@ async function seedProducts() {
     "START SEED PRODUCTS..."
   )
 
+  // =====================
+  // REMOVE DUPLICATES
+  // =====================
+
+  const duplicateSlugs = []
+
   const uniqueProducts =
 
     Array.from(
 
       new Map(
 
-        products.map((item) => [
-          item.slug,
-          item
-        ])
+        products.map(item => {
+
+          if (
+
+            products.filter(
+              product =>
+
+                product.slug ===
+                item.slug
+
+            ).length > 1
+
+          ) {
+
+            duplicateSlugs.push(
+              item.slug
+            )
+
+          }
+
+          return [
+            item.slug,
+            item
+          ]
+
+        })
 
       ).values()
 
     )
 
+  // =====================
+  // DUPLICATE LOG
+  // =====================
+
+  if (duplicateSlugs.length > 0) {
+
+    console.log(
+      "DUPLICATE SLUGS:"
+    )
+
+    console.table(
+      [...new Set(
+        duplicateSlugs
+      )]
+    )
+
+  }
+
+  console.log(
+    `TOTAL PRODUCTS: ${products.length}`
+  )
+
   console.log(
     `TOTAL UNIQUE PRODUCTS: ${uniqueProducts.length}`
   )
+
+  // =====================
+  // UPSERT
+  // =====================
 
   const { error } =
 
@@ -92,6 +150,10 @@ async function seedProducts() {
 
   console.log(
     "SEED SUCCESS"
+  )
+
+  console.log(
+    "DATABASE SYNCHRONIZED"
   )
 
 }
