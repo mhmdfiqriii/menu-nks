@@ -49,7 +49,7 @@ function normalizeProduct(product) {
       product.badge || "",
 
     options:
-      product.options || null,
+      product.options || {},
 
     disableLargeCharge:
       product.disable_large_charge || false,

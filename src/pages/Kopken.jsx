@@ -69,13 +69,18 @@ function Kopken() {
       ]
 
       const uniqueCategories = [
-        ...new Set(
-          products.map(
-            (item) =>
-              item.category
-          )
-        )
-      ]
+  ...new Set(
+
+    products
+      .map(
+        (item) =>
+          item.category
+      )
+
+      .filter(Boolean)
+
+  )
+]
 
       const sortedCategories =
   categoryOrder.filter(

@@ -20,11 +20,11 @@ async function fetchProducts(
     )
 
     .order(
-      "id",
-      {
-        ascending: true
-      }
-    )
+  "sort_order",
+  {
+    ascending: true
+  }
+)
 
   // =====================
   // FILTER BRAND
