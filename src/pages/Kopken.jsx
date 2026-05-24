@@ -18,9 +18,7 @@ import {
   ChevronDown
 } from "lucide-react"
 
-import {
-  brands
-} from "../data/menu"
+import useProducts from "../hooks/useProducts"
 
 import MenuCard from "../components/MenuCard"
 import ModalOptions from "../components/ModalOptions"
@@ -46,12 +44,12 @@ function Kopken() {
   const realtimeChannelRef =
     useRef(null)
 
-  const brand =
-    brands.find(
-      (b) =>
-        b.name ===
-        "Kopi Kenangan"
-    )
+  const {
+  products,
+  loading
+} = useProducts(
+  "Kopi Kenangan"
+)
 
   const categories =
     useMemo(() => {
@@ -72,7 +70,7 @@ function Kopken() {
 
       const uniqueCategories = [
         ...new Set(
-          brand.menu.map(
+          products.map(
             (item) =>
               item.category
           )
@@ -80,19 +78,29 @@ function Kopken() {
       ]
 
       const sortedCategories =
-        categoryOrder.filter(
-          (cat) =>
-            uniqueCategories.includes(
-              cat
-            )
-        )
+  categoryOrder.filter(
+    (cat) =>
+      uniqueCategories.includes(
+        cat
+      )
+  )
 
-      return [
-        "Semua",
-        ...sortedCategories
-      ]
+const uncategorized =
+  uniqueCategories.filter(
+    (cat) =>
 
-    }, [brand.menu])
+      !categoryOrder.includes(
+        cat
+      )
+  )
+
+return [
+  "Semua",
+  ...sortedCategories,
+  ...uncategorized
+]
+
+    }, [products])
 
   const [cart, setCart] =
     useState(() => {
@@ -239,7 +247,7 @@ function Kopken() {
     useMemo(() => {
 
       let data = [
-        ...brand.menu
+        ...products
       ]
 
       if (
@@ -318,7 +326,7 @@ function Kopken() {
       return groups
 
     }, [
-      brand.menu,
+      products,
       filter,
       search,
       categories
@@ -485,6 +493,52 @@ function Kopken() {
           "id-ID"
         )
         .format(n)
+
+if (loading) {
+
+  return (
+
+    <div
+      className="
+        max-w-md
+        mx-auto
+        min-h-screen
+        bg-[#fff7f7]
+        p-4
+      "
+    >
+
+      <div
+        className="
+          grid
+          grid-cols-2
+          gap-3
+        "
+      >
+
+        {[...Array(6)].map(
+          (_, index) => (
+
+            <div
+              key={index}
+              className="
+                h-[250px]
+                rounded-3xl
+                bg-white
+                animate-pulse
+              "
+            />
+
+          )
+        )}
+
+      </div>
+
+    </div>
+
+  )
+
+}
 
   return (
 
