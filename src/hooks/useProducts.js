@@ -70,13 +70,18 @@ function useProducts(
             product
           } = payload
 
+          // =====================
           // FILTER BRAND
+          // =====================
+
           if (
             brandName &&
             product.brand !==
             brandName
           ) {
+
             return
+
           }
 
           setProducts((prev) => {
@@ -88,6 +93,15 @@ function useProducts(
             if (
               type === "INSERT"
             ) {
+
+              // SKIP unavailable
+              if (
+                !product.isAvailable
+              ) {
+
+                return prev
+
+              }
 
               const exists =
                 prev.some(
@@ -115,9 +129,9 @@ function useProducts(
               type === "UPDATE"
             ) {
 
-              // REMOVE IF UNAVAILABLE
+              // REMOVE unavailable
               if (
-                !product.is_available
+                !product.isAvailable
               ) {
 
                 return prev.filter(
@@ -138,6 +152,7 @@ function useProducts(
                 )
 
               // INSERT BACK
+              // kalau sebelumnya hidden
               if (!exists) {
 
                 return [
@@ -147,6 +162,7 @@ function useProducts(
 
               }
 
+              // UPDATE existing
               return prev.map(
                 (item) =>
 
