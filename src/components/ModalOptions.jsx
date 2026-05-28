@@ -29,10 +29,8 @@ const getLivePrice = () => {
   let price = item.price
 
   if (
-    selectedOptions["Size"] === "Large"
-    &&
-    !item.disableLargeCharge
-  ) {
+  selectedOptions["Size"] === "Large"
+) {
     price += 5000
   }
 

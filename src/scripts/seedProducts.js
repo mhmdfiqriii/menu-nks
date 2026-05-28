@@ -2,7 +2,7 @@ import { supabase }
 from "../lib/supabase.js"
 
 import { brands }
-from "../data/menu.js"
+from "../mocks/menu.mock.js"
 
 import normalizeBrandSlug
 from "../utils/normalizeBrandSlug.js"
