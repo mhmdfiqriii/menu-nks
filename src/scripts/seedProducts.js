@@ -137,16 +137,12 @@ async function seedProducts() {
   // =====================
 
   console.log(
-    "NODE_ENV:",
-    process.env.NODE_ENV
-  )
+  "MODE:",
+  import.meta.env.MODE
+)
 
-  const isDevelopment =
-
-  process.env.NODE_ENV
-    ?.trim()
-    .toLowerCase() ===
-  "development"
+const isDevelopment =
+  import.meta.env.DEV
 
   if (isDevelopment) {
 

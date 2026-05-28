@@ -15,15 +15,35 @@ function ModalOptions({
     selectedOptions["Temperature"] === "Hot"
 
   // AUTO RESET ICE LEVEL
-  useEffect(() => {
-    if (isHot && selectedOptions["Ice Level"]) {
-      setSelectedOptions((prev) => {
-        const copy = { ...prev }
-        delete copy["Ice Level"]
-        return copy
-      })
-    }
-  }, [isHot])
+  const iceLevel =
+  selectedOptions["Ice Level"]
+
+useEffect(() => {
+
+  if (
+    isHot &&
+    iceLevel
+  ) {
+
+    setSelectedOptions((prev) => {
+
+      const copy = {
+        ...prev
+      }
+
+      delete copy["Ice Level"]
+
+      return copy
+
+    })
+
+  }
+
+}, [
+  isHot,
+  iceLevel,
+  setSelectedOptions
+])
 
 const getLivePrice = () => {
   let price = item.price
