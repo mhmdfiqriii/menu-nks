@@ -19,7 +19,7 @@ function OfflineModal({ onClose }) {
         </p>
 
         <button
-          onClick={() => window.open("https://wa.me/62895601988558")}
+          onClick={() => window.open("https://wa.me/62895392433433")}
           className="w-full h-12 rounded-2xl bg-green-600 text-white font-semibold mt-5 flex items-center justify-center gap-2"
         >
           <MessageCircle size={18} />

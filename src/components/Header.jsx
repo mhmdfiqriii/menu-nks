@@ -226,7 +226,7 @@ function Header({
           onClick={() =>
 
             window.open(
-              "https://wa.me/62895601988558"
+              "https://wa.me/62895392433433"
             )
 
           }

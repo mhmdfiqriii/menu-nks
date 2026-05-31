@@ -67,7 +67,7 @@ function StoreClosedModal({
     return null
 
   const whatsappLink =
-  `https://wa.me/62895601988558`
+  `https://wa.me/62895392433433`
 
   return (
 

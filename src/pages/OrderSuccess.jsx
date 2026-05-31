@@ -23,7 +23,7 @@ function OrderSuccess() {
 
   const openWhatsApp = () => {
     window.open(
-      "https://wa.me/62895601988558?text=" +
+      "https://wa.me/62895392433433?text=" +
         encodeURIComponent(whatsappText),
       "_blank"
     )
