@@ -19,8 +19,7 @@ import {
   fetchStoreStatus,
   subscribeStoreStatus,
   removeStoreSubscription,
-  isStoreOpen,
-  getStoreStateLabel
+  isStoreOpen
 } from "../utils/storeUtils.js"
 
 function Tomoro() {
@@ -184,59 +183,17 @@ function Tomoro() {
 
             </h1>
 
-            <div
-              className="
-                flex
-                items-center
-                gap-2
-                mt-1
-              "
-            >
+            <p
+  className="
+    text-[11px]
+    text-white/75
+    mt-1
+  "
+>
 
-              <p
-                className="
-                  text-[11px]
-                  text-white/75
-                "
-              >
+  Coming Soon
 
-                Coming Soon
-
-              </p>
-
-              <div
-                className={`
-                  px-2
-                  py-[2px]
-                  rounded-full
-                  text-[10px]
-                  font-semibold
-
-                  ${
-                    storeOpen
-
-                      ? `
-                        bg-green-400/20
-                        text-green-100
-                      `
-
-                      : `
-                        bg-red-400/20
-                        text-red-100
-                      `
-                  }
-                `}
-              >
-
-                {
-                  getStoreStateLabel(
-                    storeOpen
-                  )
-                }
-
-              </div>
-
-            </div>
+</p>
 
           </div>
 
@@ -318,11 +275,24 @@ function Tomoro() {
                   mt-1
                 "
               >
+  ⚠️This Page Still 
+  Under Development by{" "}
 
-                Realtime store
-                monitoring system
+  <a
+  href="https://www.instagram.com/mhmdfiqriii_"
+  target="_blank"
+  rel="noreferrer"
+  className="
+    text-neutral-500
+    hover:text-neutral-300
+    transition-colors
+    font-medium
+  "
+>
+  @mhmdfiqriii_
+</a>
 
-              </p>
+</p>
 
             </div>
 
@@ -490,24 +460,6 @@ function Tomoro() {
           <div className="pt-3 pb-6">
             <p className="text-center text-xs text-gray-400">
   © 2026 Woffel Store. 
-  <br />
-  ⚠️This Page Still 
-  Under Development by{" "}
-
-  <a
-  href="https://www.instagram.com/mhmdfiqriii_"
-  target="_blank"
-  rel="noreferrer"
-  className="
-    text-neutral-500
-    hover:text-neutral-300
-    transition-colors
-    font-medium
-  "
->
-  @mhmdfiqriii_
-</a>
-
 </p>
           </div>
 
